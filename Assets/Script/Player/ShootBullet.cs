@@ -31,8 +31,8 @@ public class ShootBullet : MonoBehaviour
     /// <summary>
     /// 弾の速さ
     /// </summary>
-    [SerializeField, Range(1.0F, 20.0F), Tooltip("弾の射出する速さ")]
-    private float speed = 1.0F;
+    [SerializeField, Range(1.0F, 100.0F), Tooltip("弾の射出する速さ")]
+    private float speed = 16.0F;
 
     /// <summary>
     /// 弾の初速度
@@ -55,7 +55,7 @@ public class ShootBullet : MonoBehaviour
         instantiatePosition = barrelObject.transform.position; 
 
         // 発射
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             // 弾を生成して飛ばす
             GameObject obj = Instantiate(bulletPrefab, instantiatePosition, Quaternion.identity);
