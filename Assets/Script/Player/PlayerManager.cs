@@ -34,10 +34,15 @@ public class PlayerManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        // 衝突相手が "Enemy" タグを持っているかチェックする
+        if (other.CompareTag("Enemy"))
+        {
+        // 衝突相手が "Enemy" タグを持っている場合のみダメージを与える
         Dameger damager = other.GetComponent<Dameger>();
         if (damager != null)
         {
             damage(damager.Damage1);
+        }
         }
     }
 }

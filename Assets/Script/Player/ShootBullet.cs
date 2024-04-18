@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ShootBullet : MonoBehaviour
 {
+    public float fireRate = 1f; // 発射速度（1秒あたりの発射回数）
+
+    private float nextFireTime = 0f; // 次に発射できる時刻
     /// <summary>
     /// 弾のPrefab
     /// </summary>
@@ -55,15 +58,27 @@ public class ShootBullet : MonoBehaviour
         instantiatePosition = barrelObject.transform.position; 
 
         // 発射
-        if (Input.GetMouseButtonDown(0))
+        // if (Input.GetKeyDown(KeyCode.Return))
+        // {
+        //     // 弾を生成して飛ばす
+        //     GameObject obj = Instantiate(bulletPrefab, instantiatePosition, Quaternion.identity);
+        //     Rigidbody rid = obj.GetComponent<Rigidbody>();
+        //     rid.AddForce(shootVelocity * rid.mass, ForceMode.Impulse);
+
+        //     // 5秒後に消える
+        //     Destroy(obj, 5.0F);
+        // }
+        if (Input.GetKey(KeyCode.Return) && Time.time >= nextFireTime)
         {
             // 弾を生成して飛ばす
             GameObject obj = Instantiate(bulletPrefab, instantiatePosition, Quaternion.identity);
             Rigidbody rid = obj.GetComponent<Rigidbody>();
             rid.AddForce(shootVelocity * rid.mass, ForceMode.Impulse);
-
+            // 次の発射可能時刻を更新する
+            nextFireTime = Time.time + 1f / fireRate;
             // 5秒後に消える
             Destroy(obj, 5.0F);
         }
     }
+   
 }

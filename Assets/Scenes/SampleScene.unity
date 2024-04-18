@@ -501,6 +501,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6145641096178625676, guid: 854d3cf5b4dea854ea74baa443fb93da, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854d3cf5b4dea854ea74baa443fb93da, type: 3}
 --- !u!1001 &5248758582361450153
@@ -554,6 +558,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5248758583015841751, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192976, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -562,9 +570,17 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192985, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192989, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583907067316, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_Enabled
