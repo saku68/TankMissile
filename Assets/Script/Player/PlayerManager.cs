@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class EnemyManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField]
-    private int Hp = 1;
-    public Transform target;
-    NavMeshAgent agent;
+    private int MaxHp = 10;
+    [SerializeField]
+    private int Hp = 10;
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        Hp = MaxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.destination = target.position;
+        
     }
+
     // ダメージの処理
     void damage(int Damage)
     {
@@ -29,18 +30,14 @@ public class EnemyManager : MonoBehaviour
             Hp = 0;
             Destroy(this.gameObject);
         }
+        Debug.Log("残りHP:"+Hp);
     }
     private void OnTriggerEnter(Collider other)
     {
-        // 衝突相手が "Player" タグを持っているかチェックする
-        if (other.CompareTag("Player"))
-        {
-        // 衝突相手が "Player" タグを持っている場合のみダメージを与える
         Dameger damager = other.GetComponent<Dameger>();
         if (damager != null)
         {
             damage(damager.Damage1);
-        }
         }
     }
 }
