@@ -8,7 +8,7 @@ public class AngleController : MonoBehaviour
     /// 感度
     /// </summary>
     [SerializeField, Range(0.01F, 5.0F), Tooltip("感度")]
-    private float sensitivity = 1.0F;
+    private float sensitivity = 0.25F;
 
     /// <summary>
     /// 砲身のオブジェクト
@@ -18,20 +18,20 @@ public class AngleController : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             this.transform.Rotate(new Vector3(0F, -1.0F * sensitivity, 0F));
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             this.transform.Rotate(new Vector3(0F, 1.0F * sensitivity, 0F));
         }
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             barrelObject.transform.Rotate(new Vector3(-1.0F * sensitivity, 0F, 0F));
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             barrelObject.transform.Rotate(new Vector3(1.0F * sensitivity, 0F, 0F));
         }
