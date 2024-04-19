@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public PlayerUiManager playerUiManager;
+
     [SerializeField]
     private int MaxHp = 10;
     [SerializeField]
@@ -13,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Hp = MaxHp;
+        playerUiManager.UpdateMaxHp(MaxHp);
     }
 
     // Update is called once per frame
@@ -30,6 +33,7 @@ public class PlayerManager : MonoBehaviour
             Hp = 0;
             Destroy(this.gameObject);
         }
+        playerUiManager.UpdateHP(Hp);
         Debug.Log("残りHP:"+Hp);
     }
     private void OnTriggerEnter(Collider other)
