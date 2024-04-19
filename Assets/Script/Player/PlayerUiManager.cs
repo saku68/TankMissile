@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class PlayerUiManager : MonoBehaviour
 {
-    public Slider HpSlider;
+    public Slider hpSlider;
 
     void Start()
     {
         
     }
-    public void UpdateHP(int Hp)
+    public void UpdateHP(int hp)
     {
-        HpSlider.value = Hp;
+        hpSlider.value = hp;
     }
-    public void UpdateMaxHp(int MaxHp)
+    public void UpdateMaxHp(int maxHp)
     {
-        HpSlider.maxValue = MaxHp;
+        hpSlider.maxValue = maxHp;
     }
 }

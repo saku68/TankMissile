@@ -4,25 +4,34 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public bool playerDie = false;
     public GameObject enemyPrefab1; // 敵のプレハブ
     public float spawnDistance = 10f; // スポーンする距離
     public float spawnAngle = 90f; // 扇形の角度
     // Start is called before the first frame update
     void Start()
     {
-        SpawnEnemy();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (playerDie == false)
         {
-            SpawnEnemy();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                SpawnEnemy();
+            }
         }
+        
+    }
+    public void PlayerDie()
+    {
+        playerDie = true;
     }
     
-
+    //敵のスポーン
     void SpawnEnemy()
     {
         // プレイヤーの位置を取得
@@ -42,7 +51,7 @@ public class EnemySpawn : MonoBehaviour
         // 敵を生成
         Instantiate(enemyPrefab1, spawnPosition, Quaternion.identity);
     }
-
+    //湧き範囲の可視化
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
