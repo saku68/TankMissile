@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class PlayerUiManager : MonoBehaviour
 {
     public Slider hpSlider;
+    public GameObject deadText;
+    public GameObject scorePanel;
 
     void Start()
     {
-        
+        deadText.SetActive(false);
+        scorePanel.SetActive(false);
     }
     public void UpdateHP(int hp)
     {
@@ -18,5 +21,9 @@ public class PlayerUiManager : MonoBehaviour
     public void UpdateMaxHp(int maxHp)
     {
         hpSlider.maxValue = maxHp;
+    }
+    public void SetDeadText()
+    {
+        deadText.SetActive(true);
     }
 }

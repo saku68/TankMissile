@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
             hp = 0;
             Destroy(this.gameObject);
             Debug.Log("死んだ！");
+            playerUiManager.SetDeadText();
             enemySpawn.PlayerDie();
         }
         playerUiManager.UpdateHP(hp);

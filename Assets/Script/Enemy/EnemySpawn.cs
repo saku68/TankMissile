@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public bool playerDie = false;
+    [SerializeField]
+    private bool playerDie = false;
     public GameObject enemyPrefab1; // 敵のプレハブ
     public float spawnDistance = 10f; // スポーンする距離
     public float spawnAngle = 90f; // 扇形の角度
