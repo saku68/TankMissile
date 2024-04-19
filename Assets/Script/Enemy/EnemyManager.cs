@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    private int Hp = 1;
+    private int hp = 1;
     public Transform target;
     NavMeshAgent agent;
     // Start is called before the first frame update
@@ -21,12 +21,12 @@ public class EnemyManager : MonoBehaviour
         agent.destination = target.position;
     }
     // ダメージの処理
-    void damage(int Damage)
+    void Damage(int damage)
     {
-        Hp -= Damage;
-        if(Hp <= 0)
+        hp -= damage;
+        if(hp <= 0)
         {
-            Hp = 0;
+            hp = 0;
             Destroy(this.gameObject);
         }
     }
@@ -35,12 +35,12 @@ public class EnemyManager : MonoBehaviour
         // 衝突相手が "Player" タグを持っているかチェックする
         if (other.CompareTag("Player"))
         {
-        // 衝突相手が "Player" タグを持っている場合のみダメージを与える
-        Dameger damager = other.GetComponent<Dameger>();
-        if (damager != null)
-        {
-            damage(damager.Damage1);
-        }
+            // 衝突相手が "Player" タグを持っている場合のみダメージを与える
+            Dameger damager = other.GetComponent<Dameger>();
+            if (damager != null)
+            {
+                Damage(damager.damage1);
+            }
         }
     }
 }

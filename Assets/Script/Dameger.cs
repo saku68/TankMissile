@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Dameger : MonoBehaviour
 {
-    public int Damage1;
-    public int Damage2;
-    public int Damage3;
-    public int Damage4;
+    public int damage1;
+    public int damage2;
+    public int damage3;
+    public int damage4;
 }

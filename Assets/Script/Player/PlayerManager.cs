@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    private EnemySpawn enemySpawn;
+    public PlayerUiManager playerUiManager;
+
     [SerializeField]
-    private int MaxHp = 10;
+    private int maxHp = 10;
     [SerializeField]
-    private int Hp = 10;
+    private int hp = 10;
     // Start is called before the first frame update
     void Start()
     {
-        Hp = MaxHp;
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+        hp = maxHp;
+        playerUiManager.UpdateMaxHp(maxHp);
     }
 
     // Update is called once per frame
@@ -22,22 +27,31 @@ public class PlayerManager : MonoBehaviour
     }
 
     // ダメージの処理
-    void damage(int Damage)
+    void Damage(int damage)
     {
-        Hp -= Damage;
-        if(Hp <= 0)
+        hp -= damage;
+        if(hp <= 0)
         {
-            Hp = 0;
+            hp = 0;
             Destroy(this.gameObject);
+            Debug.Log("死んだ！");
+            playerUiManager.SetDeadText();
+            enemySpawn.PlayerDie();
         }
-        Debug.Log("残りHP:"+Hp);
+        playerUiManager.UpdateHP(hp);
+        Debug.Log("残りHP:"+hp);
     }
     private void OnTriggerEnter(Collider other)
     {
-        Dameger damager = other.GetComponent<Dameger>();
-        if (damager != null)
+        // 衝突相手が "Enemy" タグを持っているかチェックする
+        if (other.CompareTag("Enemy"))
         {
-            damage(damager.Damage1);
+            // 衝突相手が "Enemy" タグを持っている場合のみダメージを与える
+            Dameger damager = other.GetComponent<Dameger>();
+            if (damager != null)
+            {
+                Damage(damager.damage1);
+            }
         }
     }
 }
