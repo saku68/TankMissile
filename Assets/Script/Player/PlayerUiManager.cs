@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,5 +26,10 @@ public class PlayerUiManager : MonoBehaviour
     public void SetDeadText()
     {
         deadText.SetActive(true);
+    }
+    public void SetScorePanel()
+    {
+        deadText.SetActive(false);
+        scorePanel.SetActive(true);
     }
 }
