@@ -51,6 +51,8 @@ public class PlayerManager : MonoBehaviour
             if (damager != null)
             {
                 Damage(damager.damage1);
+                // 対象を破壊する
+                Destroy(other.gameObject);
             }
         }
     }

@@ -32,4 +32,5 @@ public class PlayerUiManager : MonoBehaviour
         deadText.SetActive(false);
         scorePanel.SetActive(true);
     }
+    
 }
