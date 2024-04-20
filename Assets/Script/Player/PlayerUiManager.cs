@@ -9,7 +9,7 @@ public class PlayerUiManager : MonoBehaviour
     public Slider hpSlider;
     public GameObject deadText;
     public GameObject scorePanel;
-
+    public GameObject shopPanel;
     void Start()
     {
         deadText.SetActive(false);
@@ -32,5 +32,13 @@ public class PlayerUiManager : MonoBehaviour
         deadText.SetActive(false);
         scorePanel.SetActive(true);
     }
-    
+    public void SetShopPanel()
+    {
+        shopPanel.SetActive(true);
+    }
+    public void OutShopPanel()
+    {
+        shopPanel.SetActive(false);
+        
+    }
 }
