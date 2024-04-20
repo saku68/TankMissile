@@ -231,6 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 0.25
   barrelObject: {fileID: 5248758583907067314}
+  minAngle: -45
+  maxAngle: 45
 --- !u!114 &5248758583244192984
 MonoBehaviour:
   m_ObjectHideFlags: 0

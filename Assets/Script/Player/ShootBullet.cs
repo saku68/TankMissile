@@ -34,7 +34,7 @@ public class ShootBullet : MonoBehaviour
     /// <summary>
     /// 弾の速さ
     /// </summary>
-    [SerializeField, Range(1.0F, 100.0F), Tooltip("弾の射出する速さ")]
+    [SerializeField, Range(3.0F, 100.0F), Tooltip("弾の射出する速さ")]
     private float speed = 16.0F;
 
     /// <summary>
