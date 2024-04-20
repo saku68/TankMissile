@@ -73,7 +73,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         // 60秒経過するかプレイヤーが死ぬまで無限ループ
-        while (!playerDie && elapsedTime < 10f)
+        while (!playerDie && elapsedTime < 60f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime = Random.Range(2f, 5f);
