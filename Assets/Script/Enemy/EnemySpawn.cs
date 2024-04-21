@@ -22,6 +22,7 @@ public class EnemySpawn : MonoBehaviour
     public float spawnAngle1 = 110f; // 扇形の角度
     public float spawnAngle2 = 90f; // 扇形の角度
     private bool isWaveClearShopOpen = false;//一度だけ実行するためのフラグ
+    public float waveNumber = 1;
     void Start()
     {
         playerDie = false;
@@ -52,17 +53,19 @@ public class EnemySpawn : MonoBehaviour
         //エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //*エスケープでの*ショップ退出の処理
             if (shopFlag == true)
             {
                 playerUiManager.OutShopPanel();
+                waveNumber = waveNumber + 1;//ショップの退出でwave進行
                 shopFlag = false;
                 spawnWaveFlag = true;
-            }
-            if (shopFlag == false)
-            {
+
+                }else{
                 playerUiManager.PauseGame();
                 pauseFlag = true;
             }
+
             if (pauseFlag == true)
             {
                 playerUiManager.ResumeGame();
@@ -85,18 +88,19 @@ public class EnemySpawn : MonoBehaviour
             isWaveClearShopOpen = false;
         }
     }
-    //ショップ画面退出の処理
+    //*ボタンでの*ショップ画面退出の処理
     public void OutShopButton()
     {
         playerUiManager.OutShopPanel();
         shopFlag = false;
         spawnWaveFlag = true;
+        waveNumber = waveNumber + 1;
     }
 
     //ウェーブ１
     IEnumerator SpawnEnemiesPeriodically1()
     {
-        Debug.Log("Wave1開始");
+        Debug.Log("Wave" + waveNumber + "開始");
         spawnWaveFlag = true;
 
         // 時間計測
@@ -115,9 +119,10 @@ public class EnemySpawn : MonoBehaviour
             // 経過時間を加算
             elapsedTime += waitTime1;
         }
-        Debug.Log("Wave1終了");
+        Debug.Log("Wave" +waveNumber +"終了");
         spawnWaveFlag = false;
     }
+
     //デス検知で湧き停止
     public void PlayerDie()
     {

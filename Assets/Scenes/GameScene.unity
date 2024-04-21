@@ -565,6 +565,7 @@ MonoBehaviour:
   spawnDistance2: 80
   spawnAngle1: 110
   spawnAngle2: 90
+  waveNumber: 1
 --- !u!4 &1563622847
 Transform:
   m_ObjectHideFlags: 0
@@ -652,9 +653,9 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 966358740}
-    - target: {fileID: 1816538407, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 1697715999634776813, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2689969610224604304, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_AnchorMax.x
@@ -752,30 +753,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUiCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4078759595584142015, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4255260166704312088, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1563622846}
-    - target: {fileID: 4997480408993220184, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 196
-      objectReference: {fileID: 0}
-    - target: {fileID: 4997480408993220184, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -187.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5107377868491780505, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0012817383
-      objectReference: {fileID: 0}
-    - target: {fileID: 5107377868491780505, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8862670099251340561, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
 --- !u!1001 &3711620218562467865
