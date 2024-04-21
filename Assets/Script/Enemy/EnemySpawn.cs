@@ -21,6 +21,7 @@ public class EnemySpawn : MonoBehaviour
     public float spawnDistance2 = 80f; // 敵のスポーンする距離
     public float spawnAngle1 = 110f; // 扇形の角度
     public float spawnAngle2 = 90f; // 扇形の角度
+    private bool isWaveClearShopOpen = false;//一度だけ実行するためのフラグ
     void Start()
     {
         playerDie = false;
@@ -44,8 +45,7 @@ public class EnemySpawn : MonoBehaviour
                 if (shopFlag == false)
                 {
                     Debug.Log("Waveクリア");
-                    playerUiManager.SetShopPanel();
-                    shopFlag = true;
+                    StartCoroutine(WaveClearOpenShop());
                 }
             }
         }
@@ -70,6 +70,21 @@ public class EnemySpawn : MonoBehaviour
             }
         }
     }
+
+    //ウェーブクリアメッセージとショップ画面への移行
+    IEnumerator WaveClearOpenShop()
+    {
+        if (!isWaveClearShopOpen)
+        {
+            isWaveClearShopOpen = true;
+            playerUiManager.SetWaveClearText();
+            yield return new WaitForSeconds(5f);
+            playerUiManager.OutWaveClearText();
+            shopFlag = true;
+            playerUiManager.SetShopPanel();
+            isWaveClearShopOpen = false;
+        }
+    }
     //ショップ画面退出の処理
     public void OutShopButton()
     {
@@ -88,14 +103,14 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDie && elapsedTime < 20f)
+        while (!playerDie && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = Random.Range(1f, 3f);
             yield return new WaitForSeconds(waitTime1);
 
-            SpawnEnemy1(0);
-            SpawnEnemy2(0);
+            SpawnEnemy1(0);//手前の湧き
+            SpawnEnemy2(0);//奥の湧き
 
             // 経過時間を加算
             elapsedTime += waitTime1;
@@ -103,7 +118,6 @@ public class EnemySpawn : MonoBehaviour
         Debug.Log("Wave1終了");
         spawnWaveFlag = false;
     }
-
     //デス検知で湧き停止
     public void PlayerDie()
     {
