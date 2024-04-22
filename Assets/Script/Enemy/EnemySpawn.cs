@@ -11,7 +11,7 @@ public class EnemySpawn : MonoBehaviour
     }   
     private PlayerUiManager playerUiManager;
     [SerializeField]
-    private bool playerDie = false;
+    private bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
     public bool shopFlag = false;
     public bool pauseFlag = false;
@@ -25,7 +25,7 @@ public class EnemySpawn : MonoBehaviour
     public float waveNumber = 1;
     void Start()
     {
-        playerDie = false;
+        playerDieFlag = false;
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
         StartCoroutine(SpawnEnemiesPeriodically1());
     }
@@ -34,24 +34,24 @@ public class EnemySpawn : MonoBehaviour
     void Update()
     {
         //デス後のテキストからスコア画面への移行
-        if (playerDie == true && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        if (playerDieFlag == true && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             playerUiManager.SetScorePanel();
         }
 
         //ウェーブクリアの判定
-        if (AllEnemiesDestroyed() && playerDie == false && shopFlag == false && spawnWaveFlag == false)
+        if (AllEnemiesDestroyed() && playerDieFlag == false && shopFlag == false && spawnWaveFlag == false)
         {
             Debug.Log("Waveクリア");
             StartCoroutine(WaveClearOpenShop());
             shopFlag = true;
         }
-        
+
         //エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //*エスケープでの*ショップ退出の処理
-            if (shopFlag == true)
+            if (shopFlag == true && playerUiManager.IsShopPanelActive())
             {
                 OutShopButton();
                 }else{
@@ -88,7 +88,6 @@ public class EnemySpawn : MonoBehaviour
         spawnWaveFlag =true;
         waveNumber = waveNumber + 1;//ショップの退出でwave進行
         OnWaveStart();
-        
     }
     public void OnWaveStart()
     {
@@ -117,7 +116,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDie && elapsedTime < 5f)
+        while (!playerDieFlag && elapsedTime < 5f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = Random.Range(1f, 3f);
@@ -143,7 +142,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDie && elapsedTime < 10f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = Random.Range(2f, 4f);
@@ -169,7 +168,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDie && elapsedTime < 10f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = Random.Range(3f, 5f);
@@ -188,7 +187,7 @@ public class EnemySpawn : MonoBehaviour
     //デス検知で湧き停止
     public void PlayerDie()
     {
-        playerDie = true;
+        playerDieFlag = true;
         if (spawnWaveFlag == true)
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止

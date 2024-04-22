@@ -13,6 +13,7 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject waveClearText;
+    public bool isShopPanelActive = false;
     void Start()
     {
         deadText.SetActive(false);
@@ -42,12 +43,18 @@ public class PlayerUiManager : MonoBehaviour
     {
         shopPanel.SetActive(true);
         pauseButton.SetActive(false);
+        isShopPanelActive = true;
         Time.timeScale = 0;
+    }
+    public bool IsShopPanelActive()
+    {
+        return isShopPanelActive;
     }
     public void OutShopPanel()
     {
         shopPanel.SetActive(false);
         pauseButton.SetActive(true);
+        isShopPanelActive = true;
         Time.timeScale = 1;
     }
     public void PauseGame()
