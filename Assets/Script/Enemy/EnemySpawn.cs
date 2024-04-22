@@ -93,8 +93,21 @@ public class EnemySpawn : MonoBehaviour
     {
         playerUiManager.OutShopPanel();
         shopFlag = false;
+        OnWaveStart();
+    }
+    public void OnWaveStart()
+    {
         spawnWaveFlag = true;
         waveNumber = waveNumber + 1;
+        switch(waveNumber)
+        {
+            case 2:
+            StartCoroutine(SpawnEnemiesPeriodically2());
+            break;
+            case 3:
+            StartCoroutine(SpawnEnemiesPeriodically3());
+            break;
+        }
     }
 
     //ウェーブ１
@@ -114,7 +127,59 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
-            SpawnEnemy2(0);//奥の湧き
+            // SpawnEnemy2(0);//奥の湧き
+
+            // 経過時間を加算
+            elapsedTime += waitTime1;
+        }
+        Debug.Log("Wave" +waveNumber +"終了");
+        spawnWaveFlag = false;
+    }
+
+    //ウェーブ２
+    IEnumerator SpawnEnemiesPeriodically2()
+    {
+        Debug.Log("Wave" + waveNumber + "開始");
+        spawnWaveFlag = true;
+
+        // 時間計測
+        float elapsedTime = 0f;
+
+        //ウェーブ時間の設定
+        while (!playerDie && elapsedTime < 10f)
+        {
+            // 2から5秒のランダムな待ち時間を生成
+            float waitTime1 = Random.Range(2f, 4f);
+            yield return new WaitForSeconds(waitTime1);
+
+            SpawnEnemy1(0);//手前の湧き
+            SpawnEnemy2(1);//奥の湧き
+
+            // 経過時間を加算
+            elapsedTime += waitTime1;
+        }
+        Debug.Log("Wave" +waveNumber +"終了");
+        spawnWaveFlag = false;
+    }
+
+    //ウェーブ３
+    IEnumerator SpawnEnemiesPeriodically3()
+    {
+        Debug.Log("Wave" + waveNumber + "開始");
+        spawnWaveFlag = true;
+
+        // 時間計測
+        float elapsedTime = 0f;
+
+        //ウェーブ時間の設定
+        while (!playerDie && elapsedTime < 10f)
+        {
+            // 2から5秒のランダムな待ち時間を生成
+            float waitTime1 = Random.Range(3f, 5f);
+            yield return new WaitForSeconds(waitTime1);
+
+            SpawnEnemy1(2);//手前の湧き
+            SpawnEnemy2(3);//奥の湧き
 
             // 経過時間を加算
             elapsedTime += waitTime1;
@@ -130,6 +195,7 @@ public class EnemySpawn : MonoBehaviour
         if (spawnWaveFlag == true)
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止
+            StopCoroutine(SpawnEnemiesPeriodically2()); //ウェーブ２停止
             // spawnWaveFlag = false;
         }
     }

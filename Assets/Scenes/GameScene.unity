@@ -653,6 +653,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 966358740}
+    - target: {fileID: 1816538408, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 352.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816538408, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -207.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1697715999634776813, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -664,6 +672,14 @@ PrefabInstance:
     - target: {fileID: 2689969610224604304, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689969610455102380, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -316.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689969610455102380, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -214.5
       objectReference: {fileID: 0}
     - target: {fileID: 2689969610490718392, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Pivot.x
@@ -752,6 +768,10 @@ PrefabInstance:
     - target: {fileID: 2689969610490718396, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Name
       value: PlayerUiCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689969610490718398, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4078759595584142015, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_IsActive
