@@ -23,6 +23,7 @@ public class EnemySpawn : MonoBehaviour
     public float spawnAngle2 = 90f; // 扇形の角度
     private bool isWaveClearShopOpen = false;//一度だけ実行するためのフラグ
     public float waveNumber = 1;
+    public Vector3 bossSpawnPosition = new Vector3(0, 1, 60);
     void Start()
     {
         playerDie = false;
@@ -38,29 +39,24 @@ public class EnemySpawn : MonoBehaviour
         {
             playerUiManager.SetScorePanel();
         }
+
         //ウェーブクリアの判定
-        if (spawnWaveFlag == false)
+        if (AllEnemiesDestroyed() && playerDie == false)
         {
-            if (AllEnemiesDestroyed() && playerDie == false)
+            if (shopFlag == false && spawnWaveFlag == false)
             {
-                if (shopFlag == false)
-                {
-                    Debug.Log("Waveクリア");
-                    StartCoroutine(WaveClearOpenShop());
-                }
+                Debug.Log("Waveクリア");
+                StartCoroutine(WaveClearOpenShop());
             }
         }
+        
         //エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //*エスケープでの*ショップ退出の処理
             if (shopFlag == true)
             {
-                playerUiManager.OutShopPanel();
-                waveNumber = waveNumber + 1;//ショップの退出でwave進行
-                shopFlag = false;
-                spawnWaveFlag = true;
-
+                OutShopButton();
                 }else{
                 playerUiManager.PauseGame();
                 pauseFlag = true;
@@ -93,12 +89,13 @@ public class EnemySpawn : MonoBehaviour
     {
         playerUiManager.OutShopPanel();
         shopFlag = false;
+        spawnWaveFlag =true;
+        waveNumber = waveNumber + 1;//ショップの退出でwave進行
         OnWaveStart();
     }
     public void OnWaveStart()
     {
         spawnWaveFlag = true;
-        waveNumber = waveNumber + 1;
         switch(waveNumber)
         {
             case 2:
@@ -106,6 +103,9 @@ public class EnemySpawn : MonoBehaviour
             break;
             case 3:
             StartCoroutine(SpawnEnemiesPeriodically3());
+            break;
+            case 4:
+            SpawnBossEnemy(5, bossSpawnPosition);
             break;
         }
     }
@@ -120,7 +120,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDie && elapsedTime < 10f)
+        while (!playerDie && elapsedTime < 5f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = Random.Range(1f, 3f);
@@ -196,6 +196,7 @@ public class EnemySpawn : MonoBehaviour
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止
             StopCoroutine(SpawnEnemiesPeriodically2()); //ウェーブ２停止
+            StopCoroutine(SpawnEnemiesPeriodically3()); //ウェーブ３停止
             // spawnWaveFlag = false;
         }
     }
@@ -262,7 +263,23 @@ public class EnemySpawn : MonoBehaviour
             }
         }
     }   
-
+    //ボスのスポーン
+    public void SpawnBossEnemy(int enemyNumber, Vector3 bossSpawnPosition)
+{
+    if (enemyNumber >= 0 && enemyNumber < enemyPrefabs.Count)
+    {
+        // 指定された座標に敵を生成
+        GameObject enemyPrefab = enemyPrefabs[enemyNumber];
+        if (enemyPrefab != null)
+        {
+            Instantiate(enemyPrefab, bossSpawnPosition, Quaternion.identity);
+        }
+        else
+        {   
+            Debug.LogWarning("指定された敵のプレハブが存在しません。");
+        }
+    }
+}
     // 湧き範囲の可視化
     void OnDrawGizmosSelected()
     {
