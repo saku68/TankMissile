@@ -9,11 +9,16 @@ public class PlayerUiManager : MonoBehaviour
     public Slider hpSlider;
     public GameObject deadText;
     public GameObject scorePanel;
-
+    public GameObject shopPanel;
+    public GameObject pausePanel;
+    public GameObject pauseButton;
+    public GameObject waveClearText;
     void Start()
     {
         deadText.SetActive(false);
         scorePanel.SetActive(false);
+        pauseButton.SetActive(true);
+        waveClearText.SetActive(false);
     }
     public void UpdateHP(int hp)
     {
@@ -30,6 +35,39 @@ public class PlayerUiManager : MonoBehaviour
     public void SetScorePanel()
     {
         deadText.SetActive(false);
+        pauseButton.SetActive(false);
         scorePanel.SetActive(true);
+    }
+    public void SetShopPanel()
+    {
+        shopPanel.SetActive(true);
+        pauseButton.SetActive(false);
+        Time.timeScale = 0;
+    }
+    public void OutShopPanel()
+    {
+        shopPanel.SetActive(false);
+        pauseButton.SetActive(true);
+        Time.timeScale = 1;
+    }
+    public void PauseGame()
+    {
+        pausePanel.SetActive(true);
+        pauseButton.SetActive(false);
+        Time.timeScale = 0;
+    }
+    public void ResumeGame()
+    {
+        pausePanel.SetActive(false);
+        pauseButton.SetActive(true);
+        Time.timeScale = 1;
+    }
+    public void SetWaveClearText()
+    {
+        waveClearText.SetActive(true);
+    }
+    public void OutWaveClearText()
+    {
+        waveClearText.SetActive(false);
     }
 }
