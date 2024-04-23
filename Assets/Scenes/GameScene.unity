@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75458becdc6a77041bb5124e13add64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoney: 0
   playerDieFlag: 0
   spawnWaveFlag: 1
   shopFlag: 0
@@ -653,6 +654,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 966358740}
+    - target: {fileID: 2402496511451673506, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 211
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402496511451673506, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402496511451673506, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 294.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402496511451673506, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 198.00002
+      objectReference: {fileID: 0}
     - target: {fileID: 2689969610224604304, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -755,9 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 1563622846}
     - target: {fileID: 4785844670702960877, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Text
-      value: 'Gold:
-
-'
+      value: Gold:1000000000000000000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}

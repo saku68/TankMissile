@@ -26,6 +26,15 @@ public class PlayerUiManager : MonoBehaviour
         scorePanel.SetActive(false);
         pauseButton.SetActive(true);
         waveClearText.SetActive(false);
+        moneyText.text = "Gold:" + 0;
+    }
+    void Update()
+    {
+        UpdateMoney();
+    }
+    public void UpdateMoney()
+    {
+        moneyText.text = "Gold:" + enemySpawn.playerMoney;
     }
     public void UpdateHP(int hp)
     {
