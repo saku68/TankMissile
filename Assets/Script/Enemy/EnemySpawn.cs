@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    bool AllEnemiesDestroyed()
+    private bool AllEnemiesDestroyed()
     {
         // 敵が存在するかどうかを確認し、すべての敵が消滅したら true を返す
         return GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
-    }   
+    }
     private PlayerUiManager playerUiManager;
     [SerializeField]
     private bool playerDieFlag = false;
@@ -34,13 +35,13 @@ public class EnemySpawn : MonoBehaviour
     void Update()
     {
         //デス後のテキストからスコア画面への移行
-        if (playerDieFlag == true && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        if (playerDieFlag && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             playerUiManager.SetScorePanel();
         }
 
         //ウェーブクリアの判定
-        if (AllEnemiesDestroyed() && playerDieFlag == false && shopFlag == false && spawnWaveFlag == false)
+        if (AllEnemiesDestroyed() && !playerDieFlag && !shopFlag && !spawnWaveFlag)
         {
             Debug.Log("Waveクリア");
             StartCoroutine(WaveClearOpenShop());
@@ -51,15 +52,17 @@ public class EnemySpawn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //*エスケープでの*ショップ退出の処理
-            if (shopFlag == true && playerUiManager.IsShopPanelActive())
+            if (shopFlag && playerUiManager.IsShopPanelActive())
             {
                 OutShopButton();
-                }else{
+            }
+            else
+            {
                 playerUiManager.PauseGame();
                 pauseFlag = true;
             }
 
-            if (pauseFlag == true)
+            if (pauseFlag)
             {
                 playerUiManager.ResumeGame();
                 pauseFlag = false;
@@ -85,24 +88,25 @@ public class EnemySpawn : MonoBehaviour
     {
         playerUiManager.OutShopPanel();
         shopFlag = false;
-        spawnWaveFlag =true;
+        spawnWaveFlag = true;
         waveNumber = waveNumber + 1;//ショップの退出でwave進行
         OnWaveStart();
     }
     public void OnWaveStart()
     {
+        Debug.Log("OnWaveStart実行");
         spawnWaveFlag = true;
-        switch(waveNumber)
+        switch (waveNumber)
         {
             case 2:
-            StartCoroutine(SpawnEnemiesPeriodically2());
-            break;
+                StartCoroutine(SpawnEnemiesPeriodically2());
+                break;
             case 3:
-            StartCoroutine(SpawnEnemiesPeriodically3());
-            break;
+                StartCoroutine(SpawnEnemiesPeriodically3());
+                break;
             case 4:
-            StartCoroutine(BossSpawnEnemiesPeriodically1());
-            break;
+                StartCoroutine(BossSpawnEnemiesPeriodically1());
+                break;
         }
     }
 
@@ -128,7 +132,7 @@ public class EnemySpawn : MonoBehaviour
             // 経過時間を加算
             elapsedTime += waitTime1;
         }
-        Debug.Log("Wave" +waveNumber +"終了");
+        Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -154,7 +158,7 @@ public class EnemySpawn : MonoBehaviour
             // 経過時間を加算
             elapsedTime += waitTime1;
         }
-        Debug.Log("Wave" +waveNumber +"終了");
+        Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -180,7 +184,7 @@ public class EnemySpawn : MonoBehaviour
             // 経過時間を加算
             elapsedTime += waitTime1;
         }
-        Debug.Log("Wave" +waveNumber +"終了");
+        Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -188,12 +192,11 @@ public class EnemySpawn : MonoBehaviour
     public void PlayerDie()
     {
         playerDieFlag = true;
-        if (spawnWaveFlag == true)
+        if (spawnWaveFlag)
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止
             StopCoroutine(SpawnEnemiesPeriodically2()); //ウェーブ２停止
             StopCoroutine(SpawnEnemiesPeriodically3()); //ウェーブ３停止
-            // spawnWaveFlag = false;
         }
     }
 
@@ -228,8 +231,8 @@ public class EnemySpawn : MonoBehaviour
             }
         }
     }
-        // 奥の範囲での敵のスポーン
-        public void SpawnEnemy2(int enemyNumber)
+    // 奥の範囲での敵のスポーン
+    public void SpawnEnemy2(int enemyNumber)
     {
         if (enemyNumber >= 0 && enemyNumber < enemyPrefabs.Count)
         {
@@ -254,27 +257,27 @@ public class EnemySpawn : MonoBehaviour
                 Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             }
             else
-            {   
+            {
                 Debug.LogWarning("指定された敵のプレハブが存在しません。");
             }
         }
-    }   
+    }
     //ボスのスポーン
     public void SpawnBossEnemy(int enemyNumber)
     {
         if (enemyNumber >= 0 && enemyNumber < enemyPrefabs.Count)
         {
-        // 指定された座標に敵を生成
-        GameObject enemyPrefab = enemyPrefabs[enemyNumber];
-        Vector3 bossSpawnPosition = new Vector3(0, 3, 30);
-        if (enemyPrefab != null)
-        {
-            Instantiate(enemyPrefab, bossSpawnPosition, Quaternion.identity);
-        }
-        else
-        {   
-            Debug.LogWarning("指定された敵のプレハブが存在しません。");
-        }
+            // 指定された座標に敵を生成
+            GameObject enemyPrefab = enemyPrefabs[enemyNumber];
+            Vector3 bossSpawnPosition = new Vector3(0, 3, 30);
+            if (enemyPrefab != null)
+            {
+                Instantiate(enemyPrefab, bossSpawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+            }
         }
     }
     //ボスウェーブ１
@@ -296,19 +299,19 @@ public class EnemySpawn : MonoBehaviour
         Vector3 playerPosition = transform.position;
         for (int i = 0; i < 36; i++)
         {
-        float angle = (float)i / 35f * spawnAngle1 - spawnAngle1 / 2f;
-        Vector3 direction = Quaternion.Euler(0f, angle, 0f) * transform.forward;
-        Gizmos.DrawLine(playerPosition, playerPosition + direction * spawnDistance1);
+            float angle = (float)i / 35f * spawnAngle1 - spawnAngle1 / 2f;
+            Vector3 direction = Quaternion.Euler(0f, angle, 0f) * transform.forward;
+            Gizmos.DrawLine(playerPosition, playerPosition + direction * spawnDistance1);
         }
-    
+
 
         // 奥の湧き範囲を黄色で描画
         Gizmos.color = Color.yellow;
         for (int i = 0; i < 36; i++)
         {
-        float angle = (float)i / 35f * spawnAngle2 - spawnAngle2 / 2f;
-        Vector3 direction = Quaternion.Euler(0f, angle, 0f) * transform.forward;
-        Gizmos.DrawLine(playerPosition, playerPosition + direction * spawnDistance2);
+            float angle = (float)i / 35f * spawnAngle2 - spawnAngle2 / 2f;
+            Vector3 direction = Quaternion.Euler(0f, angle, 0f) * transform.forward;
+            Gizmos.DrawLine(playerPosition, playerPosition + direction * spawnDistance2);
         }
     }
 }
