@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
     void Damage(int damage)
     {
         hp -= damage;
-        if(hp <= 0)
+        if (hp <= 0)
         {
             hp = 0;
             Destroy(this.gameObject);

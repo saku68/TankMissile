@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUiManager : MonoBehaviour
 {
+    private EnemySpawn enemySpawn;
     public Slider hpSlider;
     public GameObject deadText;
     public GameObject scorePanel;
@@ -13,9 +15,13 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject waveClearText;
+    public Text scoreText;
+    public Text moneyText;
+
     public bool isShopPanelActive = false;
     void Start()
     {
+        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         deadText.SetActive(false);
         scorePanel.SetActive(false);
         pauseButton.SetActive(true);
