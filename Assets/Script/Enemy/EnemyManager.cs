@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     private EnemySpawn enemySpawn;
+    [SerializeField ]
+    private int enemyScore;
 
     [SerializeField]
     private int enemyMoney;
@@ -33,6 +35,7 @@ public class EnemyManager : MonoBehaviour
         {
             hp = 0;
             enemySpawn.AddMoney(enemyMoney);
+            enemySpawn.AddScore(enemyScore);
             Destroy(this.gameObject);
         }
     }

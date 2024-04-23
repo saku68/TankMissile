@@ -17,6 +17,7 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject waveClearText;
     public Text scoreText;
     public Text moneyText;
+    public int finalScore;
 
     public bool isShopPanelActive = false;
     void Start()
@@ -31,6 +32,11 @@ public class PlayerUiManager : MonoBehaviour
     void Update()
     {
         UpdateMoney();
+    }
+    public void UpdateScore()
+    {
+        finalScore = enemySpawn.playerScore + enemySpawn.playerMoney;
+        scoreText.text = "Score:" + finalScore;
     }
     public void UpdateMoney()
     {
@@ -52,6 +58,7 @@ public class PlayerUiManager : MonoBehaviour
     {
         deadText.SetActive(false);
         pauseButton.SetActive(false);
+        UpdateScore();
         scorePanel.SetActive(true);
     }
     public void SetShopPanel()

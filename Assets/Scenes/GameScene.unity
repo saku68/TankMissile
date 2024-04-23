@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75458becdc6a77041bb5124e13add64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerScore: 0
   playerMoney: 0
   playerDieFlag: 0
   spawnWaveFlag: 1
@@ -654,6 +655,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 966358740}
+    - target: {fileID: 1127878042, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2402496511451673506, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_SizeDelta.x
       value: 211
@@ -773,6 +778,34 @@ PrefabInstance:
     - target: {fileID: 4785844670702960877, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Text
       value: Gold:1000000000000000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677293508368569892, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 615.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677293508368569892, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 279.7363
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677293508368569892, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677293508368569892, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 17.2318
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569846774476578306, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_Text
+      value: Score:1000000000000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569846774476578306, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569846774476578306, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
