@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public int playerScore = 0; //プレイヤーのスコア
+    public int playerMoney = 0; //プレイヤーのお金
     private bool AllEnemiesDestroyed()
     {
         // 敵が存在するかどうかを確認し、すべての敵が消滅したら true を返す
@@ -70,6 +72,16 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
+    //スコア獲得処理
+    public void AddScore(int score)
+    {
+        playerScore += score;
+    }
+    //お金を獲得する処理
+    public void AddMoney(int money)
+    {
+        playerMoney += money;
+    }
     //ウェーブクリアメッセージとショップ画面への移行
     IEnumerator WaveClearOpenShop()
     {

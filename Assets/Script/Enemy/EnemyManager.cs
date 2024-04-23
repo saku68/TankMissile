@@ -5,6 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
+    private EnemySpawn enemySpawn;
+    [SerializeField ]
+    private int enemyScore;
+
+    [SerializeField]
+    private int enemyMoney;
     [SerializeField]
     private int hp = 1;
     public Transform target;
@@ -13,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
     }
 
     // Update is called once per frame
@@ -27,6 +34,8 @@ public class EnemyManager : MonoBehaviour
         if (hp <= 0)
         {
             hp = 0;
+            enemySpawn.AddMoney(enemyMoney);
+            enemySpawn.AddScore(enemyScore);
             Destroy(this.gameObject);
         }
     }
