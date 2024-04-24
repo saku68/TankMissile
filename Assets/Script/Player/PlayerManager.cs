@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
+    private ShootPresenter shootPresenter;
     private EnemySpawn enemySpawn;
     public PlayerUiManager playerUiManager;
 
@@ -15,15 +19,15 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //発射の処理
+        shootPresenter = GetComponent<ShootPresenter>();
+        _ = this.UpdateAsObservable()
+        .Where(_ => Input.GetKey(KeyCode.Return))
+        .Subscribe(_ => shootPresenter.LetsShoot());
+
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         hp = maxHp;
         playerUiManager.UpdateMaxHp(maxHp);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // ダメージの処理
