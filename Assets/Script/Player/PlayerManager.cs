@@ -8,7 +8,7 @@ using System;
 
 public class PlayerManager : MonoBehaviour
 {
-    private ShootPresenter shootPresenter;
+    private PlayerPresenter playerPresenter;
     private EnemySpawn enemySpawn;
     public PlayerUiManager playerUiManager;
 
@@ -19,11 +19,20 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerPresenter = GetComponent<PlayerPresenter>();
         //発射の処理
-        shootPresenter = GetComponent<ShootPresenter>();
         _ = this.UpdateAsObservable()
         .Where(_ => Input.GetKey(KeyCode.Return))
-        .Subscribe(_ => shootPresenter.LetsShoot());
+        .Subscribe(_ => playerPresenter.LetsShoot());
+        //砲台の操作
+        _ = this.UpdateAsObservable()
+            .Subscribe(_ =>
+            {
+                float horizontal = Input.GetAxis("Horizontal");
+                float vertical = Input.GetAxis("Vertical");
+                playerPresenter.LetsUpdateAngles(horizontal, vertical);
+            });
+
 
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         hp = maxHp;
@@ -34,7 +43,7 @@ public class PlayerManager : MonoBehaviour
     void Damage(int damage)
     {
         hp -= damage;
-        if(hp <= 0)
+        if (hp <= 0)
         {
             hp = 0;
             Destroy(this.gameObject);
@@ -43,7 +52,7 @@ public class PlayerManager : MonoBehaviour
             enemySpawn.PlayerDie();
         }
         playerUiManager.UpdateHP(hp);
-        Debug.Log("残りHP:"+hp);
+        Debug.Log("残りHP:" + hp);
     }
     private void OnTriggerEnter(Collider other)
     {
