@@ -67,7 +67,7 @@ public class DrawArc : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         // 放物線のLineRendererオブジェクトを用意
+        // 放物線のLineRendererオブジェクトを用意
         CreateLineRendererObjects();
 
         // マーカーのオブジェクトを用意
@@ -178,7 +178,7 @@ public class DrawArc : MonoBehaviour
             lineRenderers[i].numCapVertices = 5;
             lineRenderers[i].enabled = false;
         }
-    }    
+    }
 
     /// <summary>
     /// 指定座標にマーカーを表示

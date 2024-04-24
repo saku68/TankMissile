@@ -10,7 +10,7 @@ public class ShootBullet : MonoBehaviour
     public float fireRate = 1f; // 発射速度（1秒あたりの発射回数）
 
     private float nextFireTime = 0f; // 次に発射できる時刻
-    
+
     /// 弾のPrefab
     [SerializeField, Tooltip("弾のPrefab")]
     private GameObject bulletPrefab;
@@ -40,9 +40,10 @@ public class ShootBullet : MonoBehaviour
 
     void Update()
     {
+        //どうにかUniRxでUpdateから出せないか？
         // 弾の初速度を更新
         shootVelocity = barrelObject.transform.up * speed;
-
+        //どうにかUniRxでUpdateから出せないか？
         // 弾の生成座標を更新
         instantiatePosition = barrelObject.transform.position;
     }
