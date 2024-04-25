@@ -42,7 +42,7 @@ public class PlayerUiManager : MonoBehaviour
     {
         moneyText.text = "Gold:" + enemySpawn.playerMoney;
     }
-    public void UpdateHP(int hp)
+    public void UpdateHp(int hp)
     {
         hpSlider.value = hp;
     }
