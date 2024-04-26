@@ -33,13 +33,10 @@ public class PlayerPresenter : MonoBehaviour
             playerUiManager.UpdateMaxHp(playerManager.MaxHp.Value);
         }).AddTo(this);
     }
-    public void LetsSetDeadText()
-    {
-        playerUiManager.SetDeadText();
-    }
 
 
-    //これ達ほんとに必要なのかな
+
+    //これ達ほんとに必要なんかな
     public void LetsShoot()
     {
         shootBullet.Shoot();

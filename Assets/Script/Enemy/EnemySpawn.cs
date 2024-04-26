@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    //シングルトンのインスタンス処理？
+    public static EnemySpawn Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public int playerScore = 0; //プレイヤーのスコア
     public int playerMoney = 0; //プレイヤーのお金
     private bool AllEnemiesDestroyed()
@@ -12,13 +19,14 @@ public class EnemySpawn : MonoBehaviour
         // 敵が存在するかどうかを確認し、すべての敵が消滅したら true を返す
         return GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
     }
+    [SerializeField]
     private PlayerUiManager playerUiManager;
+    [SerializeField]
+    private PlayerUiPresenter playerUiPresenter;
     [SerializeField]
     private bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
-    public bool shopFlag = false;
     public bool pauseFlag = false;
-
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
     public float spawnDistance1 = 25f; // 敵のスポーンする距離
     public float spawnDistance2 = 80f; // 敵のスポーンする距離
@@ -29,6 +37,7 @@ public class EnemySpawn : MonoBehaviour
     void Start()
     {
         playerDieFlag = false;
+        playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
         StartCoroutine(SpawnEnemiesPeriodically1());
     }
@@ -41,34 +50,13 @@ public class EnemySpawn : MonoBehaviour
         {
             playerUiManager.SetScorePanel();
         }
-
         //ウェーブクリアの判定
-        if (AllEnemiesDestroyed() && !playerDieFlag && !shopFlag && !spawnWaveFlag)
+        if (AllEnemiesDestroyed() && !playerDieFlag && !playerUiManager.shopFlag && !spawnWaveFlag)
         {
             Debug.Log("Waveクリア");
             StartCoroutine(WaveClearOpenShop());
-            shopFlag = true;
-        }
-
-        //エスケープキーの操作
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //*エスケープでの*ショップ退出の処理
-            if (shopFlag && playerUiManager.IsShopPanelActive())
-            {
-                OutShopButton();
-            }
-            else
-            {
-                playerUiManager.PauseGame();
-                pauseFlag = true;
-            }
-
-            if (pauseFlag)
-            {
-                playerUiManager.ResumeGame();
-                pauseFlag = false;
-            }
+            waveNumber = waveNumber + 1;//wave進行
+            playerUiPresenter.LetsOnShopFlag();
         }
     }
 
@@ -94,15 +82,6 @@ public class EnemySpawn : MonoBehaviour
             playerUiManager.SetShopPanel();
             isWaveClearShopOpen = false;
         }
-    }
-    //*ボタンでの*ショップ画面退出の処理
-    public void OutShopButton()
-    {
-        playerUiManager.OutShopPanel();
-        shopFlag = false;
-        spawnWaveFlag = true;
-        waveNumber = waveNumber + 1;//ショップの退出でwave進行
-        OnWaveStart();
     }
     public void OnWaveStart()
     {

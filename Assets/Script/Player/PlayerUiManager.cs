@@ -4,9 +4,19 @@ using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers;
+using System;
+
 
 public class PlayerUiManager : MonoBehaviour
 {
+    //シングルトンのインスタンス処理？
+    public static PlayerUiManager Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
     private EnemySpawn enemySpawn;
     public Slider hpSlider;
     public GameObject deadText;
@@ -18,8 +28,17 @@ public class PlayerUiManager : MonoBehaviour
     public Text scoreText;
     public Text moneyText;
     public int finalScore;
+    public bool pauseFlag = false;
+    public bool shopFlag = false;
 
     public bool isShopPanelActive = false;
+
+    // ショップから退出するフラグ
+    [SerializeField]
+    private ReactiveProperty<bool> outShopFlag = new ReactiveProperty<bool>(true);
+    // outShopFlagが変更されたときのイベント
+    public IReadOnlyReactiveProperty<bool> OutShopFlagChanged => outShopFlag;
+   
     void Start()
     {
         enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
@@ -72,12 +91,23 @@ public class PlayerUiManager : MonoBehaviour
     {
         return isShopPanelActive;
     }
-    public void OutShopPanel()
+    //*ボタンでの*ショップ画面退出の処理
+    public void OutShopButton()
     {
         shopPanel.SetActive(false);
         pauseButton.SetActive(true);
         isShopPanelActive = true;
         Time.timeScale = 1;
+        shopFlag = false;
+        outShopFlag.Value = false;
+    }
+    public void OutShopFlagCahge()
+    {
+        outShopFlag.Value = true;
+    }
+    public void OnShopFlag()
+    {
+        shopFlag = true;
     }
     public void PauseGame()
     {

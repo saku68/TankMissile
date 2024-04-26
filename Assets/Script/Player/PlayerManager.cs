@@ -9,6 +9,8 @@ using System;
 public class PlayerManager : MonoBehaviour
 {
     private PlayerPresenter playerPresenter;
+    private PlayerUiPresenter playerUiPresenter;
+
     private EnemySpawn enemySpawn;
 
     // [SerializeField]
@@ -28,6 +30,8 @@ public class PlayerManager : MonoBehaviour
     {
         hp.Value = maxHp.Value;
         playerPresenter = GetComponent<PlayerPresenter>();
+        playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
+
         //参照先を減らすのとUniRxの練習のため
         //発射の処理
         _ = this.UpdateAsObservable()
@@ -41,8 +45,25 @@ public class PlayerManager : MonoBehaviour
             float vertical = Input.GetAxis("Vertical");
             playerPresenter.LetsUpdateAngles(horizontal, vertical);
         });
-
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+    }
+    void Update()
+    {
+        //確認用の加速
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            Time.timeScale = 8;
+        }
+        if (Input.GetKeyUp(KeyCode.Backspace))
+        {
+            Time.timeScale = 1;
+        }
+        
+        // エスケープキーの操作
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            playerUiPresenter.OnEsckey();
+        }
     }
 
     // ダメージの処理
@@ -56,7 +77,7 @@ public class PlayerManager : MonoBehaviour
             hp.Dispose();
             maxHp.Dispose();
             Debug.Log("死んだ！");
-            playerPresenter.LetsSetDeadText();
+            playerUiPresenter.LetsSetDeadText();
             enemySpawn.PlayerDie();
         }
         Debug.Log("残りHP:" + hp);

@@ -1507,9 +1507,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 30
   m_WholeNumbers: 0
-  m_Value: 91
+  m_Value: 22.8
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1526,6 +1526,7 @@ GameObject:
   - component: {fileID: 2689969610490718398}
   - component: {fileID: 2689969610490718399}
   - component: {fileID: 2689969609454202482}
+  - component: {fileID: 751130780}
   m_Layer: 5
   m_Name: PlayerUiCanvas
   m_TagString: Untagged
@@ -1643,7 +1644,24 @@ MonoBehaviour:
   waveClearText: {fileID: 4078759595584142015}
   scoreText: {fileID: 8569846774476578306}
   moneyText: {fileID: 4785844670702960877}
+  finalScore: 0
+  pauseFlag: 0
+  shopFlag: 0
   isShopPanelActive: 0
+--- !u!114 &751130780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689969610490718396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef10d7f7d7e5d548b31800829f4f003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUiManager: {fileID: 2689969609454202482}
+  enemySpawn: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
 --- !u!1 &3480136821055865093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,8 +2122,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -205.3, y: 132.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 2.35, y: 17.2318}
+  m_SizeDelta: {x: 615.3, y: 279.7363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8610166444507374342
 CanvasRenderer:
@@ -2137,18 +2155,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: bf882ea178a999648a63680a4a04ac5d, type: 3}
-    m_FontSize: 14
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 81
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30B3\u30A2"
+  m_Text: Score:1000000000000000
 --- !u!1 &6948454525368649931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,8 +2202,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 289, y: 196}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 294.5, y: 198.00002}
+  m_SizeDelta: {x: 211, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3253542941759219438
 CanvasRenderer:
@@ -2228,9 +2246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Gold
-
-'
+  m_Text: Gold:1000000000000000000
 --- !u!1 &7087273110149865479
 GameObject:
   m_ObjectHideFlags: 0

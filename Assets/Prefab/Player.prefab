@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fdec5b61533024686bf96c8f93871a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 1
+  fireRate: 57.16
   bulletPrefab: {fileID: 8698740972742832127, guid: d66a3505e59639b4e8eb4760b1ddb9a2, type: 3}
   barrelObject: {fileID: 5248758583907067314}
   speed: 16
@@ -280,9 +280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b19cde0a87607d4ca57787bbf0a03a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUiManager: {fileID: 2689969609454202482, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-  maxHp: 10
-  hp: 10
+  playerUiPresenter: {fileID: 751130780, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+  hp:
+    value: 10
+  maxHp:
+    value: 10
 --- !u!54 &5248758583244192976
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -311,6 +313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aaed323051057d4596e8ffc74561421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 5248758583244192990}
+  playerUiManager: {fileID: 0}
 --- !u!1 &5248758583907067314
 GameObject:
   m_ObjectHideFlags: 0
