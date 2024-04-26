@@ -1222,8 +1222,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EnemySpawn, Assembly-CSharp
+      - m_Target: {fileID: 2689969609454202482}
+        m_TargetAssemblyTypeName: PlayerUiManager, Assembly-CSharp
         m_MethodName: OutShopButton
         m_Mode: 1
         m_Arguments:
@@ -1635,6 +1635,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f1683d1cc86bb459412e7a01d2a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoney: 0
+  playerScore: 0
   hpSlider: {fileID: 2689969610455102383}
   deadText: {fileID: 1729335312}
   scorePanel: {fileID: 1127878042}
@@ -1642,12 +1644,14 @@ MonoBehaviour:
   pausePanel: {fileID: 5819782101089362417}
   pauseButton: {fileID: 1816538407}
   waveClearText: {fileID: 4078759595584142015}
-  scoreText: {fileID: 8569846774476578306}
+  finalScoreText: {fileID: 8569846774476578306}
   moneyText: {fileID: 4785844670702960877}
   finalScore: 0
   pauseFlag: 0
   shopFlag: 0
   isShopPanelActive: 0
+  outShopFlag:
+    value: 1
 --- !u!114 &751130780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,8 +1664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef10d7f7d7e5d548b31800829f4f003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUiManager: {fileID: 2689969609454202482}
-  enemySpawn: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
 --- !u!1 &3480136821055865093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,7 +2101,7 @@ GameObject:
   - component: {fileID: 8610166444507374342}
   - component: {fileID: 8569846774476578306}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: FinalScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using System;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -12,16 +15,22 @@ public class EnemySpawn : MonoBehaviour
         Instance = this;
     }
 
-    public int playerScore = 0; //プレイヤーのスコア
-    public int playerMoney = 0; //プレイヤーのお金
+    [SerializeField]
+    public int deadEnemyMoney;
+    [SerializeField]
+    public int deadEnemyScore;
+    // ReactivePropertyを使用して値の変化を検知
+    private ReactiveProperty<int> scoreReactive = new ReactiveProperty<int>();
+    private ReactiveProperty<int> moneyReactive = new ReactiveProperty<int>();
+    // ReactivePropertyを公開して外部からアクセス可能にする
+    public IReadOnlyReactiveProperty<int> ScoreReactive => scoreReactive;
+    public IReadOnlyReactiveProperty<int> MoneyReactive => moneyReactive;
     private bool AllEnemiesDestroyed()
     {
         // 敵が存在するかどうかを確認し、すべての敵が消滅したら true を返す
         return GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
     }
-    [SerializeField]
     private PlayerUiManager playerUiManager;
-    [SerializeField]
     private PlayerUiPresenter playerUiPresenter;
     [SerializeField]
     private bool playerDieFlag = false;
@@ -59,16 +68,17 @@ public class EnemySpawn : MonoBehaviour
             playerUiPresenter.LetsOnShopFlag();
         }
     }
-
-    //スコア獲得処理
-    public void AddScore(int score)
+    //倒した敵のスコアの和
+    public void AddEnemyScore(int score)
     {
-        playerScore += score;
+        deadEnemyScore += score;
+        scoreReactive.Value = deadEnemyScore; // スコアの変化を通知
     }
-    //お金を獲得する処理
-    public void AddMoney(int money)
+    //敵を倒して獲得したお金の和
+    public void AddEnemyMoney(int money)
     {
-        playerMoney += money;
+        deadEnemyMoney += money;
+        moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
     }
     //ウェーブクリアメッセージとショップ画面への移行
     IEnumerator WaveClearOpenShop()
@@ -113,7 +123,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 5f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(1f, 3f);
+            float waitTime1 = UnityEngine.Random.Range(1f, 3f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -139,7 +149,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(2f, 4f);
+            float waitTime1 = UnityEngine.Random.Range(2f, 4f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -165,7 +175,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(3f, 5f);
+            float waitTime1 = UnityEngine.Random.Range(3f, 5f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(2);//手前の湧き
@@ -203,7 +213,7 @@ public class EnemySpawn : MonoBehaviour
             Vector3 spawnPosition = playerPosition + spawnDirection.normalized * spawnDistance1; // スポーン位置
 
             // ランダムな位置を選択
-            float randomAngle = Random.Range(-spawnAngle1 / 2f, spawnAngle1 / 2f); // 扇形の角度内でランダムな角度を選択
+            float randomAngle = UnityEngine.Random.Range(-spawnAngle1 / 2f, spawnAngle1 / 2f); // 扇形の角度内でランダムな角度を選択
             Vector3 randomOffset = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward * spawnDistance1;
 
             // プレイヤー位置からランダムな位置に湧く
@@ -234,7 +244,7 @@ public class EnemySpawn : MonoBehaviour
             Vector3 spawnPosition = playerPosition + spawnDirection.normalized * spawnDistance2; // スポーン位置
 
             // ランダムな位置を選択
-            float randomAngle = Random.Range(-spawnAngle2 / 2f, spawnAngle2 / 2f); // 扇形の角度内でランダムな角度を選択
+            float randomAngle = UnityEngine.Random.Range(-spawnAngle2 / 2f, spawnAngle2 / 2f); // 扇形の角度内でランダムな角度を選択
             Vector3 randomOffset = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward * spawnDistance2;
 
             // プレイヤー位置からランダムな位置に湧く

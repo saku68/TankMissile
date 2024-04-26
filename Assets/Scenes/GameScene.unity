@@ -296,17 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f1683d1cc86bb459412e7a01d2a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &751130776 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 751130780, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-  m_PrefabInstance: {fileID: 2689969610070456037}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ef10d7f7d7e5d548b31800829f4f003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,17 +522,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1563622846 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-  m_PrefabInstance: {fileID: 6946060431312875255}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75458becdc6a77041bb5124e13add64e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2020342663098330820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -612,10 +590,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 751130780, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: enemySpawn
-      value: 
-      objectReference: {fileID: 1563622846}
     - target: {fileID: 995992984, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -715,18 +689,6 @@ PrefabInstance:
     - target: {fileID: 2689969610490718396, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Name
       value: PlayerUiCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255260166704312088, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 751130775}
-    - target: {fileID: 4255260166704312088, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OutShopButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 4255260166704312088, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerUiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
@@ -988,10 +950,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5248758583244192990, guid: ab8357422693e014598d89bd92068516, type: 3}
-      propertyPath: playerUiPresenter
-      value: 
-      objectReference: {fileID: 751130776}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab8357422693e014598d89bd92068516, type: 3}
 --- !u!1001 &6173394262665082387
@@ -1106,14 +1064,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: playerUiManager
-      value: 
-      objectReference: {fileID: 751130775}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: playerUiPresenter
-      value: 
-      objectReference: {fileID: 751130776}
     - target: {fileID: 6946060432205288266, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
       propertyPath: m_Name
       value: EnemySpawnManager

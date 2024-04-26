@@ -280,7 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b19cde0a87607d4ca57787bbf0a03a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerUiPresenter: {fileID: 751130780, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
   hp:
     value: 10
   maxHp:

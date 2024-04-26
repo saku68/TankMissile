@@ -34,8 +34,8 @@ public class EnemyManager : MonoBehaviour
         if (hp <= 0)
         {
             hp = 0;
-            enemySpawn.AddMoney(enemyMoney);
-            enemySpawn.AddScore(enemyScore);
+            enemySpawn.AddEnemyMoney(enemyMoney);
+            enemySpawn.AddEnemyScore(enemyScore);
             Destroy(this.gameObject);
         }
     }

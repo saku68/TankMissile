@@ -44,10 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75458becdc6a77041bb5124e13add64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScore: 0
-  playerMoney: 0
-  playerUiManager: {fileID: 2689969609454202482, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-  playerUiPresenter: {fileID: 751130780, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+  deadEnemyMoney: 0
+  deadEnemyScore: 0
   playerDieFlag: 0
   spawnWaveFlag: 1
   pauseFlag: 0

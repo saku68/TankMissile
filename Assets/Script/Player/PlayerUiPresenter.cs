@@ -22,6 +22,17 @@ public class PlayerUiPresenter : MonoBehaviour
         PlayerUiManager.Instance.OutShopFlagCahge();
         })
         .AddTo(this); // Dispose管理
+
+        playerUiManager = GetComponent<PlayerUiManager>();
+
+        // 倒した敵のスコアの変化を検知し、PlayerUiManagerに通知
+        _ = EnemySpawn.Instance.ScoreReactive
+        .Subscribe(score => playerUiManager.playerScore = score)
+        .AddTo(this);
+        // 倒した敵から得たお金の変化を検知し、PlayerUiManagerに通知
+        _ = EnemySpawn.Instance.MoneyReactive
+        .Subscribe(money => playerUiManager.playerMoney = money)
+        .AddTo(this);
     }
 
     public void LetsSetDeadText()

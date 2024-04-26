@@ -17,6 +17,11 @@ public class PlayerUiManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    public int playerMoney;
+
+    public int playerScore;
+
     private EnemySpawn enemySpawn;
     public Slider hpSlider;
     public GameObject deadText;
@@ -25,7 +30,7 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject waveClearText;
-    public Text scoreText;
+    public Text finalScoreText;
     public Text moneyText;
     public int finalScore;
     public bool pauseFlag = false;
@@ -38,10 +43,10 @@ public class PlayerUiManager : MonoBehaviour
     private ReactiveProperty<bool> outShopFlag = new ReactiveProperty<bool>(true);
     // outShopFlagが変更されたときのイベント
     public IReadOnlyReactiveProperty<bool> OutShopFlagChanged => outShopFlag;
-   
+
     void Start()
     {
-        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         deadText.SetActive(false);
         scorePanel.SetActive(false);
         pauseButton.SetActive(true);
@@ -52,14 +57,14 @@ public class PlayerUiManager : MonoBehaviour
     {
         UpdateMoney();
     }
-    public void UpdateScore()
+    public void UpdateFinalScore()
     {
-        finalScore = enemySpawn.playerScore + enemySpawn.playerMoney;
-        scoreText.text = "Score:" + finalScore;
+        finalScore = playerScore + playerMoney;
+        finalScoreText.text = "Score:" + finalScore;
     }
     public void UpdateMoney()
     {
-        moneyText.text = "Gold:" + enemySpawn.playerMoney;
+        moneyText.text = "Gold:" + playerMoney;
     }
     public void UpdateHp(int hp)
     {
@@ -77,7 +82,7 @@ public class PlayerUiManager : MonoBehaviour
     {
         deadText.SetActive(false);
         pauseButton.SetActive(false);
-        UpdateScore();
+        UpdateFinalScore();
         scorePanel.SetActive(true);
     }
     public void SetShopPanel()
