@@ -49,16 +49,12 @@ public class PlayerManager : MonoBehaviour
     }
     void Update()
     {
-        //確認用の加速
+        // 確認用の加速
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            Time.timeScale = 8;
+            Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
-        if (Input.GetKeyUp(KeyCode.Backspace))
-        {
-            Time.timeScale = 1;
-        }
-        
+
         // エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
         {

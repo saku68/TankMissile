@@ -71,8 +71,4 @@ public class PlayerUiPresenter : MonoBehaviour
         playerUiManager.OutWaveClearText();
         playerUiManager.SetShopPanel();
     }
-    public void LetsSetScorePanel()
-    {
-        playerUiManager.SetScorePanel();
-    }
 }

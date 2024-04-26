@@ -25,7 +25,7 @@ public class PlayerUiManager : MonoBehaviour
     private EnemySpawn enemySpawn;
     public Slider hpSlider;
     public GameObject deadText;
-    public GameObject scorePanel;
+    public GameObject finalScorePanel;
     public GameObject shopPanel;
     public GameObject pausePanel;
     public GameObject pauseButton;
@@ -35,7 +35,7 @@ public class PlayerUiManager : MonoBehaviour
     public int finalScore;
     public bool pauseFlag = false;
     public bool shopFlag = false;
-
+    public bool isScorePanelActive;
     public bool isShopPanelActive = false;
 
     // ショップから退出するフラグ
@@ -48,13 +48,19 @@ public class PlayerUiManager : MonoBehaviour
     {
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         deadText.SetActive(false);
-        scorePanel.SetActive(false);
+        finalScorePanel.SetActive(false);
         pauseButton.SetActive(true);
         waveClearText.SetActive(false);
         moneyText.text = "Gold:" + 0;
     }
     void Update()
     {
+        // デス後のテキストからスコア画面への移行
+        if (enemySpawn.playerDieFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        {
+            SetScorePanel();
+            Debug.Log("スコア画面起動");
+        }
         UpdateMoney();
     }
     public void UpdateFinalScore()
@@ -80,10 +86,11 @@ public class PlayerUiManager : MonoBehaviour
     }
     public void SetScorePanel()
     {
+        isScorePanelActive = true;
         deadText.SetActive(false);
         pauseButton.SetActive(false);
         UpdateFinalScore();
-        scorePanel.SetActive(true);
+        finalScorePanel.SetActive(true);
     }
     public void SetShopPanel()
     {

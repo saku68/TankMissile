@@ -1639,7 +1639,7 @@ MonoBehaviour:
   playerScore: 0
   hpSlider: {fileID: 2689969610455102383}
   deadText: {fileID: 1729335312}
-  scorePanel: {fileID: 1127878042}
+  finalScorePanel: {fileID: 1127878042}
   shopPanel: {fileID: 8862670099251340561}
   pausePanel: {fileID: 5819782101089362417}
   pauseButton: {fileID: 1816538407}
@@ -1649,6 +1649,7 @@ MonoBehaviour:
   finalScore: 0
   pauseFlag: 0
   shopFlag: 0
+  isScorePanelActive: 0
   isShopPanelActive: 0
   outShopFlag:
     value: 1

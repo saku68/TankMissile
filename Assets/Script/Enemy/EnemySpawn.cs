@@ -32,8 +32,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private PlayerUiManager playerUiManager;
     private PlayerUiPresenter playerUiPresenter;
-    [SerializeField]
-    private bool playerDieFlag = false;
+    public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
     public bool pauseFlag = false;
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
@@ -50,15 +49,8 @@ public class EnemySpawn : MonoBehaviour
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
         _ = StartCoroutine(SpawnEnemiesPeriodically1());
     }
-
-
     void Update()
     {
-        //デス後のテキストからスコア画面への移行
-        if (playerDieFlag && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
-        {
-            playerUiPresenter.LetsSetScorePanel();
-        }
         //ウェーブクリアの判定
         if (AllEnemiesDestroyed() && !playerDieFlag && !playerUiManager.shopFlag && !spawnWaveFlag)
         {
