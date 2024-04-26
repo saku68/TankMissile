@@ -180,10 +180,11 @@ public class EnemySpawn : MonoBehaviour
         spawnWaveFlag = false;
     }
 
-    //デス検知で湧き停止
+    //デス確認で湧き停止
     public void PlayerDie()
     {
         playerDieFlag = true;
+        playerUiPresenter.LetsChangePlayerDieFlag();
         if (spawnWaveFlag)
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止

@@ -21,8 +21,6 @@ public class PlayerUiManager : MonoBehaviour
     public int playerMoney;
 
     public int playerScore;
-
-    private EnemySpawn enemySpawn;
     public Slider hpSlider;
     public GameObject deadText;
     public GameObject finalScorePanel;
@@ -37,6 +35,7 @@ public class PlayerUiManager : MonoBehaviour
     public bool shopFlag = false;
     public bool isScorePanelActive;
     public bool isShopPanelActive = false;
+    public bool playerDeadFlag;
 
     // ショップから退出するフラグ
     [SerializeField]
@@ -46,7 +45,6 @@ public class PlayerUiManager : MonoBehaviour
 
     void Start()
     {
-        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         deadText.SetActive(false);
         finalScorePanel.SetActive(false);
         pauseButton.SetActive(true);
@@ -56,7 +54,7 @@ public class PlayerUiManager : MonoBehaviour
     void Update()
     {
         // デス後のテキストからスコア画面への移行
-        if (enemySpawn.playerDieFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
+        if (playerDeadFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             SetScorePanel();
             Debug.Log("スコア画面起動");

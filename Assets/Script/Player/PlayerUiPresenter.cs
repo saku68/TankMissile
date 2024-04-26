@@ -71,4 +71,8 @@ public class PlayerUiPresenter : MonoBehaviour
         playerUiManager.OutWaveClearText();
         playerUiManager.SetShopPanel();
     }
+    public void LetsChangePlayerDieFlag()
+    {
+        playerUiManager.playerDeadFlag =true;
+    }
 }
