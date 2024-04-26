@@ -51,4 +51,17 @@ public class PlayerUiPresenter : MonoBehaviour
             playerUiManager.pauseFlag = false;
         }
     }
+    public void LetsSetWaveClearText()
+    {
+        playerUiManager.SetWaveClearText();
+    }
+    public void LetsOutWaveSetShopPanel()
+    {
+        playerUiManager.OutWaveClearText();
+        playerUiManager.SetShopPanel();
+    }
+    public void LetsSetScorePanel()
+    {
+        playerUiManager.SetScorePanel();
+    }
 }

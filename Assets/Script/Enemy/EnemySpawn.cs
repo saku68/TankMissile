@@ -39,7 +39,7 @@ public class EnemySpawn : MonoBehaviour
         playerDieFlag = false;
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
-        StartCoroutine(SpawnEnemiesPeriodically1());
+        _ = StartCoroutine(SpawnEnemiesPeriodically1());
     }
 
 
@@ -48,7 +48,7 @@ public class EnemySpawn : MonoBehaviour
         //デス後のテキストからスコア画面への移行
         if (playerDieFlag && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
-            playerUiManager.SetScorePanel();
+            playerUiPresenter.LetsSetScorePanel();
         }
         //ウェーブクリアの判定
         if (AllEnemiesDestroyed() && !playerDieFlag && !playerUiManager.shopFlag && !spawnWaveFlag)
@@ -76,10 +76,9 @@ public class EnemySpawn : MonoBehaviour
         if (!isWaveClearShopOpen)
         {
             isWaveClearShopOpen = true;
-            playerUiManager.SetWaveClearText();
+            playerUiPresenter.LetsSetWaveClearText();
             yield return new WaitForSeconds(5f);
-            playerUiManager.OutWaveClearText();
-            playerUiManager.SetShopPanel();
+            playerUiPresenter.LetsOutWaveSetShopPanel();
             isWaveClearShopOpen = false;
         }
     }
