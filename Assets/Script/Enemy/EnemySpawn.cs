@@ -2,23 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using System;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public int playerScore = 0; //プレイヤーのスコア
-    public int playerMoney = 0; //プレイヤーのお金
+    //シングルトンのインスタンス処理？
+    public static EnemySpawn Instance { get; private set; }
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    [SerializeField]
+    public int deadEnemyMoney;
+    [SerializeField]
+    public int deadEnemyScore;
+    // ReactivePropertyを使用して値の変化を検知
+    private ReactiveProperty<int> scoreReactive = new ReactiveProperty<int>();
+    private ReactiveProperty<int> moneyReactive = new ReactiveProperty<int>();
+    // ReactivePropertyを公開して外部からアクセス可能にする
+    public IReadOnlyReactiveProperty<int> ScoreReactive => scoreReactive;
+    public IReadOnlyReactiveProperty<int> MoneyReactive => moneyReactive;
     private bool AllEnemiesDestroyed()
     {
         // 敵が存在するかどうかを確認し、すべての敵が消滅したら true を返す
         return GameObject.FindGameObjectsWithTag("Enemy").Length == 0;
     }
     private PlayerUiManager playerUiManager;
-    [SerializeField]
-    private bool playerDieFlag = false;
+    private PlayerUiPresenter playerUiPresenter;
+    public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
-    public bool shopFlag = false;
     public bool pauseFlag = false;
-
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
     public float spawnDistance1 = 25f; // 敵のスポーンする距離
     public float spawnDistance2 = 80f; // 敵のスポーンする距離
@@ -29,58 +45,32 @@ public class EnemySpawn : MonoBehaviour
     void Start()
     {
         playerDieFlag = false;
+        playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
-        StartCoroutine(SpawnEnemiesPeriodically1());
+        _ = StartCoroutine(SpawnEnemiesPeriodically1());
     }
-
-
     void Update()
     {
-        //デス後のテキストからスコア画面への移行
-        if (playerDieFlag && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
-        {
-            playerUiManager.SetScorePanel();
-        }
-
         //ウェーブクリアの判定
-        if (AllEnemiesDestroyed() && !playerDieFlag && !shopFlag && !spawnWaveFlag)
+        if (AllEnemiesDestroyed() && !playerDieFlag && !playerUiManager.shopFlag && !spawnWaveFlag)
         {
             Debug.Log("Waveクリア");
             StartCoroutine(WaveClearOpenShop());
-            shopFlag = true;
-        }
-
-        //エスケープキーの操作
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //*エスケープでの*ショップ退出の処理
-            if (shopFlag && playerUiManager.IsShopPanelActive())
-            {
-                OutShopButton();
-            }
-            else
-            {
-                playerUiManager.PauseGame();
-                pauseFlag = true;
-            }
-
-            if (pauseFlag)
-            {
-                playerUiManager.ResumeGame();
-                pauseFlag = false;
-            }
+            waveNumber = waveNumber + 1;//wave進行
+            playerUiPresenter.LetsOnShopFlag();
         }
     }
-
-    //スコア獲得処理
-    public void AddScore(int score)
+    //倒した敵のスコアの和
+    public void AddEnemyScore(int score)
     {
-        playerScore += score;
+        deadEnemyScore += score;
+        scoreReactive.Value = deadEnemyScore; // スコアの変化を通知
     }
-    //お金を獲得する処理
-    public void AddMoney(int money)
+    //敵を倒して獲得したお金の和
+    public void AddEnemyMoney(int money)
     {
-        playerMoney += money;
+        deadEnemyMoney += money;
+        moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
     }
     //ウェーブクリアメッセージとショップ画面への移行
     IEnumerator WaveClearOpenShop()
@@ -88,21 +78,11 @@ public class EnemySpawn : MonoBehaviour
         if (!isWaveClearShopOpen)
         {
             isWaveClearShopOpen = true;
-            playerUiManager.SetWaveClearText();
+            playerUiPresenter.LetsSetWaveClearText();
             yield return new WaitForSeconds(5f);
-            playerUiManager.OutWaveClearText();
-            playerUiManager.SetShopPanel();
+            playerUiPresenter.LetsOutWaveSetShopPanel();
             isWaveClearShopOpen = false;
         }
-    }
-    //*ボタンでの*ショップ画面退出の処理
-    public void OutShopButton()
-    {
-        playerUiManager.OutShopPanel();
-        shopFlag = false;
-        spawnWaveFlag = true;
-        waveNumber = waveNumber + 1;//ショップの退出でwave進行
-        OnWaveStart();
     }
     public void OnWaveStart()
     {
@@ -135,7 +115,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 5f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(1f, 3f);
+            float waitTime1 = UnityEngine.Random.Range(1f, 3f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -161,7 +141,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(2f, 4f);
+            float waitTime1 = UnityEngine.Random.Range(2f, 4f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -187,7 +167,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = Random.Range(3f, 5f);
+            float waitTime1 = UnityEngine.Random.Range(3f, 5f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(2);//手前の湧き
@@ -200,10 +180,11 @@ public class EnemySpawn : MonoBehaviour
         spawnWaveFlag = false;
     }
 
-    //デス検知で湧き停止
+    //デス確認で湧き停止
     public void PlayerDie()
     {
         playerDieFlag = true;
+        playerUiPresenter.LetsChangePlayerDieFlag();
         if (spawnWaveFlag)
         {
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止
@@ -225,7 +206,7 @@ public class EnemySpawn : MonoBehaviour
             Vector3 spawnPosition = playerPosition + spawnDirection.normalized * spawnDistance1; // スポーン位置
 
             // ランダムな位置を選択
-            float randomAngle = Random.Range(-spawnAngle1 / 2f, spawnAngle1 / 2f); // 扇形の角度内でランダムな角度を選択
+            float randomAngle = UnityEngine.Random.Range(-spawnAngle1 / 2f, spawnAngle1 / 2f); // 扇形の角度内でランダムな角度を選択
             Vector3 randomOffset = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward * spawnDistance1;
 
             // プレイヤー位置からランダムな位置に湧く
@@ -256,7 +237,7 @@ public class EnemySpawn : MonoBehaviour
             Vector3 spawnPosition = playerPosition + spawnDirection.normalized * spawnDistance2; // スポーン位置
 
             // ランダムな位置を選択
-            float randomAngle = Random.Range(-spawnAngle2 / 2f, spawnAngle2 / 2f); // 扇形の角度内でランダムな角度を選択
+            float randomAngle = UnityEngine.Random.Range(-spawnAngle2 / 2f, spawnAngle2 / 2f); // 扇形の角度内でランダムな角度を選択
             Vector3 randomOffset = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward * spawnDistance2;
 
             // プレイヤー位置からランダムな位置に湧く

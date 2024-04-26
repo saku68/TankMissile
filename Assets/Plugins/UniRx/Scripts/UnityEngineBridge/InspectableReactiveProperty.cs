@@ -22,6 +22,11 @@ namespace UniRx
         {
 
         }
+
+        public static implicit operator IntReactiveProperty(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>

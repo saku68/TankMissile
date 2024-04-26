@@ -9,49 +9,73 @@ using System;
 public class PlayerManager : MonoBehaviour
 {
     private PlayerPresenter playerPresenter;
-    private EnemySpawn enemySpawn;
-    public PlayerUiManager playerUiManager;
+    private PlayerUiPresenter playerUiPresenter;
 
+    private EnemySpawn enemySpawn;
+
+    // [SerializeField]
+    // private int maxHp = 10;
+    // [SerializeField]
+    // private int hp = 10;
+
+    public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
-    private int maxHp = 10;
+    private IntReactiveProperty hp = new IntReactiveProperty(10);
+
+    public IReadOnlyReactiveProperty<int> MaxHp => maxHp;
     [SerializeField]
-    private int hp = 10;
-    // Start is called before the first frame update
+    private IntReactiveProperty maxHp = new IntReactiveProperty(10);
+
     void Start()
     {
+        hp.Value = maxHp.Value;
         playerPresenter = GetComponent<PlayerPresenter>();
+        playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
+
+        //参照先を減らすのとUniRxの練習のため
         //発射の処理
         _ = this.UpdateAsObservable()
         .Where(_ => Input.GetKey(KeyCode.Return))
         .Subscribe(_ => playerPresenter.LetsShoot());
         //砲台の操作
         _ = this.UpdateAsObservable()
-            .Subscribe(_ =>
-            {
-                float horizontal = Input.GetAxis("Horizontal");
-                float vertical = Input.GetAxis("Vertical");
-                playerPresenter.LetsUpdateAngles(horizontal, vertical);
-            });
-
-
+        .Subscribe(_ =>
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            playerPresenter.LetsUpdateAngles(horizontal, vertical);
+        });
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
-        hp = maxHp;
-        playerUiManager.UpdateMaxHp(maxHp);
+    }
+    void Update()
+    {
+        // 確認用の加速
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
+        }
+
+        // エスケープキーの操作
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            playerUiPresenter.OnEsckey();
+        }
     }
 
     // ダメージの処理
     void Damage(int damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        hp.Value -= damage;
+        if (hp.Value <= 0)
         {
-            hp = 0;
+            hp.Value = 0;
             Destroy(this.gameObject);
+            hp.Dispose();
+            maxHp.Dispose();
             Debug.Log("死んだ！");
-            playerUiManager.SetDeadText();
+            playerUiPresenter.LetsSetDeadText();
             enemySpawn.PlayerDie();
         }
-        playerUiManager.UpdateHP(hp);
         Debug.Log("残りHP:" + hp);
     }
     private void OnTriggerEnter(Collider other)
