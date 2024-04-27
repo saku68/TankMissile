@@ -46,6 +46,4 @@ public class PlayerPresenter : MonoBehaviour
     {
         angleController.UpdateAngles(horizontal, vertical);
     }
-
-
 }
