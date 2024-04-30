@@ -18,20 +18,7 @@ public class PlayerPresenter : MonoBehaviour
         shootBullet = GetComponent<ShootBullet>();
         angleController = GetComponent<AngleController>();
 
-        //PlayerのHpを監視
-        _ = playerManager.Hp
-        .Subscribe(x =>
-        {
-            //Viewに反映
-            playerUiManager.UpdateHp(playerManager.Hp.Value);
-        }).AddTo(this);
-        //MaxHpも更新
-        _ = playerManager.MaxHp
-        .Subscribe(x =>
-        {
-            //Viewに反映
-            playerUiManager.UpdateMaxHp(playerManager.MaxHp.Value);
-        }).AddTo(this);
+        
     }
 
 
