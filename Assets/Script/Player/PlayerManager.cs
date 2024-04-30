@@ -75,6 +75,7 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("死んだ！");
             playerUiPresenter.LetsSetDeadText();
             enemySpawn.PlayerDie();
+            playerPresenter.LetsOffDrawArc();
         }
         Debug.Log("残りHP:" + hp);
     }

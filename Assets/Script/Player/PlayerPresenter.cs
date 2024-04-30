@@ -9,16 +9,16 @@ public class PlayerPresenter : MonoBehaviour
 {
     private ShootBullet shootBullet;
     private AngleController angleController;
-    [SerializeField]
-    private PlayerManager playerManager;
-    [SerializeField]
-    private PlayerUiManager playerUiManager;
+    private DrawArc drawArc;
+    // [SerializeField]
+    // private PlayerManager playerManager;
+    // [SerializeField]
+    // private PlayerUiManager playerUiManager;
     void Start()
     {
         shootBullet = GetComponent<ShootBullet>();
         angleController = GetComponent<AngleController>();
-
-        
+        drawArc = GetComponent<DrawArc>();
     }
 
 
@@ -32,5 +32,10 @@ public class PlayerPresenter : MonoBehaviour
     public void LetsUpdateAngles(float horizontal, float vertical)
     {
         angleController.UpdateAngles(horizontal, vertical);
+    }
+    //放物線の停止
+    public void LetsOffDrawArc()
+    {
+        drawArc.OffDrawArc();
     }
 }

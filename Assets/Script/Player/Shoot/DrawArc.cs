@@ -116,15 +116,15 @@ public class DrawArc : MonoBehaviour
                 ShowPointer(hitPosition);
             }
         }
-        else
-        {
-            // 放物線とマーカーを表示しない
-            for (int i = 0; i < lineRenderers.Length; i++)
-            {
-                lineRenderers[i].enabled = false;
-            }
-            pointerObject.SetActive(false);
-        }
+        // else
+        // {
+        //     // 放物線とマーカーを表示しない
+        //     for (int i = 0; i < lineRenderers.Length; i++)
+        //     {
+        //         lineRenderers[i].enabled = false;
+        //     }
+        //     pointerObject.SetActive(false);
+        // }
     }
 
     /// <summary>
@@ -209,5 +209,17 @@ public class DrawArc : MonoBehaviour
             return startTime + (endTime - startTime) * (hitInfo.distance / distance);
         }
         return float.MaxValue;
+    }
+    //放物線の停止
+    public void OffDrawArc()
+    {
+        drawArc = false;
+        pointerObject.SetActive(false);
+        Debug.Log("放物線停止");
+        // 放物線とマーカーを表示しない
+        for (int i = 0; i < lineRenderers.Length; i++)
+        {
+            lineRenderers[i].enabled = false;
+        }
     }
 }
