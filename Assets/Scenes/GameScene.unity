@@ -285,17 +285,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
---- !u!114 &751130775 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2689969609454202482, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-  m_PrefabInstance: {fileID: 2689969610070456037}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f1683d1cc86bb459412e7a01d2a71e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,19 +593,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Value
-      value: 23.4
+      value: 53
       objectReference: {fileID: 0}
     - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      propertyPath: m_MaxValue
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2689969610490718392, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Pivot.x
@@ -832,6 +813,10 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 4394218118241340789, guid: 9ee2117ac24ed80428f6224f70f3fb4b, type: 3}
+      propertyPath: damage1
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4394218118241340790, guid: 9ee2117ac24ed80428f6224f70f3fb4b, type: 3}
       propertyPath: m_Name
       value: Enemy3
@@ -914,10 +899,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 879385829, guid: ab8357422693e014598d89bd92068516, type: 3}
-      propertyPath: playerUiManager
-      value: 
-      objectReference: {fileID: 751130775}
     - target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -961,6 +942,10 @@ PrefabInstance:
     - target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: fireRate
+      value: 55.6
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192985, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_Name

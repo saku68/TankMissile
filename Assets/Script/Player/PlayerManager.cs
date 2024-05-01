@@ -17,14 +17,15 @@ public class PlayerManager : MonoBehaviour
     // private int maxHp = 10;
     // [SerializeField]
     // private int hp = 10;
-
+    
+    public int antiDamage = 0;
     public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
-    private IntReactiveProperty hp = new IntReactiveProperty(10);
+    private IntReactiveProperty hp = new IntReactiveProperty(100);
 
     public IReadOnlyReactiveProperty<int> MaxHp => maxHp;
     [SerializeField]
-    private IntReactiveProperty maxHp = new IntReactiveProperty(10);
+    private IntReactiveProperty maxHp = new IntReactiveProperty(100);
 
     void Start()
     {
@@ -57,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         // 確認用
         // if (Input.GetKeyDown(KeyCode.UpArrow))
         // {
-        //     playerPresenter.UpBulletRange(10);
+        //     playerPresenter.UpAntiDamage(1);
         // }
 
         // エスケープキーの操作
@@ -70,6 +71,14 @@ public class PlayerManager : MonoBehaviour
     // ダメージの処理
     void Damage(int damage)
     {
+        if(antiDamage > 0)
+        {
+            damage = damage - antiDamage;
+            if(damage < antiDamage)
+            {
+                damage = 0;
+            }
+        }
         hp.Value -= damage;
         if (hp.Value <= 0)
         {

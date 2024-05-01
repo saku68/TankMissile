@@ -37,16 +37,7 @@ public class PlayerPresenter : MonoBehaviour
     }
 
 
-
-    //発射レートの変更
-    public void UpFirerate(float upFireRate)
-    {
-        shootBullet.fireRate += upFireRate;
-    }
-    public void DownFirerate(float downFireRate)
-    {
-        shootBullet.fireRate -= downFireRate;
-    }
+    //向こうで値をprivateにできる利点
     //Hpの増加
     public void LetsUpMaxHp(int upMaxHp)
     {
@@ -55,6 +46,26 @@ public class PlayerPresenter : MonoBehaviour
     public void LetsUpHp(int upHp)
     {
         playerManager.UpHp(upHp);
+    }
+
+    //向こうに処理を書かなくていい利点
+    //防御力の変更
+    public void UpAntiDamage(int upAntiDamage)
+    {
+        playerManager.antiDamage += upAntiDamage;
+    }
+    public void DownAntiDamage(int downAntiDamage)
+    {
+        playerManager.antiDamage += downAntiDamage;
+    }
+    //発射レートの変更
+    public void UpFirerate(float upFireRate)
+    {
+        shootBullet.fireRate += upFireRate;
+    }
+    public void DownFirerate(float downFireRate)
+    {
+        shootBullet.fireRate -= downFireRate;
     }
     public void UpBulletRange(int upBulletRange)
     {
