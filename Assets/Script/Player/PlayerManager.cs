@@ -54,6 +54,11 @@ public class PlayerManager : MonoBehaviour
         {
             Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
+        // 確認用
+        // if (Input.GetKeyDown(KeyCode.UpArrow))
+        // {
+        //     playerPresenter.UpBulletRange(10);
+        // }
 
         // エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -78,6 +83,16 @@ public class PlayerManager : MonoBehaviour
             playerPresenter.LetsOffDrawArc();
         }
         Debug.Log("残りHP:" + hp);
+    }
+    //MaxHpの増加
+    public void UpMaxHp(int UpMaxHp)
+    {
+        maxHp.Value += UpMaxHp;
+    }
+    //Hpの回復
+    public void UpHp(int UpHp)
+    {
+        hp.Value += UpHp;
     }
     private void OnTriggerEnter(Collider other)
     {

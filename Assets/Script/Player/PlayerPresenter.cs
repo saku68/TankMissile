@@ -10,12 +10,12 @@ public class PlayerPresenter : MonoBehaviour
     private ShootBullet shootBullet;
     private AngleController angleController;
     private DrawArc drawArc;
-    // [SerializeField]
-    // private PlayerManager playerManager;
+    private PlayerManager playerManager;
     // [SerializeField]
     // private PlayerUiManager playerUiManager;
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         shootBullet = GetComponent<ShootBullet>();
         angleController = GetComponent<AngleController>();
         drawArc = GetComponent<DrawArc>();
@@ -36,14 +36,34 @@ public class PlayerPresenter : MonoBehaviour
         drawArc.OffDrawArc();
     }
 
+
+
     //発射レートの変更
-    public void UpFirerate(float fireRate)
+    public void UpFirerate(float upFireRate)
     {
-        shootBullet.fireRate += fireRate;
+        shootBullet.fireRate += upFireRate;
     }
-    public void DownFirerate(float fireRate)
+    public void DownFirerate(float downFireRate)
     {
-        shootBullet.fireRate -= fireRate;
+        shootBullet.fireRate -= downFireRate;
+    }
+    //Hpの増加
+    public void LetsUpMaxHp(int upMaxHp)
+    {
+        playerManager.UpMaxHp(upMaxHp);
+    }
+    public void LetsUpHp(int upHp)
+    {
+        playerManager.UpHp(upHp);
+    }
+    public void UpBulletRange(int upBulletRange)
+    {
+        shootBullet.bulletSpeed += upBulletRange;
+    }
+    public void DownBulletRange(int downBulletRange)
+    {
+        shootBullet.bulletSpeed -= downBulletRange;
     }
 
 }
+
