@@ -43,7 +43,6 @@ public class ShootBullet : MonoBehaviour
         //どうにかUniRxでUpdateから出せないか？
         // 弾の初速度を更新
         shootVelocity = barrelObject.transform.up * speed;
-        //どうにかUniRxでUpdateから出せないか？
         // 弾の生成座標を更新
         instantiatePosition = barrelObject.transform.position;
     }

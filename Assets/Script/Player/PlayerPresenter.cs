@@ -20,9 +20,6 @@ public class PlayerPresenter : MonoBehaviour
         angleController = GetComponent<AngleController>();
         drawArc = GetComponent<DrawArc>();
     }
-
-
-
     //これ達ほんとに必要なんかな
     public void LetsShoot()
     {
@@ -38,4 +35,15 @@ public class PlayerPresenter : MonoBehaviour
     {
         drawArc.OffDrawArc();
     }
+
+    //発射レートの変更
+    public void UpFirerate(float fireRate)
+    {
+        shootBullet.fireRate += fireRate;
+    }
+    public void DownFirerate(float fireRate)
+    {
+        shootBullet.fireRate -= fireRate;
+    }
+
 }
