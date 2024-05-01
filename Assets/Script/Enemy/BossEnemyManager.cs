@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UniRx;
-using UniRx.Triggers;
-using System;
+
 
 public class BossEnemyManager : MonoBehaviour
 {
@@ -32,7 +30,9 @@ public class BossEnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //プレイヤーへの移動
         agent.destination = target.position;
+        //Hpバーの更新
         enemyUiManager.UpdateHp(hp);
     }
     // ダメージの処理
