@@ -31,6 +31,7 @@ public class PlayerUiPresenter : MonoBehaviour
             playerUiManager.UpdateMaxHp(playerManager.MaxHp.Value);
         }).AddTo(this);
 
+
         // ショップから退出したときのイベントを購読し、EnemySpawnクラスの処理を実行
         _ = playerUiManager.OutShopFlagChanged
         .Where(flag => !flag) // outShopFlagがfalseになったときのみ購読
