@@ -37,7 +37,6 @@ public class ShootBullet : MonoBehaviour
     {
         get { return shootVelocity; }
     }
-
     void Update()
     {
         //どうにかUniRxでUpdateから出せないか？

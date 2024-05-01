@@ -112,7 +112,6 @@ GameObject:
   - component: {fileID: 5248758583244192986}
   - component: {fileID: 5248758583244192987}
   - component: {fileID: 5248758583244192984}
-  - component: {fileID: 5248758583244192977}
   - component: {fileID: 5248758583244192990}
   - component: {fileID: 5248758583244192976}
   - component: {fileID: 879385829}
@@ -252,22 +251,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8698740972742832127, guid: d66a3505e59639b4e8eb4760b1ddb9a2, type: 3}
   barrelObject: {fileID: 5248758583907067314}
   bulletSpeed: 16
---- !u!114 &5248758583244192977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5248758583244192985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820c9801a6d7c34428c7a1a98230694f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage1: 1
-  damage2: 0
-  damage3: 0
-  damage4: 0
 --- !u!114 &5248758583244192990
 MonoBehaviour:
   m_ObjectHideFlags: 0
