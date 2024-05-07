@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class ShootBullet : MonoBehaviour
     }
     void Update()
     {
-        //どうにかUniRxでUpdateから出せないか？
+        //どうにかUniRxでUpdateから出せないか
         // 弾の初速度を更新
         shootVelocity = barrelObject.transform.up * bulletSpeed;
         // 弾の生成座標を更新
