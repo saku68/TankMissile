@@ -8,11 +8,29 @@ using System;
 public class PlayerUiPresenter : MonoBehaviour
 {
     private PlayerUiManager playerUiManager;
+    private PlayerManager playerManager;
     private EnemySpawn enemySpawn;
     void Start()
     {
         playerUiManager = GetComponent<PlayerUiManager>();
         enemySpawn = GetComponent<EnemySpawn>();
+        playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+
+        //PlayerのHpを監視
+        _ = playerManager.Hp
+        .Subscribe(x =>
+        {
+            //Viewに反映
+            playerUiManager.UpdateHp(playerManager.Hp.Value);
+        }).AddTo(this);
+        //MaxHpも更新
+        _ = playerManager.MaxHp
+        .Subscribe(x =>
+        {
+            //Viewに反映
+            playerUiManager.UpdateMaxHp(playerManager.MaxHp.Value);
+        }).AddTo(this);
+
 
         // ショップから退出したときのイベントを購読し、EnemySpawnクラスの処理を実行
         _ = playerUiManager.OutShopFlagChanged

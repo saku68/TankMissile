@@ -9,33 +9,17 @@ public class PlayerPresenter : MonoBehaviour
 {
     private ShootBullet shootBullet;
     private AngleController angleController;
-    [SerializeField]
+    private DrawArc drawArc;
     private PlayerManager playerManager;
-    [SerializeField]
-    private PlayerUiManager playerUiManager;
+    // [SerializeField]
+    // private PlayerUiManager playerUiManager;
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         shootBullet = GetComponent<ShootBullet>();
         angleController = GetComponent<AngleController>();
-
-        //PlayerのHpを監視
-        _ = playerManager.Hp
-        .Subscribe(x =>
-        {
-            //Viewに反映
-            playerUiManager.UpdateHp(playerManager.Hp.Value);
-        }).AddTo(this);
-        //MaxHpも更新
-        _ = playerManager.MaxHp
-        .Subscribe(x =>
-        {
-            //Viewに反映
-            playerUiManager.UpdateMaxHp(playerManager.MaxHp.Value);
-        }).AddTo(this);
+        drawArc = GetComponent<DrawArc>();
     }
-
-
-
     //これ達ほんとに必要なんかな
     public void LetsShoot()
     {
@@ -46,6 +30,51 @@ public class PlayerPresenter : MonoBehaviour
     {
         angleController.UpdateAngles(horizontal, vertical);
     }
+    //放物線の停止
+    public void LetsOffDrawArc()
+    {
+        drawArc.OffDrawArc();
+    }
 
+
+    //向こうで値をprivateにできる利点
+    //Hpの増加
+    public void LetsUpMaxHp(int upMaxHp)
+    {
+        playerManager.UpMaxHp(upMaxHp);
+    }
+    public void LetsUpHp(int upHp)
+    {
+        playerManager.UpHp(upHp);
+    }
+
+    //向こうに処理を書かなくていい利点
+    //防御力の変更
+    public void UpAntiDamage(int upAntiDamage)
+    {
+        playerManager.antiDamage += upAntiDamage;
+    }
+    public void DownAntiDamage(int downAntiDamage)
+    {
+        playerManager.antiDamage += downAntiDamage;
+    }
+    //発射レートの変更
+    public void UpFirerate(float upFireRate)
+    {
+        shootBullet.fireRate += upFireRate;
+    }
+    public void DownFirerate(float downFireRate)
+    {
+        shootBullet.fireRate -= downFireRate;
+    }
+    public void UpBulletRange(int upBulletRange)
+    {
+        shootBullet.bulletSpeed += upBulletRange;
+    }
+    public void DownBulletRange(int downBulletRange)
+    {
+        shootBullet.bulletSpeed -= downBulletRange;
+    }
 
 }
+

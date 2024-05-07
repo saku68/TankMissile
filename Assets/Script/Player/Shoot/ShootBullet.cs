@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -26,8 +27,8 @@ public class ShootBullet : MonoBehaviour
     public Vector3 InstantiatePosition => instantiatePosition;
 
     /// 弾の速さ
-    [SerializeField, Range(3.0F, 100.0F), Tooltip("弾の射出する速さ")]
-    private float speed = 16.0F;
+    [Range(3.0F, 100.0F), Tooltip("弾の射出する速さ")]
+    public float bulletSpeed = 16.0F;
 
     /// 弾の初速度
     private Vector3 shootVelocity;
@@ -37,13 +38,11 @@ public class ShootBullet : MonoBehaviour
     {
         get { return shootVelocity; }
     }
-
     void Update()
     {
-        //どうにかUniRxでUpdateから出せないか？
+        //どうにかUniRxでUpdateから出せないか
         // 弾の初速度を更新
-        shootVelocity = barrelObject.transform.up * speed;
-        //どうにかUniRxでUpdateから出せないか？
+        shootVelocity = barrelObject.transform.up * bulletSpeed;
         // 弾の生成座標を更新
         instantiatePosition = barrelObject.transform.position;
     }
