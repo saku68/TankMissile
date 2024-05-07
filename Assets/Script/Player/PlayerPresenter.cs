@@ -38,17 +38,20 @@ public class PlayerPresenter : MonoBehaviour
 
 
     //向こうで値をprivateにできる利点
+
     //Hpの増加
     public void LetsUpMaxHp(int upMaxHp)
     {
         playerManager.UpMaxHp(upMaxHp);
     }
+    //回復
     public void LetsUpHp(int upHp)
     {
         playerManager.UpHp(upHp);
     }
 
     //向こうに処理を書かなくていい利点
+
     //防御力の変更
     public void UpAntiDamage(int upAntiDamage)
     {
@@ -67,6 +70,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.fireRate -= downFireRate;
     }
+    //射程の増減
     public void UpBulletRange(int upBulletRange)
     {
         shootBullet.bulletSpeed += upBulletRange;

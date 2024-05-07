@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     // private int maxHp = 10;
     // [SerializeField]
     // private int hp = 10;
-    
+
     public int antiDamage = 0;
     public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
@@ -47,6 +47,15 @@ public class PlayerManager : MonoBehaviour
             playerPresenter.LetsUpdateAngles(horizontal, vertical);
         });
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+
+        // hpがmaxHpを超えないようにする
+        _ = hp.Subscribe(newHp =>
+        {
+            if (newHp > maxHp.Value)
+            {
+                hp.Value = maxHp.Value;
+            }
+        });
     }
     void Update()
     {
@@ -56,10 +65,10 @@ public class PlayerManager : MonoBehaviour
             Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
         // 確認用
-        // if (Input.GetKeyDown(KeyCode.UpArrow))
-        // {
-        //     playerPresenter.UpAntiDamage(1);
-        // }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            playerPresenter.LetsUpHp(10);
+        }
 
         // エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -71,12 +80,12 @@ public class PlayerManager : MonoBehaviour
     // ダメージの処理
     void Damage(int damage)
     {
-        if(antiDamage > 0)
+        if (antiDamage > 0)
         {
             damage = damage - antiDamage;
-            if(damage < antiDamage)
+            if (damage < antiDamage)
             {
-                damage = 0;
+                damage = 1;
             }
         }
         hp.Value -= damage;
