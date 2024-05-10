@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour
             Dameger damager = other.GetComponent<Dameger>();
             if (damager != null)
             {
-                Damage(damager.damage1);
+                Damage(damager.damage2);
             }
         }
     }

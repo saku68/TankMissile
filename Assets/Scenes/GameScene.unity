@@ -763,11 +763,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: fireRate
-      value: 2
+      value: 18.56
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: shootMode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: bulletSpeed

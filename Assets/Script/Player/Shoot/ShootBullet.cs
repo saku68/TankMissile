@@ -8,12 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 
 public class ShootBullet : MonoBehaviour
 {
-    public int shootMode = 1;
-    public float fireRate = 1f; // 発射速度（1秒あたりの発射回数）
-
-    private float nextFireTime = 0f; // 次に発射できる時刻
+    public int shootMode = 1; //発射モード切替
+    public float fireRate = 1f; // 発射レート（1秒あたりの発射回数）
     public float offset = 0.5f; // 発射位置の間隔
     public float angle = 15f; // 発射角度
+    private float nextFireTime = 0f; // 次に発射できる時刻
 
     /// 弾のPrefab
     [SerializeField, Tooltip("弾のPrefab")]
