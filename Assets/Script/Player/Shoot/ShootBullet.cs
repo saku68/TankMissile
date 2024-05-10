@@ -5,6 +5,7 @@ using UniRx;
 using UniRx.Triggers;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Unity.VisualScripting;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -126,5 +127,11 @@ public class ShootBullet : MonoBehaviour
         Destroy(obj1, 5.0F);
         Destroy(obj2, 5.0F);
         Destroy(obj3, 5.0F);
+    }
+
+    public void ChangeBulletDamage(int newDamage)
+    {
+        Dameger dameger = bulletPrefab.GetComponent<Dameger>();
+        dameger.damage2 = newDamage;
     }
 }

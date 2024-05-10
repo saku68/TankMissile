@@ -64,10 +64,10 @@ public class PlayerManager : MonoBehaviour
         {
             Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
-        // 確認用
+        //確認用
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            playerPresenter.LetsUpHp(10);
+            playerPresenter.LetsChangeBulletDamage(20);
         }
 
         // エスケープキーの操作

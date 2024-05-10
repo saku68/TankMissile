@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using UnityEditor;
 
 public class PlayerPresenter : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerPresenter : MonoBehaviour
     private AngleController angleController;
     private DrawArc drawArc;
     private PlayerManager playerManager;
+
     // [SerializeField]
     // private PlayerUiManager playerUiManager;
     void Start()
@@ -79,6 +81,15 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.bulletSpeed -= downBulletRange;
     }
-
+    //発射モードの変更
+    public void ChangeShootMode(int shootMode)
+    {
+        shootBullet.shootMode = shootMode;
+    }
+    //攻撃力の変更
+    public void LetsChangeBulletDamage(int newBulletDamage)
+    {
+        shootBullet.ChangeBulletDamage(newBulletDamage);
+    }
 }
 
