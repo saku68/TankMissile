@@ -248,6 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 2
+  offset: 0.5
+  angle: 10
   bulletPrefab: {fileID: 8698740972742832127, guid: d66a3505e59639b4e8eb4760b1ddb9a2, type: 3}
   barrelObject: {fileID: 5248758583907067314}
   bulletSpeed: 16

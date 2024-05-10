@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScore: 10
-  enemyMoney: 1
+  enemyMoney: 2
   hp: 1
   target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
 --- !u!114 &3711620216830905539

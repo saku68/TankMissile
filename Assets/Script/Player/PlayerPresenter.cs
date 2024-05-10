@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using UnityEditor;
 
 public class PlayerPresenter : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerPresenter : MonoBehaviour
     private AngleController angleController;
     private DrawArc drawArc;
     private PlayerManager playerManager;
+
     // [SerializeField]
     // private PlayerUiManager playerUiManager;
     void Start()
@@ -38,17 +40,20 @@ public class PlayerPresenter : MonoBehaviour
 
 
     //向こうで値をprivateにできる利点
+
     //Hpの増加
     public void LetsUpMaxHp(int upMaxHp)
     {
         playerManager.UpMaxHp(upMaxHp);
     }
+    //回復
     public void LetsUpHp(int upHp)
     {
         playerManager.UpHp(upHp);
     }
 
     //向こうに処理を書かなくていい利点
+
     //防御力の変更
     public void UpAntiDamage(int upAntiDamage)
     {
@@ -67,6 +72,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.fireRate -= downFireRate;
     }
+    //射程の増減
     public void UpBulletRange(int upBulletRange)
     {
         shootBullet.bulletSpeed += upBulletRange;
@@ -75,6 +81,15 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.bulletSpeed -= downBulletRange;
     }
-
+    //発射モードの変更
+    public void ChangeShootMode(int shootMode)
+    {
+        shootBullet.shootMode = shootMode;
+    }
+    //攻撃力の変更
+    public void LetsChangeBulletDamage(int newBulletDamage)
+    {
+        shootBullet.ChangeBulletDamage(newBulletDamage);
+    }
 }
 

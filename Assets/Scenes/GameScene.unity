@@ -754,8 +754,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: angle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: offset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: fireRate
-      value: 59.82
+      value: 18.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: shootMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
+      propertyPath: bulletSpeed
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192985, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: m_Name
