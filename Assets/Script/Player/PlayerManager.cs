@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         //確認用
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            playerPresenter.LetsChangeBulletDamage(20);
+            playerPresenter.LetsChangeBulletSize(new Vector3(1, 1, 1));
         }
 
         // エスケープキーの操作
