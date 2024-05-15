@@ -30,6 +30,7 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject waveClearText;
     public Text finalScoreText;
     public Text moneyText;
+    public Text fireRateText;
     public int finalScore;
     public bool pauseFlag = false;
     public bool shopFlag = false;
@@ -53,6 +54,7 @@ public class PlayerUiManager : MonoBehaviour
     }
     void Update()
     {
+        //出来ればこの処理にここにいて欲しくはない
         // デス後のテキストからスコア画面への移行
         if (playerDeadFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
@@ -138,5 +140,15 @@ public class PlayerUiManager : MonoBehaviour
     public void OutWaveClearText()
     {
         waveClearText.SetActive(false);
+    }
+    //購入処理
+    public void BuyAnyAbility(int much)
+    {
+        playerMoney -= much;
+    }
+    //発射レートの価格表示
+    public void ChangeFireRateMuch(int fireRatemuch)
+    {
+        fireRateText.text = "UpFireRate:" + fireRatemuch + "G";
     }
 }

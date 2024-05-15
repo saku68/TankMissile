@@ -9,12 +9,14 @@ public class PlayerUiPresenter : MonoBehaviour
 {
     private PlayerUiManager playerUiManager;
     private PlayerManager playerManager;
+    private ShopManager shopManager;
     private EnemySpawn enemySpawn;
     void Start()
     {
         playerUiManager = GetComponent<PlayerUiManager>();
         enemySpawn = GetComponent<EnemySpawn>();
         playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+        shopManager = GetComponent<ShopManager>();
 
         //PlayerのHpを監視
         _ = playerManager.Hp
@@ -88,9 +90,19 @@ public class PlayerUiPresenter : MonoBehaviour
     {
         playerUiManager.OutWaveClearText();
         playerUiManager.SetShopPanel();
+        //この引数の渡し方なんか嫌だ
+        playerUiManager.ChangeFireRateMuch(shopManager.fireRateMuch);
     }
     public void LetsChangePlayerDieFlag()
     {
         playerUiManager.playerDeadFlag =true;
+    }
+    public void LetsBuyAnyAbility(int much)
+    {
+        playerUiManager.BuyAnyAbility(much);
+    }
+    public void LetsChangeFireRateMuch(int fireRateMuch)
+    {
+        playerUiManager.ChangeFireRateMuch(fireRateMuch);
     }
 }

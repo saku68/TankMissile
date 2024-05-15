@@ -535,14 +535,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_Value
-      value: 53
-      objectReference: {fileID: 0}
-    - target: {fileID: 2689969610455102383, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
-      propertyPath: m_MaxValue
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 2689969610490718392, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -631,6 +623,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUiCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6871529145278449385, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_Text
+      value: UpFireRate:G
+      objectReference: {fileID: 0}
+    - target: {fileID: 8862670099251340561, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b36579c393358b4ca87678131eb5b88, type: 3}
 --- !u!1001 &4333267356790968928
@@ -698,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394218118241340790, guid: 9ee2117ac24ed80428f6224f70f3fb4b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ee2117ac24ed80428f6224f70f3fb4b, type: 3}
@@ -763,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: fireRate
-      value: 18.56
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5248758583244192984, guid: ab8357422693e014598d89bd92068516, type: 3}
       propertyPath: shootMode
@@ -845,15 +845,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3797132988793955252, guid: a1a5226f87893d14383231b2326346f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6489286818437812072, guid: a1a5226f87893d14383231b2326346f3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6489286818437812072, guid: a1a5226f87893d14383231b2326346f3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1a5226f87893d14383231b2326346f3, type: 3}

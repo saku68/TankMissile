@@ -91,6 +91,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.ChangeBulletDamage(newBulletDamage);
     }
+    //弾のサイズの変更
     public void LetsChangeBulletSize(Vector3 newSize)
     {
         shootBullet.ChangeBulletSize(newSize);
