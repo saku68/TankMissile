@@ -52,6 +52,12 @@ public class PlayerPresenter : MonoBehaviour
         playerManager.UpHp(upHp);
     }
 
+    //全回復
+    public void LetsUpHpMax()
+    {
+        playerManager.UpHpMax();
+    }
+
     //向こうに処理を書かなくていい利点
 
     //防御力の変更

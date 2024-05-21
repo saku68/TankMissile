@@ -247,12 +247,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fdec5b61533024686bf96c8f93871a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootMode: 1
   fireRate: 2
   offset: 0.5
   angle: 10
   bulletPrefab: {fileID: 8698740972742832127, guid: d66a3505e59639b4e8eb4760b1ddb9a2, type: 3}
   barrelObject: {fileID: 5248758583907067314}
-  bulletSpeed: 16
+  bulletSpeed: 9
 --- !u!114 &5248758583244192990
 MonoBehaviour:
   m_ObjectHideFlags: 0

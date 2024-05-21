@@ -65,10 +65,10 @@ public class PlayerManager : MonoBehaviour
             Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
         //確認用
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            playerPresenter.LetsChangeBulletSize(new Vector3(1, 1, 1));
-        }
+        // if (Input.GetKeyDown(KeyCode.UpArrow))
+        // {
+        //     playerPresenter.LetsChangeBulletSize(new Vector3(1, 1, 1));
+        // }
 
         // エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -111,6 +111,10 @@ public class PlayerManager : MonoBehaviour
     public void UpHp(int UpHp)
     {
         hp.Value += UpHp;
+    }
+    public void UpHpMax()
+    {
+        hp.Value = maxHp.Value;
     }
     private void OnTriggerEnter(Collider other)
     {

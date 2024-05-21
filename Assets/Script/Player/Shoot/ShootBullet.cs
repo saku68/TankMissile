@@ -31,7 +31,7 @@ public class ShootBullet : MonoBehaviour
 
     /// 弾の速さ
     [Range(3.0F, 100.0F), Tooltip("弾の射出する速さ")]
-    public float bulletSpeed = 16.0F;
+    public float bulletSpeed = 9.0F;
 
     /// 弾の初速度
     private Vector3 shootVelocity;
@@ -40,6 +40,12 @@ public class ShootBullet : MonoBehaviour
     public Vector3 ShootVelocity
     {
         get { return shootVelocity; }
+    }
+    void Start()
+    {
+        Dameger dameger = bulletPrefab.GetComponent<Dameger>();
+        dameger.damage2 = 1;
+        bulletPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
     void Update()
     {
@@ -132,7 +138,7 @@ public class ShootBullet : MonoBehaviour
     public void ChangeBulletDamage(int newDamage)
     {
         Dameger dameger = bulletPrefab.GetComponent<Dameger>();
-        dameger.damage2 = newDamage;
+        dameger.damage2 += newDamage;
     }
     public void ChangeBulletSize(Vector3 newSize)
     {
