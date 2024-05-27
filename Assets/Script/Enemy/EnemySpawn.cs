@@ -278,7 +278,8 @@ public class EnemySpawn : MonoBehaviour
     {
         Debug.Log("Wave" + waveNumber + "開始");
         spawnWaveFlag = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("ボス出現");
         SpawnBossEnemy(4);
         Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;

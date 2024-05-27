@@ -52,6 +52,12 @@ public class PlayerPresenter : MonoBehaviour
         playerManager.UpHp(upHp);
     }
 
+    //全回復
+    public void LetsUpHpMax()
+    {
+        playerManager.UpHpMax();
+    }
+
     //向こうに処理を書かなくていい利点
 
     //防御力の変更
@@ -90,6 +96,11 @@ public class PlayerPresenter : MonoBehaviour
     public void LetsChangeBulletDamage(int newBulletDamage)
     {
         shootBullet.ChangeBulletDamage(newBulletDamage);
+    }
+    //弾のサイズの変更
+    public void LetsChangeBulletSize(Vector3 newSize)
+    {
+        shootBullet.ChangeBulletSize(newSize);
     }
 }
 

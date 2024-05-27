@@ -9,12 +9,14 @@ public class PlayerUiPresenter : MonoBehaviour
 {
     private PlayerUiManager playerUiManager;
     private PlayerManager playerManager;
+    private ShopManager shopManager;
     private EnemySpawn enemySpawn;
     void Start()
     {
         playerUiManager = GetComponent<PlayerUiManager>();
         enemySpawn = GetComponent<EnemySpawn>();
         playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
+        shopManager = GetComponent<ShopManager>();
 
         //PlayerのHpを監視
         _ = playerManager.Hp
@@ -88,9 +90,46 @@ public class PlayerUiPresenter : MonoBehaviour
     {
         playerUiManager.OutWaveClearText();
         playerUiManager.SetShopPanel();
+
+        //表示の初期化
+        //この引数の渡し方なんか嫌だ
+        playerUiManager.ChangeFireRateMuch(shopManager.fireRateMuch, shopManager.fireRateLevel);
+        playerUiManager.ChangeUpMaxHpMuch(shopManager.upMaxHpMuch, shopManager.upMaxHpLevel);
+        playerUiManager.ChangeBulletRangeMuch(shopManager.upBulletRangeMuch, shopManager.bulletRangeLevel);
+        playerUiManager.ChangeBulletSizeMuch(shopManager.upBulletSizeMuch, shopManager.upBulletSizeLevel);
+        playerUiManager.ChangeBulletDamageMuch(shopManager.upBulletDamageMuch, shopManager.upBulletDamageLevel);
+        playerUiManager.ChangeAntiDamageMuch(shopManager.antiDamageMuch, shopManager.antiDamageLevel);
     }
     public void LetsChangePlayerDieFlag()
     {
         playerUiManager.playerDeadFlag =true;
+    }
+    public void LetsBuyAnyAbility(int much)
+    {
+        playerUiManager.BuyAnyAbility(much);
+    }
+    public void LetsChangeFireRateMuch(int fireRateMuch, int fireRateLevel)
+    {
+        playerUiManager.ChangeFireRateMuch(fireRateMuch, fireRateLevel);
+    }
+    public void LetsChangeUpMaxHpMuch(int upMaxHpMuch, int upMaxHpLevel)
+    {
+        playerUiManager.ChangeUpMaxHpMuch(upMaxHpMuch, upMaxHpLevel);
+    }
+    public void LetsChangeBulletRangeMuch(int bulletRangeMuch, int bulletRangeLevel)
+    {
+        playerUiManager.ChangeBulletRangeMuch(bulletRangeMuch, bulletRangeLevel);
+    }
+    public void LetsChangeBulletSizeMuch(int bulletSizeMuch, int bulletSizeLevel)
+    {
+        playerUiManager.ChangeBulletSizeMuch(bulletSizeMuch, bulletSizeLevel);
+    }
+    public void LetsChangeBulletDamageMuch(int bulletDamageMuch, int bulletDamageLevel)
+    {
+        playerUiManager.ChangeBulletDamageMuch(bulletDamageMuch, bulletDamageLevel);
+    }
+    public void LetsChangeAntiDamageMuch(int antiDamageMuch, int antiDamageLevel)
+    {
+        playerUiManager.ChangeAntiDamageMuch(antiDamageMuch, antiDamageLevel);
     }
 }

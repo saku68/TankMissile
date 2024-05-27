@@ -30,6 +30,20 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject waveClearText;
     public Text finalScoreText;
     public Text moneyText;
+    public Text fireRateText;
+    public Text upMaxHpText;
+    public Text upHpText;
+
+    public Text upShootRangeText;
+
+    public Text upShootBulletText;
+
+    public Text upBulletSizeText;
+
+    public Text upDamageText;
+
+    public Text upDifenceText;
+
     public int finalScore;
     public bool pauseFlag = false;
     public bool shopFlag = false;
@@ -53,6 +67,7 @@ public class PlayerUiManager : MonoBehaviour
     }
     void Update()
     {
+        //出来ればこの処理にここにいて欲しくはない
         // デス後のテキストからスコア画面への移行
         if (playerDeadFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
@@ -138,5 +153,40 @@ public class PlayerUiManager : MonoBehaviour
     public void OutWaveClearText()
     {
         waveClearText.SetActive(false);
+    }
+    //購入処理
+    public void BuyAnyAbility(int much)
+    {
+        playerMoney -= much;
+    }
+    //発射レートの価格表示
+    public void ChangeFireRateMuch(int fireRatemuch, int fireRateLevel)
+    {
+        fireRateText.text = "連射速度Lv" + fireRateLevel + ":" + fireRatemuch + "G";
+    }
+    //最大HP増加の価格表示
+    public void ChangeUpMaxHpMuch(int upMaxHpMuch, int upMaxHpLevel)
+    {
+        upMaxHpText.text = "最大HPLv" + upMaxHpLevel + ":" + upMaxHpMuch + "G";
+    }
+    //射程増加の価格表示
+    public void ChangeBulletRangeMuch(int bulletRangeMuch, int bulletRangeLevel)
+    {
+        upShootRangeText.text = "射程増加Lv" + bulletRangeLevel + ":" + bulletRangeMuch + "G";
+    }
+    //弾のサイズ上昇の価格表示
+    public void ChangeBulletSizeMuch(int bulletSizeMuch, int bulletSizeLevel)
+    {
+        upBulletSizeText.text = "弾のサイズLv" + bulletSizeLevel + ":" + bulletSizeMuch + "G";
+    }
+    //攻撃力増加の価格表示
+    public void ChangeBulletDamageMuch(int bulletDamageMuch, int bulletDamageLevel)
+    {
+        upDamageText.text = "威力増加Lv" + bulletDamageLevel + ":" + bulletDamageMuch + "G";
+    }
+    //防御力の価格表示
+    public void ChangeAntiDamageMuch(int antiDamageMuch, int antiDamageLevel)
+    {
+        upDifenceText.text = "防御増加Lv" + antiDamageLevel + ":" + antiDamageMuch + "G";
     }
 }

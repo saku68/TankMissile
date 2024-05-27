@@ -11,8 +11,8 @@ public class ShootBullet : MonoBehaviour
 {
     public int shootMode = 1; //発射モード切替
     public float fireRate = 1f; // 発射レート（1秒あたりの発射回数）
-    public float offset = 0.5f; // 発射位置の間隔
-    public float angle = 15f; // 発射角度
+    public float offset = 0.5f; // 同時発射位置の間隔
+    public float angle = 15f; // 同時発射角度
     private float nextFireTime = 0f; // 次に発射できる時刻
 
     /// 弾のPrefab
@@ -31,7 +31,7 @@ public class ShootBullet : MonoBehaviour
 
     /// 弾の速さ
     [Range(3.0F, 100.0F), Tooltip("弾の射出する速さ")]
-    public float bulletSpeed = 16.0F;
+    public float bulletSpeed = 9.0F;
 
     /// 弾の初速度
     private Vector3 shootVelocity;
@@ -41,9 +41,15 @@ public class ShootBullet : MonoBehaviour
     {
         get { return shootVelocity; }
     }
+    void Start()
+    {
+        Dameger dameger = bulletPrefab.GetComponent<Dameger>();
+        dameger.damage2 = 1;
+        bulletPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    }
     void Update()
     {
-        //どうにかUniRxでUpdateから出せないか
+        //UniRxでUpdateから出せないか
         // 弾の初速度を更新
         shootVelocity = barrelObject.transform.up * bulletSpeed;
         // 弾の生成座標を更新
@@ -132,6 +138,10 @@ public class ShootBullet : MonoBehaviour
     public void ChangeBulletDamage(int newDamage)
     {
         Dameger dameger = bulletPrefab.GetComponent<Dameger>();
-        dameger.damage2 = newDamage;
+        dameger.damage2 += newDamage;
+    }
+    public void ChangeBulletSize(Vector3 newSize)
+    {
+        bulletPrefab.transform.localScale = newSize;
     }
 }

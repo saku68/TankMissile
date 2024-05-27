@@ -25,6 +25,17 @@ public class BossEnemyManager : MonoBehaviour
         enemyUiManager = GameObject.Find("EnemyUiCanvas").GetComponent<EnemyUiManager>();
         enemyUiManager.UpdateHp(hp);
         enemyUiManager.UpdateMaxHp(hp);
+
+        // プレイヤーを検索してターゲットとして設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
+        }
     }
 
     // Update is called once per frame
