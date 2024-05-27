@@ -20,6 +20,17 @@ public class EnemyManager : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+
+        // プレイヤーを検索してターゲットとして設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            target = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
+        }
     }
 
     // Update is called once per frame
