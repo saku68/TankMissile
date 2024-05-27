@@ -36,7 +36,15 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = target.position;
+        if (target != null)
+        {
+            agent.destination = target.position;
+        }
+        else
+        {
+            // プレイヤーが存在しない場合の処理（例: 追跡を停止する）
+            agent.destination = transform.position;
+        }
     }
     // ダメージの処理
     void Damage(int damage)

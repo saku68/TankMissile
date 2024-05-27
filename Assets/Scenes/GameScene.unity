@@ -1190,7 +1190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b19cde0a87607d4ca57787bbf0a03a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 963194227}
   antiDamage: 0
+  moveSpeed: 9
   hp:
     value: 100
   maxHp:
@@ -1228,8 +1230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 0.4
   barrelObject: {fileID: 1256292464}
-  minAngleY: -90
-  maxAngleY: 90
   minAngleX: 0
   maxAngleX: 89
 --- !u!114 &1491840159
