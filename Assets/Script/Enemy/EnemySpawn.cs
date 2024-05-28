@@ -41,7 +41,7 @@ public class EnemySpawn : MonoBehaviour
     public float spawnAngle1 = 110f; // 扇形の角度
     public float spawnAngle2 = 90f; // 扇形の角度
     private bool isWaveClearShopOpen = false;//一度だけ実行するためのフラグ
-    public float waveNumber = 1;
+    public int waveNumber = 1;
     void Start()
     {
         playerDieFlag = false;
@@ -73,13 +73,14 @@ public class EnemySpawn : MonoBehaviour
         moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
     }
     //ウェーブクリアメッセージとショップ画面への移行
+    //これは別にuiPresenterでもいいかも
     IEnumerator WaveClearOpenShop()
     {
         if (!isWaveClearShopOpen)
         {
             isWaveClearShopOpen = true;
             playerUiPresenter.LetsSetWaveClearText();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4f);
             playerUiPresenter.LetsOutWaveSetShopPanel();
             isWaveClearShopOpen = false;
         }
@@ -105,14 +106,18 @@ public class EnemySpawn : MonoBehaviour
     //ウェーブ１
     IEnumerator SpawnEnemiesPeriodically1()
     {
+        yield return new WaitForSeconds(1f);
         Debug.Log("Wave" + waveNumber + "開始");
+        playerUiPresenter.LetsWaveStartText(waveNumber);
+        yield return new WaitForSeconds(3f);
+        playerUiPresenter.LetsOutWaveStartText();
         spawnWaveFlag = true;
 
         // 時間計測
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 5f)
+        while (!playerDieFlag && elapsedTime < 20f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(1f, 3f);
@@ -131,14 +136,18 @@ public class EnemySpawn : MonoBehaviour
     //ウェーブ２
     IEnumerator SpawnEnemiesPeriodically2()
     {
+        yield return new WaitForSeconds(1f);
         Debug.Log("Wave" + waveNumber + "開始");
+        playerUiPresenter.LetsWaveStartText(waveNumber);
+        yield return new WaitForSeconds(3f);
+        playerUiPresenter.LetsOutWaveStartText();
         spawnWaveFlag = true;
 
         // 時間計測
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        while (!playerDieFlag && elapsedTime < 20f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2f, 4f);
@@ -157,14 +166,17 @@ public class EnemySpawn : MonoBehaviour
     //ウェーブ３
     IEnumerator SpawnEnemiesPeriodically3()
     {
+        yield return new WaitForSeconds(1f);
         Debug.Log("Wave" + waveNumber + "開始");
-        spawnWaveFlag = true;
+        playerUiPresenter.LetsWaveStartText(waveNumber);
+        yield return new WaitForSeconds(3f);
+        playerUiPresenter.LetsOutWaveStartText();
 
         // 時間計測
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        while (!playerDieFlag && elapsedTime < 20f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(3f, 5f);
@@ -276,7 +288,11 @@ public class EnemySpawn : MonoBehaviour
     //ボスウェーブ１
     IEnumerator BossSpawnEnemiesPeriodically1()
     {
-        Debug.Log("Wave" + waveNumber + "開始");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("BossWave" + waveNumber + "開始");
+        playerUiPresenter.LetsWaveStartText(waveNumber);
+        yield return new WaitForSeconds(3f);
+        playerUiPresenter.LetsOutWaveStartText();
         spawnWaveFlag = true;
         yield return new WaitForSeconds(3f);
         Debug.Log("ボス出現");

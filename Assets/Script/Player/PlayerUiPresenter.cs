@@ -14,7 +14,7 @@ public class PlayerUiPresenter : MonoBehaviour
     void Start()
     {
         playerUiManager = GetComponent<PlayerUiManager>();
-        enemySpawn = GetComponent<EnemySpawn>();
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
         shopManager = GetComponent<ShopManager>();
 
@@ -37,9 +37,10 @@ public class PlayerUiPresenter : MonoBehaviour
         // ショップから退出したときのイベントを購読し、EnemySpawnクラスの処理を実行
         _ = playerUiManager.OutShopFlagChanged
         .Where(flag => !flag) // outShopFlagがfalseになったときのみ購読
-        .Subscribe(_ => {
-        EnemySpawn.Instance.OnWaveStart();
-        PlayerUiManager.Instance.OutShopFlagCahge();
+        .Subscribe(_ =>
+        {
+            EnemySpawn.Instance.OnWaveStart();
+            PlayerUiManager.Instance.OutShopFlagCahge();
         })
         .AddTo(this); // Dispose管理
 
@@ -103,7 +104,7 @@ public class PlayerUiPresenter : MonoBehaviour
     }
     public void LetsChangePlayerDieFlag()
     {
-        playerUiManager.playerDeadFlag =true;
+        playerUiManager.playerDeadFlag = true;
     }
     public void LetsBuyAnyAbility(int much)
     {
@@ -136,5 +137,13 @@ public class PlayerUiPresenter : MonoBehaviour
     public void LetsChangeMoveSpeedMuch(int moveSpeedMuch, int moveSpeedLevel)
     {
         playerUiManager.ChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
+    }
+    public void LetsWaveStartText(int waveNumber)
+    {
+        playerUiManager.ChangeWaveStartText(waveNumber);
+    }
+    public void LetsOutWaveStartText()
+    {
+        playerUiManager.OutWaveStartText();
     }
 }
