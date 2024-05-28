@@ -15,7 +15,8 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody rb;
 
     public int antiDamage = 0;
-    public float moveSpeed = 9f;
+    [SerializeField]
+    private float moveSpeed = 9f;
     public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
     private IntReactiveProperty hp = new IntReactiveProperty(100);
@@ -48,10 +49,10 @@ public class PlayerManager : MonoBehaviour
             // 左右回転の操作
             float rotationInput = 0f;
             //このifとても美しくない
-            if (Input.GetKey(KeyCode.E)) rotationInput += 1f;
-            if (Input.GetKey(KeyCode.Q)) rotationInput -= 1f;
-            if (Input.GetKey(KeyCode.A)) rotationInput += 1f;
-            if (Input.GetKey(KeyCode.D)) rotationInput -= 1f;
+            if (Input.GetKey(KeyCode.E)) rotationInput -= 1f;
+            if (Input.GetKey(KeyCode.Q)) rotationInput += 1f;
+            if (Input.GetKey(KeyCode.A)) rotationInput -= 1f;
+            if (Input.GetKey(KeyCode.D)) rotationInput += 1f;
             playerPresenter.LetsRotate(rotationInput);
 
             // 戦車のように前進/後退
@@ -138,10 +139,13 @@ public class PlayerManager : MonoBehaviour
     {
         hp.Value += UpHp;
     }
-
     public void UpHpMax()
     {
         hp.Value = maxHp.Value;
+    }
+    public void UpMoveSpeed(float upMoveSpeed)
+    {
+        moveSpeed += upMoveSpeed;
     }
 
     private void OnTriggerEnter(Collider other)

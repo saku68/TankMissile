@@ -43,6 +43,7 @@ public class PlayerUiManager : MonoBehaviour
     public Text upDamageText;
 
     public Text upDifenceText;
+    public Text upMoveSpeedText;
 
     public int finalScore;
     public bool pauseFlag = false;
@@ -188,5 +189,10 @@ public class PlayerUiManager : MonoBehaviour
     public void ChangeAntiDamageMuch(int antiDamageMuch, int antiDamageLevel)
     {
         upDifenceText.text = "防御増加Lv" + antiDamageLevel + ":" + antiDamageMuch + "G";
+    }
+    //移動速度の価格表示
+    public void ChangeMoveSpeedMuch(int moveSpeedMuch, int moveSpeedLevel)
+    {
+        upMoveSpeedText.text = "移動速度Lv" + moveSpeedLevel + ":" + moveSpeedMuch + "G";
     }
 }

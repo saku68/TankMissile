@@ -61,6 +61,10 @@ public class PlayerPresenter : MonoBehaviour
     {
         playerManager.UpHpMax();
     }
+    public void LetsUpMoveSpeed(float upMoveSpeed)
+    {
+        playerManager.UpMoveSpeed(upMoveSpeed);
+    }
 
     // 防御力の変更
     public void UpAntiDamage(int upAntiDamage)
