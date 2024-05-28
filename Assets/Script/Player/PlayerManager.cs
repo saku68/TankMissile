@@ -10,15 +10,13 @@ public class PlayerManager : MonoBehaviour
 {
     private PlayerPresenter playerPresenter;
     private PlayerUiPresenter playerUiPresenter;
-
     private EnemySpawn enemySpawn;
-
-    // [SerializeField]
-    // private int maxHp = 10;
-    // [SerializeField]
-    // private int hp = 10;
+    public Camera mainCamera; // メインカメラの参照
+    private Rigidbody rb;
 
     public int antiDamage = 0;
+    [SerializeField]
+    private float moveSpeed = 9f;
     public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
     private IntReactiveProperty hp = new IntReactiveProperty(100);
@@ -32,20 +30,44 @@ public class PlayerManager : MonoBehaviour
         hp.Value = maxHp.Value;
         playerPresenter = GetComponent<PlayerPresenter>();
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
+        rb = GetComponent<Rigidbody>();
+        mainCamera = Camera.main;
 
         //参照先を減らすのとUniRxの練習のため
         //発射の処理
         _ = this.UpdateAsObservable()
         .Where(_ => Input.GetKey(KeyCode.Return))
         .Subscribe(_ => playerPresenter.LetsShoot());
-        //砲台の操作
+        //砲台とプレイヤーの操作
         _ = this.UpdateAsObservable()
         .Subscribe(_ =>
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             playerPresenter.LetsUpdateAngles(horizontal, vertical);
+
+            // 左右回転の操作
+            float rotationInput = 0f;
+            //このifとても美しくない
+            if (Input.GetKey(KeyCode.E)) rotationInput -= 1f;
+            if (Input.GetKey(KeyCode.Q)) rotationInput += 1f;
+            if (Input.GetKey(KeyCode.A)) rotationInput -= 1f;
+            if (Input.GetKey(KeyCode.D)) rotationInput += 1f;
+            playerPresenter.LetsRotate(rotationInput);
+
+            // 戦車のように前進/後退
+            if (Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.Q))
+            {
+                // 前進
+                rb.MovePosition(transform.position + transform.forward * Time.deltaTime * moveSpeed);
+            }
+            else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A))
+            {
+                // 後退
+                rb.MovePosition(transform.position - transform.forward * Time.deltaTime * moveSpeed);
+            }
         });
+
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
 
         // hpがmaxHpを超えないようにする
@@ -57,6 +79,7 @@ public class PlayerManager : MonoBehaviour
             }
         });
     }
+
     void Update()
     {
         // 確認用の加速
@@ -64,11 +87,6 @@ public class PlayerManager : MonoBehaviour
         {
             Time.timeScale = Time.timeScale == 1 ? 8 : 1; // Backspace キーで加速/元に戻す
         }
-        //確認用
-        // if (Input.GetKeyDown(KeyCode.UpArrow))
-        // {
-        //     playerPresenter.LetsChangeBulletSize(new Vector3(1, 1, 1));
-        // }
 
         // エスケープキーの操作
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -78,7 +96,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // ダメージの処理
-    void Damage(int damage)
+    private void Damage(int damage)
     {
         if (antiDamage > 0)
         {
@@ -92,21 +110,30 @@ public class PlayerManager : MonoBehaviour
         if (hp.Value <= 0)
         {
             hp.Value = 0;
-            Destroy(this.gameObject);
-            hp.Dispose();
-            maxHp.Dispose();
-            Debug.Log("死んだ！");
-            playerUiPresenter.LetsSetDeadText();
-            enemySpawn.PlayerDie();
-            playerPresenter.LetsOffDrawArc();
+            OnPlayerDeath();
         }
         Debug.Log("残りHP:" + hp);
     }
+    private void OnPlayerDeath()
+    {
+        // カメラを破壊しないようにする
+        mainCamera.transform.SetParent(null);
+
+        Destroy(this.gameObject);
+        hp.Dispose();
+        maxHp.Dispose();
+        Debug.Log("死んだ！");
+        playerUiPresenter.LetsSetDeadText();
+        enemySpawn.PlayerDie();
+        playerPresenter.LetsOffDrawArc();
+    }
+
     //MaxHpの増加
     public void UpMaxHp(int UpMaxHp)
     {
         maxHp.Value += UpMaxHp;
     }
+
     //Hpの回復
     public void UpHp(int UpHp)
     {
@@ -116,6 +143,11 @@ public class PlayerManager : MonoBehaviour
     {
         hp.Value = maxHp.Value;
     }
+    public void UpMoveSpeed(float upMoveSpeed)
+    {
+        moveSpeed += upMoveSpeed;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // 衝突相手が "Enemy" タグを持っているかチェックする

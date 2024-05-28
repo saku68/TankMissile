@@ -99,6 +99,7 @@ public class PlayerUiPresenter : MonoBehaviour
         playerUiManager.ChangeBulletSizeMuch(shopManager.upBulletSizeMuch, shopManager.upBulletSizeLevel);
         playerUiManager.ChangeBulletDamageMuch(shopManager.upBulletDamageMuch, shopManager.upBulletDamageLevel);
         playerUiManager.ChangeAntiDamageMuch(shopManager.antiDamageMuch, shopManager.antiDamageLevel);
+        playerUiManager.ChangeMoveSpeedMuch(shopManager.moveSpeedMuch, shopManager.moveSpeedLevel);
     }
     public void LetsChangePlayerDieFlag()
     {
@@ -131,5 +132,9 @@ public class PlayerUiPresenter : MonoBehaviour
     public void LetsChangeAntiDamageMuch(int antiDamageMuch, int antiDamageLevel)
     {
         playerUiManager.ChangeAntiDamageMuch(antiDamageMuch, antiDamageLevel);
+    }
+    public void LetsChangeMoveSpeedMuch(int moveSpeedMuch, int moveSpeedLevel)
+    {
+        playerUiManager.ChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
     }
 }

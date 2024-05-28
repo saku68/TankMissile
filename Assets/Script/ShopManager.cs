@@ -27,6 +27,9 @@ public class ShopManager : MonoBehaviour
     public int antiDamageMuch = 6;
     public int antiDamageLevel = 1;
     public int upAntiDamage;
+    public int upMoveSpeed;
+    public int moveSpeedLevel = 1;
+    public int moveSpeedMuch = 4;
     void Start()
     {
         playerPresenter = GameObject.Find("Player").GetComponent<PlayerPresenter>();
@@ -34,6 +37,7 @@ public class ShopManager : MonoBehaviour
         playerUiManager = GetComponent<PlayerUiManager>();
         upBulletSize = new Vector3(0.7f, 0.7f, 0.7f);
         upAntiDamage = 3;
+        upMoveSpeed = 6;
     }
     //発射レート購入ボタン
     public void UpFireRateButton()
@@ -143,6 +147,22 @@ public class ShopManager : MonoBehaviour
             antiDamageLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeAntiDamageMuch(antiDamageMuch, antiDamageLevel);
+        }
+    }
+    //移動速度増加ボタン
+    public void UpMoveSpeedButton()
+    {
+        if (playerUiManager.playerMoney >= moveSpeedMuch)
+        {
+            //能力の上昇
+            playerPresenter.LetsUpMoveSpeed(upMoveSpeed);
+            //お金の減少の処理
+            playerUiPresenter.LetsBuyAnyAbility(moveSpeedMuch);
+            //更新
+            moveSpeedMuch += 3;
+            moveSpeedLevel += 1;
+            //価格変更の処理
+            playerUiPresenter.LetsChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
         }
     }
 }
