@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     public int antiDamage = 0;
     [SerializeField]
-    private float moveSpeed = 9f;
+    private float moveSpeed = 5f;
     public IReadOnlyReactiveProperty<int> Hp => hp;
     [SerializeField]
     private IntReactiveProperty hp = new IntReactiveProperty(100);

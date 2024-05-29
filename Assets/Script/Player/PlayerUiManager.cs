@@ -28,6 +28,8 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject waveClearText;
+    public GameObject waveStartTextPanel;
+    public Text waveStartText;
     public Text finalScoreText;
     public Text moneyText;
     public Text fireRateText;
@@ -64,6 +66,7 @@ public class PlayerUiManager : MonoBehaviour
         finalScorePanel.SetActive(false);
         pauseButton.SetActive(true);
         waveClearText.SetActive(false);
+        waveStartTextPanel.SetActive(false);
         moneyText.text = "Gold:" + 0;
     }
     void Update()
@@ -154,6 +157,15 @@ public class PlayerUiManager : MonoBehaviour
     public void OutWaveClearText()
     {
         waveClearText.SetActive(false);
+    }
+    public void ChangeWaveStartText(int waveNumber)
+    {
+        waveStartTextPanel.SetActive(true);
+        waveStartText.text = "WAVE " + waveNumber;
+    }
+    public void OutWaveStartText()
+    {
+        waveStartTextPanel.SetActive(false);
     }
     //購入処理
     public void BuyAnyAbility(int much)

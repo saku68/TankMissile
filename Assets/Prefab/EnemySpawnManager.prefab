@@ -57,6 +57,6 @@ MonoBehaviour:
   - {fileID: 3797132988793955252, guid: a1a5226f87893d14383231b2326346f3, type: 3}
   spawnDistance1: 25
   spawnDistance2: 80
-  spawnAngle1: 110
-  spawnAngle2: 90
+  spawnAngle1: 120
+  spawnAngle2: 96
   waveNumber: 1
