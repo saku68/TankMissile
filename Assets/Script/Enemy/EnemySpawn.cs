@@ -98,8 +98,54 @@ public class EnemySpawn : MonoBehaviour
                 StartCoroutine(SpawnEnemiesPeriodically3());
                 break;
             case 4:
-                StartCoroutine(BossSpawnEnemiesPeriodically1());
+                StartCoroutine(SpawnEnemiesPeriodically4());
                 break;
+            case 6:
+                StartCoroutine(SpawnEnemiesPeriodically1());
+                break;
+            case 7:
+                StartCoroutine(SpawnEnemiesPeriodically2());
+                break;
+            case 8:
+                StartCoroutine(SpawnEnemiesPeriodically3());
+                break;
+            case 9:
+                StartCoroutine(SpawnEnemiesPeriodically4());
+                break;
+        }
+        if (waveNumber % 5 == 0)
+        {
+            StartCoroutine(BossSpawnEnemiesPeriodically1());
+        }
+        if (waveNumber > 10)
+        {
+            switch (waveNumber % 10)
+            {
+                case 1:
+                    StartCoroutine(SpawnEnemiesPeriodically1());
+                    break;
+                case 2:
+                    StartCoroutine(SpawnEnemiesPeriodically2());
+                    break;
+                case 3:
+                    StartCoroutine(SpawnEnemiesPeriodically3());
+                    break;
+                case 4:
+                    StartCoroutine(SpawnEnemiesPeriodically4());
+                    break;
+                case 6:
+                    StartCoroutine(SpawnEnemiesPeriodically1());
+                    break;
+                case 7:
+                    StartCoroutine(SpawnEnemiesPeriodically2());
+                    break;
+                case 8:
+                    StartCoroutine(SpawnEnemiesPeriodically3());
+                    break;
+                case 9:
+                    StartCoroutine(SpawnEnemiesPeriodically4());
+                    break;
+            }
         }
     }
 
@@ -120,7 +166,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 20f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(1f, 3f);
+            float waitTime1 = UnityEngine.Random.Range(2f, 3f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -191,6 +237,34 @@ public class EnemySpawn : MonoBehaviour
         Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
+    //ウェーブ４
+    IEnumerator SpawnEnemiesPeriodically4()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Wave" + waveNumber + "開始");
+        playerUiPresenter.LetsWaveStartText(waveNumber);
+        yield return new WaitForSeconds(3f);
+        playerUiPresenter.LetsOutWaveStartText();
+
+        // 時間計測
+        float elapsedTime = 0f;
+
+        //ウェーブ時間の設定
+        while (!playerDieFlag && elapsedTime < 20f)
+        {
+            // 2から5秒のランダムな待ち時間を生成
+            float waitTime1 = UnityEngine.Random.Range(4f, 5f);
+            yield return new WaitForSeconds(waitTime1);
+
+            SpawnEnemy1(3);//手前の湧き
+            SpawnEnemy2(3);//奥の湧き
+
+            // 経過時間を加算
+            elapsedTime += waitTime1;
+        }
+        Debug.Log("Wave" + waveNumber + "終了");
+        spawnWaveFlag = false;
+    }
 
     //デス確認で湧き停止
     public void PlayerDie()
@@ -202,6 +276,7 @@ public class EnemySpawn : MonoBehaviour
             StopCoroutine(SpawnEnemiesPeriodically1()); //ウェーブ１停止
             StopCoroutine(SpawnEnemiesPeriodically2()); //ウェーブ２停止
             StopCoroutine(SpawnEnemiesPeriodically3()); //ウェーブ３停止
+            StopCoroutine(SpawnEnemiesPeriodically4()); //ウェーブ4停止
         }
     }
 
