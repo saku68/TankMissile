@@ -89,8 +89,11 @@ public class EnemySpawn : MonoBehaviour
     {
         Debug.Log("OnWaveStart実行");
         spawnWaveFlag = true;
-        switch (waveNumber)
+        switch (waveNumber % 10)
         {
+            case 1:
+                StartCoroutine(SpawnEnemiesPeriodically1());
+                break;
             case 2:
                 StartCoroutine(SpawnEnemiesPeriodically2());
                 break;
@@ -116,36 +119,6 @@ public class EnemySpawn : MonoBehaviour
         if (waveNumber % 5 == 0)
         {
             StartCoroutine(BossSpawnEnemiesPeriodically1());
-        }
-        if (waveNumber > 10)
-        {
-            switch (waveNumber % 10)
-            {
-                case 1:
-                    StartCoroutine(SpawnEnemiesPeriodically1());
-                    break;
-                case 2:
-                    StartCoroutine(SpawnEnemiesPeriodically2());
-                    break;
-                case 3:
-                    StartCoroutine(SpawnEnemiesPeriodically3());
-                    break;
-                case 4:
-                    StartCoroutine(SpawnEnemiesPeriodically4());
-                    break;
-                case 6:
-                    StartCoroutine(SpawnEnemiesPeriodically1());
-                    break;
-                case 7:
-                    StartCoroutine(SpawnEnemiesPeriodically2());
-                    break;
-                case 8:
-                    StartCoroutine(SpawnEnemiesPeriodically3());
-                    break;
-                case 9:
-                    StartCoroutine(SpawnEnemiesPeriodically4());
-                    break;
-            }
         }
     }
 
