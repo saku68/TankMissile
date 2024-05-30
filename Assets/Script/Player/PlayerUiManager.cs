@@ -22,6 +22,7 @@ public class PlayerUiManager : MonoBehaviour
 
     public int playerScore;
     public Slider hpSlider;
+    public Slider sensitivitySlider;
     public GameObject deadText;
     public GameObject finalScorePanel;
     public GameObject shopPanel;
@@ -29,6 +30,7 @@ public class PlayerUiManager : MonoBehaviour
     public GameObject pauseButton;
     public GameObject waveClearText;
     public GameObject waveStartTextPanel;
+    public GameObject settingPanel;
     public Text waveStartText;
     public Text finalScoreText;
     public Text moneyText;
@@ -68,6 +70,10 @@ public class PlayerUiManager : MonoBehaviour
         waveClearText.SetActive(false);
         waveStartTextPanel.SetActive(false);
         moneyText.text = "Gold:" + 0;
+        //ここに監視が来るのはアリなのか？
+        sensitivitySlider.OnValueChangedAsObservable()
+            .Subscribe(value => PlayerUiPresenter.Instance.OnSensitivityChanged(value))
+            .AddTo(this);
     }
     void Update()
     {
@@ -149,6 +155,16 @@ public class PlayerUiManager : MonoBehaviour
         pausePanel.SetActive(false);
         pauseButton.SetActive(true);
         Time.timeScale = 1;
+    }
+    public void SetSettingPanel()
+    {
+        pausePanel.SetActive(false);
+        settingPanel.SetActive(true);
+    }
+    public void OutSettingPanel()
+    {
+        settingPanel.SetActive(false);
+        pausePanel.SetActive(true);
     }
     public void SetWaveClearText()
     {

@@ -2,21 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.UI; 
 using UniRx.Triggers;
 using System;
 
 public class PlayerUiPresenter : MonoBehaviour
 {
+    public static PlayerUiPresenter Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private PlayerUiManager playerUiManager;
     private PlayerManager playerManager;
     private ShopManager shopManager;
     private EnemySpawn enemySpawn;
+    private AngleController angleController;
     void Start()
     {
         playerUiManager = GetComponent<PlayerUiManager>();
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
         shopManager = GetComponent<ShopManager>();
+        angleController = GameObject.Find("Player").GetComponent<AngleController>();
 
         //PlayerのHpを監視
         _ = playerManager.Hp
@@ -54,6 +69,14 @@ public class PlayerUiPresenter : MonoBehaviour
         _ = EnemySpawn.Instance.MoneyReactive
         .Subscribe(money => playerUiManager.playerMoney = money)
         .AddTo(this);
+    }
+    //左右感度の値の受け渡し
+    public void OnSensitivityChanged(float newSensitivity)
+    {
+        if (angleController != null)
+        {
+            angleController.SetSensitivity(newSensitivity);
+        }
     }
 
     public void LetsSetDeadText()
