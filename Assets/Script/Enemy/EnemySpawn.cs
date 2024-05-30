@@ -201,7 +201,7 @@ public class EnemySpawn : MonoBehaviour
             float waitTime1 = UnityEngine.Random.Range(3f, 5f);
             yield return new WaitForSeconds(waitTime1);
 
-            SpawnEnemy1(2);//手前の湧き
+            SpawnEnemy3(2);//手前の湧き
             SpawnEnemy2(3);//奥の湧き
 
             // 経過時間を加算
@@ -302,6 +302,41 @@ public class EnemySpawn : MonoBehaviour
 
             // プレイヤー位置からランダムな位置に湧く
             spawnPosition = playerPosition + randomOffset;
+
+            // 指定された敵のプレハブを生成
+            GameObject enemyPrefab = enemyPrefabs[enemyNumber];
+            if (enemyPrefab != null)
+            {
+                Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+            }
+        }
+    }
+    //手前の空中の敵のスポーン
+    public void SpawnEnemy3(int enemyNumber)
+    {
+        if (enemyNumber >= 0 && enemyNumber < enemyPrefabs.Count)
+        {
+            // プレイヤーの位置を取得
+            Vector3 playerPosition = transform.position;
+
+            // 扇形の端の位置を計算
+            Vector3 spawnDirection = Quaternion.Euler(0f, -spawnAngle1 / 2f, 0f) * transform.forward; // 扇形の左端の方向
+            Vector3 spawnPosition = playerPosition + spawnDirection.normalized * spawnDistance1; // スポーン位置
+
+            // ランダムな位置を選択
+            float randomAngle = UnityEngine.Random.Range(-spawnAngle1 / 2f, spawnAngle1 / 2f); // 扇形の角度内でランダムな角度を選択
+            Vector3 randomOffset = Quaternion.Euler(0f, randomAngle, 0f) * Vector3.forward * spawnDistance1;
+
+            // ランダムな高さを選択
+            float randomHeight = UnityEngine.Random.Range(6f, 10f); // 高さの範囲を指定
+
+            // プレイヤー位置からランダムな位置に湧く
+            spawnPosition = playerPosition + randomOffset;
+            spawnPosition.y += randomHeight; // 高さを設定
 
             // 指定された敵のプレハブを生成
             GameObject enemyPrefab = enemyPrefabs[enemyNumber];

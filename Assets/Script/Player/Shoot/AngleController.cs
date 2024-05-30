@@ -32,4 +32,9 @@ public class AngleController : MonoBehaviour
     {
         transform.Rotate(new Vector3(0, rotationInput * sensitivity, 0));
     }
+    //左右感度の変更
+    public void SetSensitivity(float newSensitivity)
+    {
+        sensitivity = Mathf.Clamp(newSensitivity, 0.01f, 5.0f);
+    }
 }
