@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 public class ShootBullet : MonoBehaviour
 {
-    public int shootMode = 1; //発射モード切替
+    public int shootMode = 1; // 発射モード切替
     public float fireRate = 1f; // 発射レート（1秒あたりの発射回数）
     public float offset = 0.5f; // 同時発射位置の間隔
     public float angle = 15f; // 同時発射角度
@@ -71,7 +71,7 @@ public class ShootBullet : MonoBehaviour
 
     private void ShootSingle()
     {
-        GameObject obj = Instantiate(bulletPrefab, instantiatePosition, Quaternion.identity);
+        GameObject obj = Instantiate(bulletPrefab, instantiatePosition, barrelObject.transform.rotation);
         Rigidbody rid = obj.GetComponent<Rigidbody>();
         rid.AddForce(shootVelocity * rid.mass, ForceMode.Impulse);
         nextFireTime = Time.time + 1f / fireRate;
@@ -82,8 +82,8 @@ public class ShootBullet : MonoBehaviour
     {
         Vector3 positionOffsetRight = barrelObject.transform.right * offset;
 
-        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, Quaternion.identity);
-        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, Quaternion.identity);
+        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, barrelObject.transform.rotation);
+        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, barrelObject.transform.rotation);
 
         Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
         Rigidbody rid2 = obj2.GetComponent<Rigidbody>();
@@ -100,12 +100,12 @@ public class ShootBullet : MonoBehaviour
     {
         Vector3 positionOffsetRight = barrelObject.transform.right * offset;
 
-        Quaternion rotationRight = Quaternion.AngleAxis(angle, barrelObject.transform.up);
-        Quaternion rotationLeft = Quaternion.AngleAxis(-angle, barrelObject.transform.up);
+        Quaternion rotationRight = barrelObject.transform.rotation * Quaternion.Euler(0, angle, 0);
+        Quaternion rotationLeft = barrelObject.transform.rotation * Quaternion.Euler(0, -angle, 0);
 
-        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, Quaternion.identity);
-        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, Quaternion.identity);
-        GameObject obj3 = Instantiate(bulletPrefab, instantiatePosition, Quaternion.identity);
+        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, rotationRight);
+        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, rotationLeft);
+        GameObject obj3 = Instantiate(bulletPrefab, instantiatePosition, barrelObject.transform.rotation);
 
         Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
         Rigidbody rid2 = obj2.GetComponent<Rigidbody>();
