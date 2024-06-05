@@ -6,9 +6,10 @@ using UnityEngine.AI;
 
 public class BossEnemyManager : MonoBehaviour
 {
+    private Animator animator;
     private EnemyUiManager enemyUiManager;
     private EnemySpawn enemySpawn;
-    [SerializeField ]
+    [SerializeField]
     private int enemyScore;
 
     [SerializeField]
@@ -20,8 +21,9 @@ public class BossEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         enemyUiManager = GameObject.Find("EnemyUiCanvas").GetComponent<EnemyUiManager>();
         enemyUiManager.UpdateHp(hp);
         enemyUiManager.UpdateMaxHp(hp);

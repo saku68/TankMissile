@@ -115,7 +115,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   enemyScore: 30
   enemyMoney: 8
-  hp: 2
+  hp: 1
 --- !u!114 &4699648136263499435
 MonoBehaviour:
   m_ObjectHideFlags: 0

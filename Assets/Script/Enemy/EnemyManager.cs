@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
+    private Animator animator;
     private EnemySpawn enemySpawn;
     [SerializeField ]
     private int enemyScore;
@@ -18,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
 
@@ -50,13 +52,21 @@ public class EnemyManager : MonoBehaviour
     void Damage(int damage)
     {
         hp -= damage;
+        animator.SetTrigger("Damage");
+        animator.SetInteger("DamageAmount", damage);
         if (hp <= 0)
         {
             hp = 0;
             enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
-            Destroy(this.gameObject);
+            StartCoroutine(OnEnemyDeath());
         }
+    }
+    private IEnumerator OnEnemyDeath()
+    {
+        animator.SetTrigger("Death");
+        yield return new WaitForSeconds(1f);
+        Destroy(this.gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
