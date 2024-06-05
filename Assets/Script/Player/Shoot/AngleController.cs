@@ -11,17 +11,27 @@ public class AngleController : MonoBehaviour
     [SerializeField, Tooltip("砲身のオブジェクト")]
     private GameObject barrelObject;
 
-    [SerializeField] private float minAngleX;
-    [SerializeField] private float maxAngleX;
+    [SerializeField] private float minAngleX = -60f;
+    [SerializeField] private float maxAngleX = 45f;
+
+    private float normalizedXAngle;
+
+    private void Update()
+    {
+        normalizedXAngle = NormalizeAngle(barrelObject.transform.eulerAngles.x);
+    }
+
+    // 角度を正規化する
+    private float NormalizeAngle(float angle)
+    {
+        if (angle > 180) angle -= 360;
+        return angle;
+    }
 
     // 上下左右の入力を受け取り、角度を更新する
     public void UpdateAngles(float horizontalInput, float verticalInput)
     {
-        float currentXAngle = barrelObject.transform.eulerAngles.x;
-
-        if (currentXAngle > 180) currentXAngle -= 360;
-
-        if ((currentXAngle >= minAngleX && -verticalInput < 0) || (currentXAngle <= maxAngleX && -verticalInput > 0))
+        if (IsWithinVerticalLimits(-verticalInput))
         {
             barrelObject.transform.Rotate(new Vector3(-verticalInput * sensitivity, 0, 0));
         }
@@ -32,7 +42,15 @@ public class AngleController : MonoBehaviour
     {
         transform.Rotate(new Vector3(0, rotationInput * sensitivity, 0));
     }
-    //左右感度の変更
+
+    // 上下の角度制限をチェック
+    private bool IsWithinVerticalLimits(float verticalInput)
+    {
+        float newAngle = normalizedXAngle + verticalInput * sensitivity;
+        return newAngle >= minAngleX && newAngle <= maxAngleX;
+    }
+
+    // 感度の変更
     public void SetSensitivity(float newSensitivity)
     {
         sensitivity = Mathf.Clamp(newSensitivity, 0.01f, 5.0f);

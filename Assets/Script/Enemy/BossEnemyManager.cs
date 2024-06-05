@@ -6,9 +6,10 @@ using UnityEngine.AI;
 
 public class BossEnemyManager : MonoBehaviour
 {
+    private Animator animator;
     private EnemyUiManager enemyUiManager;
     private EnemySpawn enemySpawn;
-    [SerializeField ]
+    [SerializeField]
     private int enemyScore;
 
     [SerializeField]
@@ -20,8 +21,9 @@ public class BossEnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         enemyUiManager = GameObject.Find("EnemyUiCanvas").GetComponent<EnemyUiManager>();
         enemyUiManager.UpdateHp(hp);
         enemyUiManager.UpdateMaxHp(hp);
@@ -60,10 +62,10 @@ public class BossEnemyManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        // 衝突相手が "Player" タグを持っているかチェックする
-        if (other.CompareTag("Player"))
+        // 衝突相手が "Bullet" タグを持っているかチェックする
+        if (other.CompareTag("Bullet"))
         {
-            // 衝突相手が "Player" タグを持っている場合のみダメージを与える
+            // 衝突相手が "Bullet" タグを持っている場合のみダメージを与える
             Dameger damager = other.GetComponent<Dameger>();
             if (damager != null)
             {

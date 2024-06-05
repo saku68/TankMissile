@@ -116,15 +116,6 @@ public class DrawArc : MonoBehaviour
                 ShowPointer(hitPosition);
             }
         }
-        // else
-        // {
-        //     // 放物線とマーカーを表示しない
-        //     for (int i = 0; i < lineRenderers.Length; i++)
-        //     {
-        //         lineRenderers[i].enabled = false;
-        //     }
-        //     pointerObject.SetActive(false);
-        // }
     }
 
     /// <summary>
@@ -132,11 +123,10 @@ public class DrawArc : MonoBehaviour
     /// </summary>
     /// <param name="time">経過時間</param>
     /// <returns>座標</returns>
-    private Vector3 GetArcPositionAtTime(float time)
+     private Vector3 GetArcPositionAtTime(float time)
     {
         return (arcStartPosition + ((initialVelocity * time) + (0.5f * time * time) * Physics.gravity));
     }
-
     /// <summary>
     /// LineRendererの座標を更新
     /// </summary>
@@ -150,9 +140,6 @@ public class DrawArc : MonoBehaviour
         lineRenderers[index].enabled = draw;
     }
 
-    /// <summary>
-    /// LineRendererオブジェクトを作成
-    /// </summary>
     private void CreateLineRendererObjects()
     {
         // 親オブジェクトを作り、LineRendererを持つ子オブジェクトを作る
@@ -180,46 +167,35 @@ public class DrawArc : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 指定座標にマーカーを表示
-    /// </summary>
-    /// <param name="position"></param>
     private void ShowPointer(Vector3 position)
     {
         pointerObject.transform.position = position;
         pointerObject.SetActive(true);
     }
 
-    /// <summary>
-    /// 2点間の線分で衝突判定し、衝突する時間を返す
-    /// </summary>
-    /// <returns>衝突した時間(してない場合はfloat.MaxValue)</returns>
     private float GetArcHitTime(float startTime, float endTime)
     {
-        // Linecastする線分の始終点の座標
         Vector3 startPosition = GetArcPositionAtTime(startTime);
         Vector3 endPosition = GetArcPositionAtTime(endTime);
 
-        // 衝突判定
         RaycastHit hitInfo;
         if (Physics.Linecast(startPosition, endPosition, out hitInfo))
         {
-            // 衝突したColliderまでの距離から実際の衝突時間を算出
             float distance = Vector3.Distance(startPosition, endPosition);
             return startTime + (endTime - startTime) * (hitInfo.distance / distance);
         }
         return float.MaxValue;
     }
-    //放物線の停止
+
     public void OffDrawArc()
     {
         drawArc = false;
         pointerObject.SetActive(false);
         Debug.Log("放物線停止");
-        // 放物線とマーカーを表示しない
         for (int i = 0; i < lineRenderers.Length; i++)
         {
             lineRenderers[i].enabled = false;
         }
     }
 }
+

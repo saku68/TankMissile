@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
         playerPresenter = GameObject.Find("Player").GetComponent<PlayerPresenter>();
         playerUiPresenter = GetComponent<PlayerUiPresenter>();
         playerUiManager = GetComponent<PlayerUiManager>();
-        upBulletSize = new Vector3(0.7f, 0.7f, 0.7f);
+        upBulletSize = new Vector3(0.9f, 0.9f, 0.9f);
         upAntiDamage = 3;
         upMoveSpeed = 6;
     }
@@ -112,7 +112,7 @@ public class ShopManager : MonoBehaviour
             //更新
             upBulletSizeMuch += 5;
             upBulletSizeLevel += 1;
-            upBulletSize += new Vector3(0.2f, 0.2f, 0.2f);
+            upBulletSize += new Vector3(0.4f, 0.4f, 0.4f);
             //価格変更の処理
             playerUiPresenter.LetsChangeBulletSizeMuch(upBulletSizeMuch, upBulletSizeLevel);
         }
