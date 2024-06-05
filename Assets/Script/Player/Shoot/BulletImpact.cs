@@ -28,26 +28,23 @@ public class BulletImpact : MonoBehaviour
             // 衝突地点と回転を取得
             Vector3 hitPosition = collision.contacts[0].point;
             Quaternion hitRotation = Quaternion.LookRotation(collision.contacts[0].normal);
-
             GameObject hitImpactParticle = null;
 
             // 衝突対象に応じたパーティクルエフェクトを生成
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 hitImpactParticle = Instantiate(enemyHitImpactParticle, hitPosition, hitRotation);
-            }
-            else
-            {
-                hitImpactParticle = Instantiate(groundHitImpactParticle, hitPosition, hitRotation);
-            }
-
-            if (hitImpactParticle != null)
-            {
+                // 弾を消す
+                Destroy(gameObject, destroyDelay);
                 Destroy(hitImpactParticle, particleLifetime); // パーティクルエフェクトを一定時間後に破壊
             }
-
-            // 弾を消す
-            Destroy(gameObject, destroyDelay);
+            if (!collision.gameObject.CompareTag("Bullet"))
+            {
+                hitImpactParticle = Instantiate(groundHitImpactParticle, hitPosition, hitRotation);
+                // 弾を消す
+                Destroy(gameObject, destroyDelay);
+                Destroy(hitImpactParticle, particleLifetime); // パーティクルエフェクトを一定時間後に破壊
+            }
         }
     }
     public void ChangeBulletImpactSize(Vector3 newSize)

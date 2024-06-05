@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2458794101221344608}
   m_Layer: 0
   m_Name: Fireplace_blended
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4837,7 +4837,7 @@ GameObject:
   - component: {fileID: 2458328823058459402}
   m_Layer: 0
   m_Name: Fireplace_additive (1)
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9659,7 +9659,7 @@ GameObject:
   - component: {fileID: 2365925284808040542}
   m_Layer: 0
   m_Name: GB_flame_FX_1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9713,7 +9713,7 @@ Transform:
   m_GameObject: {fileID: 2368695380886305482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 2.7000003, y: 2.7000003, z: 2.7000003}
+  m_LocalScale: {x: 6.100001, y: 6.100001, z: 6.100001}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2365925284808040542}
@@ -9813,7 +9813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage1: 0
-  damage2: 1
+  damage2: 5
   damage3: 0
   damage4: 0
 --- !u!114 &-9044458957954582394
@@ -9845,7 +9845,7 @@ GameObject:
   - component: {fileID: 2456817933757420850}
   m_Layer: 0
   m_Name: Fireplace_additive
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
