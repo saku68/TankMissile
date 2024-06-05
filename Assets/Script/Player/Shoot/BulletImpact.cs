@@ -15,6 +15,11 @@ public class BulletImpact : MonoBehaviour
 
     [SerializeField, Tooltip("パーティクルエフェクトの寿命（秒）")]
     private float particleLifetime = 2.0f;
+    public void ResetBulletImpactSize()
+    {
+        enemyHitImpactParticle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        groundHitImpactParticle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -44,6 +49,11 @@ public class BulletImpact : MonoBehaviour
             // 弾を消す
             Destroy(gameObject, destroyDelay);
         }
+    }
+    public void ChangeBulletImpactSize(Vector3 newSize)
+    {
+        enemyHitImpactParticle.transform.localScale = newSize;
+        groundHitImpactParticle.transform.localScale = newSize;
     }
 }
 

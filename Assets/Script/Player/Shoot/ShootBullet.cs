@@ -34,12 +34,17 @@ public class ShootBullet : MonoBehaviour
     {
         get { return shootVelocity; }
     }
+    private Dameger dameger;
+    private BulletImpact bulletImpact;
 
     void Start()
     {
-        Dameger dameger = bulletPrefab.GetComponent<Dameger>();
+        dameger = bulletPrefab.GetComponent<Dameger>();
+        bulletImpact = bulletPrefab.GetComponent<BulletImpact>();
         dameger.damage2 = 1;
+        dameger = bulletPrefab.GetComponent<Dameger>();
         bulletPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        bulletImpact.ResetBulletImpactSize();
     }
 
     void Update()
@@ -123,12 +128,12 @@ public class ShootBullet : MonoBehaviour
 
     public void ChangeBulletDamage(int newDamage)
     {
-        Dameger dameger = bulletPrefab.GetComponent<Dameger>();
         dameger.damage2 += newDamage;
     }
 
     public void ChangeBulletSize(Vector3 newSize)
     {
+        bulletImpact.ChangeBulletImpactSize(newSize);
         bulletPrefab.transform.localScale = newSize;
     }
 }
