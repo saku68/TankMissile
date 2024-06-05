@@ -62,10 +62,10 @@ public class BossEnemyManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        // 衝突相手が "Player" タグを持っているかチェックする
-        if (other.CompareTag("Player"))
+        // 衝突相手が "Bullet" タグを持っているかチェックする
+        if (other.CompareTag("Bullet"))
         {
-            // 衝突相手が "Player" タグを持っている場合のみダメージを与える
+            // 衝突相手が "Bullet" タグを持っている場合のみダメージを与える
             Dameger damager = other.GetComponent<Dameger>();
             if (damager != null)
             {

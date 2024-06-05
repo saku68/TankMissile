@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -59,25 +60,24 @@ public class EnemyManager : MonoBehaviour
             hp = 0;
             enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
-            StartCoroutine(OnEnemyDeath());
+            animator.SetTrigger("Death");
         }
     }
-    private IEnumerator OnEnemyDeath()
+    public void OnEnemyDeath()
     {
-        animator.SetTrigger("Death");
-        yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
-        // 衝突相手が "Player" タグを持っているかチェックする
-        if (other.CompareTag("Player"))
+        // 衝突相手が "Bullet" タグを持っているかチェックする
+        if (other.CompareTag("Bullet"))
         {
-            // 衝突相手が "Player" タグを持っている場合のみダメージを与える
+            // 衝突相手が "Bullet" タグを持っている場合のみダメージを与える
             Dameger damager = other.GetComponent<Dameger>();
             if (damager != null)
             {
                 Damage(damager.damage2);
+                Destroy(other.gameObject);
             }
         }
     }
