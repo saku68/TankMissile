@@ -136,7 +136,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2f, 3f);
@@ -166,7 +166,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2f, 4f);
@@ -195,7 +195,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(3f, 5f);
@@ -223,7 +223,7 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(4f, 5f);

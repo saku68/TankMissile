@@ -223,4 +223,15 @@ public class PlayerUiManager : MonoBehaviour
     {
         upMoveSpeedText.text = "移動速度Lv" + moveSpeedLevel + ":" + moveSpeedMuch + "G";
     }
+    public void ChangeUpShootBulletModeText(int shootBulletModeMuch, int shootBulletModeLevel)
+    {
+        if (shootBulletModeLevel == 3)
+        {
+            upShootBulletText.text = "発射弾数増加LvMax";
+        }
+        else
+        {
+            upShootBulletText.text = "発射弾数増加Lv" + shootBulletModeLevel + ":" + shootBulletModeMuch + "G";
+        }
+    }
 }

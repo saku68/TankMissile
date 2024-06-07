@@ -124,6 +124,7 @@ public class PlayerUiPresenter : MonoBehaviour
         playerUiManager.ChangeBulletDamageMuch(shopManager.upBulletDamageMuch, shopManager.upBulletDamageLevel);
         playerUiManager.ChangeAntiDamageMuch(shopManager.antiDamageMuch, shopManager.antiDamageLevel);
         playerUiManager.ChangeMoveSpeedMuch(shopManager.moveSpeedMuch, shopManager.moveSpeedLevel);
+        playerUiManager.ChangeUpShootBulletModeText(shopManager.upShootBulletModeMuch, shopManager.upShootBulletModeLevel);
     }
     public void LetsChangePlayerDieFlag()
     {
@@ -164,6 +165,10 @@ public class PlayerUiPresenter : MonoBehaviour
     public void LetsWaveStartText(int waveNumber)
     {
         playerUiManager.ChangeWaveStartText(waveNumber);
+    }
+    public void LetsUpShootBulletModeText(int shootBulletModeMuch, int shootBulletModeLevel)
+    {
+        playerUiManager.ChangeUpShootBulletModeText(shootBulletModeMuch, shootBulletModeLevel);
     }
     public void LetsOutWaveStartText()
     {

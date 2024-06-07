@@ -34,6 +34,7 @@ public class ShootBullet : MonoBehaviour
     {
         get { return shootVelocity; }
     }
+
     private Dameger dameger;
     private BulletImpact bulletImpact;
 
@@ -42,7 +43,6 @@ public class ShootBullet : MonoBehaviour
         dameger = bulletPrefab.GetComponent<Dameger>();
         bulletImpact = bulletPrefab.GetComponent<BulletImpact>();
         dameger.damage2 = 1;
-        dameger = bulletPrefab.GetComponent<Dameger>();
         bulletPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         bulletImpact.ResetBulletImpactSize();
     }
@@ -105,19 +105,19 @@ public class ShootBullet : MonoBehaviour
     {
         Vector3 positionOffsetRight = barrelObject.transform.right * offset;
 
-        Quaternion rotationRight = barrelObject.transform.rotation * Quaternion.Euler(0, angle, 0);
-        Quaternion rotationLeft = barrelObject.transform.rotation * Quaternion.Euler(0, -angle, 0);
+        Vector3 shootDirectionRight = Quaternion.AngleAxis(angle, Vector3.up) * barrelObject.transform.forward;
+        Vector3 shootDirectionLeft = Quaternion.AngleAxis(-angle, Vector3.up) * barrelObject.transform.forward;
 
-        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, rotationRight);
-        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, rotationLeft);
+        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, barrelObject.transform.rotation);
+        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, barrelObject.transform.rotation);
         GameObject obj3 = Instantiate(bulletPrefab, instantiatePosition, barrelObject.transform.rotation);
 
         Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
         Rigidbody rid2 = obj2.GetComponent<Rigidbody>();
         Rigidbody rid3 = obj3.GetComponent<Rigidbody>();
 
-        rid1.AddForce(rotationRight * shootVelocity * rid1.mass, ForceMode.Impulse);
-        rid2.AddForce(rotationLeft * shootVelocity * rid2.mass, ForceMode.Impulse);
+        rid1.AddForce(shootDirectionRight * bulletSpeed * rid1.mass, ForceMode.Impulse);
+        rid2.AddForce(shootDirectionLeft * bulletSpeed * rid2.mass, ForceMode.Impulse);
         rid3.AddForce(shootVelocity * rid3.mass, ForceMode.Impulse);
 
         nextFireTime = Time.time + 1f / fireRate;
@@ -135,5 +135,9 @@ public class ShootBullet : MonoBehaviour
     {
         bulletImpact.ChangeBulletImpactSize(newSize);
         bulletPrefab.transform.localScale = newSize;
+    }
+    public void ChangeBulletMode(int shootModeNumber)
+    {
+        shootMode = shootModeNumber;
     }
 }

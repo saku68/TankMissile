@@ -6,7 +6,7 @@ using UnityEngine;
 public class AngleController : MonoBehaviour
 {
     [SerializeField, Range(0.01F, 5.0F), Tooltip("感度")]
-    private float sensitivity = 0.4F;
+    private float sensitivity = 0.6F;
 
     [SerializeField, Tooltip("砲身のオブジェクト")]
     private GameObject barrelObject;

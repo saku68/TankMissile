@@ -30,6 +30,9 @@ public class ShopManager : MonoBehaviour
     public int upMoveSpeed;
     public int moveSpeedLevel = 1;
     public int moveSpeedMuch = 4;
+    public int upShootBulletModeLevel = 1;
+    public int upShootBulletModeMuch = 100;
+    public int shootModeNumber = 2;
     void Start()
     {
         playerPresenter = GameObject.Find("Player").GetComponent<PlayerPresenter>();
@@ -38,6 +41,7 @@ public class ShopManager : MonoBehaviour
         upBulletSize = new Vector3(0.9f, 0.9f, 0.9f);
         upAntiDamage = 3;
         upMoveSpeed = 6;
+        shootModeNumber = 2;
     }
     //発射レート購入ボタン
     public void UpFireRateButton()
@@ -163,6 +167,23 @@ public class ShopManager : MonoBehaviour
             moveSpeedLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
+        }
+    }
+    //発射弾数増加ボタン
+    public void UpShootBulletModeButton()
+    {
+        if (playerUiManager.playerMoney >= upShootBulletModeMuch && shootModeNumber <= 3)
+        {
+            //能力の上昇
+            playerPresenter.LetsChangeShootBulletMode(shootModeNumber);
+            //お金の減少の処理
+            playerUiPresenter.LetsBuyAnyAbility(upShootBulletModeMuch);
+            //更新
+            upShootBulletModeMuch += 100;
+            shootModeNumber += 1;
+            upShootBulletModeLevel += 1;
+            //価格変更の処理
+            playerUiPresenter.LetsUpShootBulletModeText(upShootBulletModeMuch, upShootBulletModeLevel);
         }
     }
 }
