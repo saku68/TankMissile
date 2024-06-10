@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerManager : MonoBehaviour
     public IReadOnlyReactiveProperty<int> MaxHp => maxHp;
     [SerializeField]
     private IntReactiveProperty maxHp = new IntReactiveProperty(100);
+    [SerializeField]
+    private List<AudioClip> gameOverClips; // ゲームオーバー効果音のリスト
 
     void Start()
     {
@@ -118,7 +121,7 @@ public class PlayerManager : MonoBehaviour
     {
         // カメラを破壊しないようにする
         mainCamera.transform.SetParent(null);
-
+        PlayRandomGameOverSound(); // ランダムなゲームオーバー効果音を再生
         Destroy(this.gameObject);
         hp.Dispose();
         maxHp.Dispose();
@@ -126,6 +129,19 @@ public class PlayerManager : MonoBehaviour
         playerUiPresenter.LetsSetDeadText();
         enemySpawn.PlayerDie();
         playerPresenter.LetsOffDrawArc();
+    }
+    private void PlayRandomGameOverSound()
+    {
+        if (gameOverClips != null && gameOverClips.Count > 0)
+        {
+            int randomIndex = Random.Range(0, gameOverClips.Count);
+            AudioClip clip = gameOverClips[randomIndex];
+            SoundManager.Instance.PlaySound(clip);
+        }
+        else
+        {
+            Debug.LogWarning("No game over clips assigned in PlayerManager.");
+        }
     }
 
     //MaxHpの増加
