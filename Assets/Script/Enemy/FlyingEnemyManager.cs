@@ -16,6 +16,8 @@ public class FlyingEnemyManager : MonoBehaviour
     private int enemyMoney;
     [SerializeField]
     private int hp = 2;
+    [SerializeField]
+    private GameObject goldCoinPrefab;
 
     void Start()
     {
@@ -48,7 +50,30 @@ public class FlyingEnemyManager : MonoBehaviour
             hp = 0;
             enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
-            Destroy(this.gameObject);
+            OnEnemyDeath();
+        }
+    }
+    public void OnEnemyDeath()
+    {
+        SpawnGoldCoins(enemyMoney);
+        Destroy(this.gameObject);
+    }
+    private void SpawnGoldCoins(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Vector3 randomPosition = transform.position + Random.insideUnitSphere * 2f;
+            randomPosition.y = transform.position.y; // 高さを合わせる
+
+            GameObject coin = Instantiate(goldCoinPrefab, randomPosition, Quaternion.identity);
+
+            // Rigidbodyを取得して力を加える
+            Rigidbody rb = coin.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 force = new Vector3(Random.Range(-2f, 2f), Random.Range(4f, 8f), Random.Range(-2, 2f));
+                rb.AddForce(force, ForceMode.Impulse);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)

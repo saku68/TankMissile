@@ -9813,7 +9813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage1: 0
-  damage2: 1
+  damage2: 5
   damage3: 0
   damage4: 0
 --- !u!114 &-9044458957954582394
