@@ -35464,64 +35464,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060509812}
   m_CullTransparentMesh: 1
---- !u!1001 &2063782228
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.077469304
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1131496
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577329131674281430, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
-      propertyPath: m_Name
-      value: GoldCoin
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
 --- !u!1 &2073312765
 GameObject:
   m_ObjectHideFlags: 0
@@ -37957,6 +37899,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 068cc3291fd399048b0926591a35443c, type: 3}
   - {fileID: 8300000, guid: 52fc07685c4be14429ef35552e317756, type: 3}
   - {fileID: 8300000, guid: 00a7dbac8bab3354bb67cecdda369f30, type: 3}
+  playerHitImpactParticle: {fileID: 6273642754905733525, guid: d86409f2335b6b74db1497ee64a8b1d6, type: 3}
+  particleLifetime: 2
+  impactPlayerSound: {fileID: 8300000, guid: d8c590b02ef22e74a881785d02af0df0, type: 3}
 --- !u!114 &2160873523071812230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41971,7 +41916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820c9801a6d7c34428c7a1a98230694f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage1: 100
+  damage1: 10
   damage2: 0
   damage3: 0
   damage4: 0

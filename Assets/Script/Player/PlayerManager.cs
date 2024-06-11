@@ -27,6 +27,12 @@ public class PlayerManager : MonoBehaviour
     private IntReactiveProperty maxHp = new IntReactiveProperty(100);
     [SerializeField]
     private List<AudioClip> gameOverClips; // ゲームオーバー効果音のリスト
+    [SerializeField]
+    private GameObject playerHitImpactParticle;
+    [SerializeField, Tooltip("パーティクルエフェクトの寿命（秒）")]
+    private float particleLifetime = 2.0f;
+    [SerializeField]
+    private AudioClip impactPlayerSound;
 
     void Start()
     {
@@ -174,8 +180,16 @@ public class PlayerManager : MonoBehaviour
             if (damager != null)
             {
                 Damage(damager.damage1);
+                // 衝突位置と回転の計算
+                Vector3 hitPosition = other.transform.position;
+                Vector3 direction = (hitPosition - transform.position).normalized;
+                Quaternion hitRotation = Quaternion.LookRotation(direction);
+                // パーティクルエフェクトの生成
+                GameObject hitEffect = Instantiate(playerHitImpactParticle, hitPosition, hitRotation);
+                SoundManager.Instance.PlaySound(impactPlayerSound);
                 // 対象を破壊する
                 Destroy(other.gameObject);
+                Destroy(hitEffect, particleLifetime); // パーティクルエフェクトを一定時間後に破壊
             }
         }
     }
