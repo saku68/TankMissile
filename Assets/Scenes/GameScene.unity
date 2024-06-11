@@ -37902,6 +37902,15 @@ MonoBehaviour:
   playerHitImpactParticle: {fileID: 6273642754905733525, guid: d86409f2335b6b74db1497ee64a8b1d6, type: 3}
   particleLifetime: 2
   impactPlayerSound: {fileID: 8300000, guid: d8c590b02ef22e74a881785d02af0df0, type: 3}
+  getGoldCoinSound:
+  - {fileID: 8300000, guid: f2aaaff934f9f4429a65d374504f87ae, type: 3}
+  - {fileID: 8300000, guid: d75428c30f1c045f198152e9868f7cba, type: 3}
+  - {fileID: 8300000, guid: 67d89f2dd34e04a5b9d8de569a048bc7, type: 3}
+  - {fileID: 8300000, guid: dc8083a8eb8664483a92f2793d679f82, type: 3}
+  - {fileID: 8300000, guid: ee0f4a264050848c8a72778b3d471cb6, type: 3}
+  - {fileID: 8300000, guid: 8cdf3656007c542778040b33e0027347, type: 3}
+  - {fileID: 8300000, guid: 85d7cff3cdc284ed7acccf730e9091c9, type: 3}
+  - {fileID: 8300000, guid: 457418d5a78cf4e9d92da5f03be88a30, type: 3}
 --- !u!114 &2160873523071812230
 MonoBehaviour:
   m_ObjectHideFlags: 0

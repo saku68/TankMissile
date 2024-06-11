@@ -67,9 +67,14 @@ public class EnemySpawn : MonoBehaviour
         scoreReactive.Value = deadEnemyScore; // スコアの変化を通知
     }
     //敵を倒して獲得したお金の和
-    public void AddEnemyMoney(int money)
+    // public void AddEnemyMoney(int money)
+    // {
+    //     deadEnemyMoney += money;
+    //     moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
+    // }
+    public void AddEnemyMoney()
     {
-        deadEnemyMoney += money;
+        deadEnemyMoney += 1;
         moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
     }
     //ウェーブクリアメッセージとショップ画面への移行

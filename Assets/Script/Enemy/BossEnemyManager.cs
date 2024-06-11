@@ -59,7 +59,7 @@ public class BossEnemyManager : MonoBehaviour
         if (hp <= 0)
         {
             hp = 0;
-            enemySpawn.AddEnemyMoney(enemyMoney);
+            // enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
             animator.SetTrigger("Death");
         }

@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour
     private float particleLifetime = 2.0f;
     [SerializeField]
     private AudioClip impactPlayerSound;
+    [SerializeField]
+    private List<AudioClip> getGoldCoinSound;
 
     void Start()
     {
@@ -169,7 +171,6 @@ public class PlayerManager : MonoBehaviour
     {
         moveSpeed += upMoveSpeed;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         // 衝突相手が "Enemy" タグを持っているかチェックする
@@ -191,6 +192,17 @@ public class PlayerManager : MonoBehaviour
                 Destroy(other.gameObject);
                 Destroy(hitEffect, particleLifetime); // パーティクルエフェクトを一定時間後に破壊
             }
+        }
+        if (other.CompareTag("GoldCoin"))
+        {
+            enemySpawn.AddEnemyMoney();
+            if (getGoldCoinSound != null && getGoldCoinSound.Count > 0)
+            {
+                int randomIndex = Random.Range(0, getGoldCoinSound.Count);
+                AudioClip clip = getGoldCoinSound[randomIndex];
+                SoundManager.Instance.PlaySound(clip);
+            }
+            Destroy(other.gameObject);
         }
     }
 }
