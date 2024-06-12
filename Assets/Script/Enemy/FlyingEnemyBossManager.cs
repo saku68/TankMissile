@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingEnemyManager : MonoBehaviour
+public class FlyingEnemyBossManager : MonoBehaviour
 {
     public float speed = 3f; // 敵の移動速度
     public float rotationSpeed = 8f; // 敵の回転速度
     [SerializeField]
     private Transform playerTransform;
     private EnemySpawn enemySpawn;
+    private EnemyUiManager enemyUiManager;
     [SerializeField]
     private int enemyScore;
 
     [SerializeField]
     private int enemyMoney;
     [SerializeField]
-    private int hp = 2;
+    private int hp = 200;
     [SerializeField]
     private GameObject goldCoinPrefab;
 
@@ -23,11 +24,16 @@ public class FlyingEnemyManager : MonoBehaviour
     {
         // プレイヤーのTransformを取得
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        enemyUiManager = GameObject.Find("EnemyUiCanvas").GetComponent<EnemyUiManager>();
+        enemyUiManager.UpdateHp(hp);
+        enemyUiManager.UpdateMaxHp(hp);
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
     }
 
     void Update()
     {
+        //Hpバーの更新
+        enemyUiManager.UpdateHp(hp);
         // プレイヤーの方向を計算
         Vector3 direction = (playerTransform.position - transform.position).normalized;
 
@@ -91,3 +97,4 @@ public class FlyingEnemyManager : MonoBehaviour
         }
     }
 }
+

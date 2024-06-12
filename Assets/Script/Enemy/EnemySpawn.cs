@@ -144,7 +144,7 @@ public class EnemySpawn : MonoBehaviour
         while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(2f, 3f);
+            float waitTime1 = UnityEngine.Random.Range(2, 5f);
             yield return new WaitForSeconds(waitTime1);
 
             SpawnEnemy1(0);//手前の湧き
@@ -376,17 +376,87 @@ public class EnemySpawn : MonoBehaviour
     //ボスウェーブ１
     IEnumerator BossSpawnEnemiesPeriodically1()
     {
-        yield return new WaitForSeconds(1f);
-        Debug.Log("BossWave" + waveNumber + "開始");
-        playerUiPresenter.LetsWaveStartText(waveNumber);
-        yield return new WaitForSeconds(3f);
-        playerUiPresenter.LetsOutWaveStartText();
-        spawnWaveFlag = true;
-        yield return new WaitForSeconds(3f);
-        Debug.Log("ボス出現");
-        SpawnBossEnemy(4);
-        Debug.Log("Wave" + waveNumber + "終了");
-        spawnWaveFlag = false;
+        switch (waveNumber)
+        {
+            case 5:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(4);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 10:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(5);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 15:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(6);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 20:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(7);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 25:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(8);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case > 25:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SpawnBossEnemy(UnityEngine.Random.Range(4, 8));
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+        }
     }
 
     // 湧き範囲の可視化
