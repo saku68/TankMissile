@@ -222,6 +222,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1629259882}
+  - {fileID: 1888439578}
   m_Father: {fileID: 1596865853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -981,6 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5da679adfb1a94b8499d87e07bd5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectButtonSound: {fileID: 8300000, guid: 53c7467493a735843a52d3a854158cdc, type: 3}
 --- !u!4 &1738731096
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,7 +1011,7 @@ GameObject:
   - component: {fileID: 1888439576}
   - component: {fileID: 1888439575}
   m_Layer: 0
-  m_Name: TytlePlane
+  m_Name: TytleTexturePlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1086,13 +1088,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888439574}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1.1}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -400.00003, y: -223.75691, z: 0}
+  m_LocalScale: {x: 2.209945, y: 1.1049722, z: 1.2154695}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 509690943}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &321358254858065427
 GameObject:

@@ -98,7 +98,7 @@ public class PlayerUiPresenter : MonoBehaviour
             Debug.Log("Escでショップを退出した");
         }
 
-        if (!pauseFlag)
+        if (!pauseFlag && !playerUiManager.IsShopPanelActive() && !playerUiManager.shopFlag)
         {
             playerUiManager.PauseGame();
             pauseFlag = true;

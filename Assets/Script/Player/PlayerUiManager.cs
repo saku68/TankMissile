@@ -139,9 +139,8 @@ public class PlayerUiManager : MonoBehaviour
         SoundManager.Instance.PlaySound(SelectButtonSound1);
         shopPanel.SetActive(false);
         pauseButton.SetActive(true);
-        isShopPanelActive = true;
+        isShopPanelActive = false;
         Time.timeScale = 1;
-        shopFlag = false;
         outShopFlag.Value = false;
     }
     public void OutShopFlagCahge()
@@ -188,6 +187,7 @@ public class PlayerUiManager : MonoBehaviour
     }
     public void ChangeWaveStartText(int waveNumber)
     {
+        shopFlag = false;
         waveStartTextPanel.SetActive(true);
         waveStartText.text = "WAVE " + waveNumber;
     }

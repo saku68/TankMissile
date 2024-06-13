@@ -12322,6 +12322,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f1683d1cc86bb459412e7a01d2a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityButtons:
+  - {fileID: 2689969610831124780}
+  - {fileID: 8598031902680945521}
+  - {fileID: 1724790344299956443}
+  - {fileID: 6147110760831754063}
+  - {fileID: 311958403449149710}
+  - {fileID: 3117832855906067204}
+  - {fileID: 6828268869888891396}
+  - {fileID: 6983941415432728191}
+  - {fileID: 2689969609792473570}
+  SelectButtonSound1: {fileID: 8300000, guid: 53c7467493a735843a52d3a854158cdc, type: 3}
   playerMoney: 0
   playerScore: 0
   hpSlider: {fileID: 1998439754}
@@ -12347,7 +12358,6 @@ MonoBehaviour:
   upDifenceText: {fileID: 6892437890970137375}
   upMoveSpeedText: {fileID: 2689969610590557717}
   finalScore: 0
-  pauseFlag: 0
   shopFlag: 0
   isScorePanelActive: 0
   isShopPanelActive: 0
@@ -37941,6 +37951,7 @@ MonoBehaviour:
   angle: 15
   bulletPrefab: {fileID: 2368695380886305482, guid: 64441ea1009740b4a83d8b78386b4ca1, type: 3}
   barrelObject: {fileID: 2105987243505277244}
+  ShootSound1: {fileID: 8300000, guid: 9b0ff44aae043054a9923805b8c2bf06, type: 3}
   bulletSpeed: 9
 --- !u!114 &2160873523071812232
 MonoBehaviour:
@@ -39599,6 +39610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aecbe06bf7ef9e4ca238d06427f7e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuyAbilitySound1: {fileID: 8300000, guid: b785f65bda2be4e17958879a8f790690, type: 3}
+  BuyAbilitySound2: {fileID: 8300000, guid: d758c2f75b6e24bf1aedea47cea2403b, type: 3}
   newFireRate: 1
   fireRateMuch: 5
   fireRateLevel: 1
@@ -42200,7 +42213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6921519086599647421
 RectTransform:
   m_ObjectHideFlags: 0
