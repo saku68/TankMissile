@@ -20,6 +20,8 @@ public class ShootBullet : MonoBehaviour
 
     [SerializeField, Tooltip("砲身のオブジェクト")]
     private GameObject barrelObject;
+    [SerializeField]
+    AudioClip ShootSound1;
 
     private Vector3 instantiatePosition;
 
@@ -76,6 +78,7 @@ public class ShootBullet : MonoBehaviour
 
     private void ShootSingle()
     {
+        SoundManager.Instance.PlaySound(ShootSound1);
         GameObject obj = Instantiate(bulletPrefab, instantiatePosition, barrelObject.transform.rotation);
         Rigidbody rid = obj.GetComponent<Rigidbody>();
         rid.AddForce(shootVelocity * rid.mass, ForceMode.Impulse);

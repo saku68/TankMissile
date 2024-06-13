@@ -34,7 +34,6 @@ public class EnemySpawn : MonoBehaviour
     private PlayerUiPresenter playerUiPresenter;
     public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
-    public bool pauseFlag = false;
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
     public float spawnDistance1 = 25f; // 敵のスポーンする距離
     public float spawnDistance2 = 80f; // 敵のスポーンする距離

@@ -17,7 +17,15 @@ public class PlayerUiManager : MonoBehaviour
     {
         Instance = this;
     }
-
+    public List<GameObject> abilityButtons; // 9つの能力アップボタンのリスト
+    private Vector3[] positions = new Vector3[]
+    {
+        new Vector3(-240, 30, 0),
+        new Vector3(-10, 30, 0),
+        new Vector3(215, 30, 0)
+    };
+    [SerializeField]
+    private AudioClip SelectButtonSound1;
     public int playerMoney;
 
     public int playerScore;
@@ -50,7 +58,6 @@ public class PlayerUiManager : MonoBehaviour
     public Text upMoveSpeedText;
 
     public int finalScore;
-    public bool pauseFlag = false;
     public bool shopFlag = false;
     public bool isScorePanelActive;
     public bool isShopPanelActive = false;
@@ -129,6 +136,7 @@ public class PlayerUiManager : MonoBehaviour
     //*ボタンでの*ショップ画面退出の処理
     public void OutShopButton()
     {
+        SoundManager.Instance.PlaySound(SelectButtonSound1);
         shopPanel.SetActive(false);
         pauseButton.SetActive(true);
         isShopPanelActive = true;
@@ -146,23 +154,27 @@ public class PlayerUiManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        SoundManager.Instance.PlaySound(SelectButtonSound1);
         pausePanel.SetActive(true);
         pauseButton.SetActive(false);
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
+        SoundManager.Instance.PlaySound(SelectButtonSound1);
         pausePanel.SetActive(false);
         pauseButton.SetActive(true);
         Time.timeScale = 1;
     }
     public void SetSettingPanel()
     {
+        SoundManager.Instance.PlaySound(SelectButtonSound1);
         pausePanel.SetActive(false);
         settingPanel.SetActive(true);
     }
     public void OutSettingPanel()
     {
+        SoundManager.Instance.PlaySound(SelectButtonSound1);
         settingPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
@@ -232,6 +244,44 @@ public class PlayerUiManager : MonoBehaviour
         else
         {
             upShootBulletText.text = "発射弾数増加Lv" + shootBulletModeLevel + ":" + shootBulletModeMuch + "G";
+        }
+    }
+    // 9つのボタンからランダムに3つ選んで表示し、指定した座標に配置するメソッド
+    public void DisplayRandomAbilityButtons()
+    {
+        if (abilityButtons.Count < 3)
+        {
+            Debug.LogError("Not enough ability buttons in the list.");
+            return;
+        }
+
+        // リストからランダムに3つのボタンを選ぶ
+        List<GameObject> selectedButtons = new List<GameObject>();
+        List<int> indices = new List<int>();
+        while (selectedButtons.Count < 3)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, abilityButtons.Count);
+            if (!indices.Contains(randomIndex))
+            {
+                indices.Add(randomIndex);
+                selectedButtons.Add(abilityButtons[randomIndex]);
+            }
+        }
+
+        // 選んだボタンを指定した座標に配置する
+        for (int i = 0; i < selectedButtons.Count; i++)
+        {
+            selectedButtons[i].SetActive(true);
+            selectedButtons[i].transform.localPosition = positions[i];
+        }
+
+        // 選ばれなかったボタンは非表示にする
+        for (int i = 0; i < abilityButtons.Count; i++)
+        {
+            if (!indices.Contains(i))
+            {
+                abilityButtons[i].SetActive(false);
+            }
         }
     }
 }
