@@ -15858,6 +15858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7e9cbd6ddcdaa4cb35bf21d5071aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectButtonSound1: {fileID: 8300000, guid: 53c7467493a735843a52d3a854158cdc, type: 3}
 --- !u!4 &966358741
 Transform:
   m_ObjectHideFlags: 0

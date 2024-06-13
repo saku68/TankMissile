@@ -14,7 +14,17 @@ public class TitleSceneManager : MonoBehaviour
     }
     public void OnStartButton()
     {
+        StartCoroutine(PlaySoundAndLoadScene());
+    }
+
+    private IEnumerator PlaySoundAndLoadScene()
+    {
         audioSource.PlayOneShot(SelectButtonSound);
+
+        // 効果音の長さだけ待つ
+        yield return new WaitForSeconds(SelectButtonSound.length);
+
+        // シーンをロード
         SceneManager.LoadScene("GameScene");
     }
 }
