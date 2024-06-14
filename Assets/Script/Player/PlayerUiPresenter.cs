@@ -69,7 +69,7 @@ public class PlayerUiPresenter : MonoBehaviour
         .AddTo(this);
         // 倒した敵から得たお金の変化を検知し、PlayerUiManagerに通知
         _ = EnemySpawn.Instance.MoneyReactive
-        .Subscribe(money => playerUiManager.playerMoney = money)
+        .Subscribe(money => playerUiManager.playerFinalMoney = money)
         .AddTo(this);
     }
     //左右感度の値の受け渡し

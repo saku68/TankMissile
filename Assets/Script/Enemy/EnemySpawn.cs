@@ -75,6 +75,7 @@ public class EnemySpawn : MonoBehaviour
     {
         deadEnemyMoney += 1;
         moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
+        playerUiManager.playerMoney += 1;//もうこれでもいいやん
     }
     //ウェーブクリアメッセージとショップ画面への移行
     //これは別にuiPresenterでもいいかも

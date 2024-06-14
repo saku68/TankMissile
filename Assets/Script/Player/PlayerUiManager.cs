@@ -27,6 +27,7 @@ public class PlayerUiManager : MonoBehaviour
     [SerializeField]
     private AudioClip SelectButtonSound1;
     public int playerMoney;
+    public int playerFinalMoney;
 
     public int playerScore;
     public Slider hpSlider;
@@ -95,7 +96,7 @@ public class PlayerUiManager : MonoBehaviour
     }
     public void UpdateFinalScore()
     {
-        finalScore = playerScore + playerMoney;
+        finalScore = playerScore + playerFinalMoney;
         finalScoreText.text = "Score:" + finalScore;
     }
     public void UpdateMoney()

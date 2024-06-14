@@ -12334,6 +12334,7 @@ MonoBehaviour:
   - {fileID: 2689969609792473570}
   SelectButtonSound1: {fileID: 8300000, guid: 53c7467493a735843a52d3a854158cdc, type: 3}
   playerMoney: 0
+  playerFinalMoney: 0
   playerScore: 0
   hpSlider: {fileID: 1998439754}
   sensitivitySlider: {fileID: 730440886}
