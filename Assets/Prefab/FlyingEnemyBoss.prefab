@@ -512,6 +512,9 @@ MonoBehaviour:
   enemyMoney: 800
   hp: 200
   goldCoinPrefab: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
+  EnemyDamageVoice:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7759999760851115654
 GameObject:
   m_ObjectHideFlags: 0

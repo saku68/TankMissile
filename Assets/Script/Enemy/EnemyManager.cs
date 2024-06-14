@@ -20,6 +20,8 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private GameObject goldCoinPrefab;
+    [SerializeField]
+    private List<AudioClip> EnemyDamageVoice; 
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -54,11 +56,13 @@ public class EnemyManager : MonoBehaviour
     // ダメージの処理
     void Damage(int damage)
     {
+        SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
         hp -= damage;
         animator.SetTrigger("Damage");
         animator.SetInteger("DamageAmount", damage);
         if (hp <= 0)
         {
+            SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
             hp = 0;
             // enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);

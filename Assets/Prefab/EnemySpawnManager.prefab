@@ -48,7 +48,6 @@ MonoBehaviour:
   deadEnemyScore: 0
   playerDieFlag: 0
   spawnWaveFlag: 1
-  pauseFlag: 0
   enemyPrefabs:
   - {fileID: 6840632924952407623, guid: b23bd003a6f469b43b7a01bb50aa1260, type: 3}
   - {fileID: 4134364725308277023, guid: 99dc6b9b286ca83469b2bc991932f6d8, type: 3}
@@ -64,3 +63,22 @@ MonoBehaviour:
   spawnAngle1: 120
   spawnAngle2: 96
   waveNumber: 1
+  EnemySpawnVoice:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

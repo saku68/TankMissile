@@ -134,6 +134,9 @@ MonoBehaviour:
   hp: 150
   target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
   goldCoinPrefab: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
+  EnemyDamageVoice:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &6957048830894067091
 MonoBehaviour:
   m_ObjectHideFlags: 0

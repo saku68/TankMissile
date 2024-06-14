@@ -19,6 +19,8 @@ public class FlyingEnemyBossManager : MonoBehaviour
     private int hp = 200;
     [SerializeField]
     private GameObject goldCoinPrefab;
+    [SerializeField]
+    private List<AudioClip> EnemyDamageVoice; 
 
     void Start()
     {
@@ -51,8 +53,10 @@ public class FlyingEnemyBossManager : MonoBehaviour
     void Damage(int damage)
     {
         hp -= damage;
+        SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
         if (hp <= 0)
         {
+            SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
             hp = 0;
             // enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
