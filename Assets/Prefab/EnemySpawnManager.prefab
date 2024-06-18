@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6946060432205288266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 0.6666667, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,21 +64,13 @@ MonoBehaviour:
   spawnAngle2: 96
   waveNumber: 1
   EnemySpawnVoice:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 2e301b9ff30754b198d74e2dc046f460, type: 3}
+  - {fileID: 8300000, guid: 2f3b8a0d88c7f48b0807bb80b489ec63, type: 3}
+  - {fileID: 8300000, guid: 2115cbab471a340818ace960d8fe31d6, type: 3}
+  - {fileID: 8300000, guid: fedfdab44b858400199e498fd64d32bd, type: 3}
+  - {fileID: 8300000, guid: bb2507bd3a86846a0b49afad82c6ad91, type: 3}
+  - {fileID: 8300000, guid: 44f63b0ed33ad4ac39e94f8b51b71ee6, type: 3}
+  - {fileID: 8300000, guid: f51aff5ca38254d4dbb1b4fd595533d8, type: 3}
+  - {fileID: 8300000, guid: 58e8603d0e1e348d18c43091ba341347, type: 3}
+  - {fileID: 8300000, guid: 02cbce3cc778144778e48698df7259a6, type: 3}
+  - {fileID: 8300000, guid: 0d62dedf75cb14b4eb205ed749566f09, type: 3}

@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class FlyingEnemyManager : MonoBehaviour
 {
+    EnemyStats enemyStats;
     public float speed = 3f; // 敵の移動速度
     public float rotationSpeed = 8f; // 敵の回転速度
     [SerializeField]
     private Transform playerTransform;
     private EnemySpawn enemySpawn;
-    [SerializeField]
-    private int enemyScore;
-
-    [SerializeField]
-    private int enemyMoney;
-    [SerializeField]
-    private int hp = 2;
     [SerializeField]
     private GameObject goldCoinPrefab;
     [SerializeField]
@@ -23,6 +17,7 @@ public class FlyingEnemyManager : MonoBehaviour
 
     void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
         // プレイヤーのTransformを取得
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
@@ -46,20 +41,20 @@ public class FlyingEnemyManager : MonoBehaviour
     // ダメージの処理
     void Damage(int damage)
     {
-        hp -= damage;
+        enemyStats.enemyHp -= damage;
         SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
-        if (hp <= 0)
+        if (enemyStats.enemyHp <= 0)
         {
             SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
-            hp = 0;
+            enemyStats.enemyHp = 0;
             // enemySpawn.AddEnemyMoney(enemyMoney);
-            enemySpawn.AddEnemyScore(enemyScore);
+            enemySpawn.AddEnemyScore(enemyStats.enemyScore);
             OnEnemyDeath();
         }
     }
     public void OnEnemyDeath()
     {
-        SpawnGoldCoins(enemyMoney);
+        SpawnGoldCoins(enemyStats.enemyMoney);
         Destroy(this.gameObject);
     }
     private void SpawnGoldCoins(int amount)

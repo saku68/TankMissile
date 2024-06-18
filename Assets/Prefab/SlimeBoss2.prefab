@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 5880572113908609065}
   - component: {fileID: 4168693313699882296}
   - component: {fileID: 4952297293717349827}
+  - component: {fileID: 2847288837963473816}
   m_Layer: 0
   m_Name: SlimeBoss2
   m_TagString: Enemy
@@ -391,6 +392,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.29
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &2847288837963473816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2432831123837055298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48931f68294772e4784992b6df85fd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScore: 500
+  enemyMoney: 100
+  enemyHp: 80
 --- !u!1 &2895341519939367564
 GameObject:
   m_ObjectHideFlags: 0

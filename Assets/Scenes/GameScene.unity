@@ -42021,9 +42021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a020e8462d40aa04eb56ab5b1f706e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyScore: 50
-  enemyMoney: 300
-  hp: 8
   target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
   goldCoinPrefab: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
   EnemyDamageVoice: []
@@ -42348,10 +42345,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946060432205288264, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 6946060432205288264, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -42391,50 +42384,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2e301b9ff30754b198d74e2dc046f460, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2f3b8a0d88c7f48b0807bb80b489ec63, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 2115cbab471a340818ace960d8fe31d6, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: fedfdab44b858400199e498fd64d32bd, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: bb2507bd3a86846a0b49afad82c6ad91, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 44f63b0ed33ad4ac39e94f8b51b71ee6, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: f51aff5ca38254d4dbb1b4fd595533d8, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: 58e8603d0e1e348d18c43091ba341347, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[8]
-      value: 
-      objectReference: {fileID: 8300000, guid: 02cbce3cc778144778e48698df7259a6, type: 3}
-    - target: {fileID: 6946060432205288265, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
-      propertyPath: EnemySpawnVoice.Array.data[9]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0d62dedf75cb14b4eb205ed749566f09, type: 3}
     - target: {fileID: 6946060432205288266, guid: d5ea9a372c982c74497275ce5d168c73, type: 3}
       propertyPath: m_Name
       value: EnemySpawnManager

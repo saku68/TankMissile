@@ -6,16 +6,10 @@ using UnityEngine.AI;
 
 public class BossEnemyManager : MonoBehaviour
 {
+    private EnemyStats enemyStats;
     private Animator animator;
     private EnemyUiManager enemyUiManager;
     private EnemySpawn enemySpawn;
-    [SerializeField]
-    private int enemyScore;
-
-    [SerializeField]
-    private int enemyMoney;
-    [SerializeField]
-    private int hp = 20;
     public Transform target;
     NavMeshAgent agent;
     // Start is called before the first frame update
@@ -25,12 +19,13 @@ public class BossEnemyManager : MonoBehaviour
     private List<AudioClip> EnemyDamageVoice;
     void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         enemyUiManager = GameObject.Find("EnemyUiCanvas").GetComponent<EnemyUiManager>();
-        enemyUiManager.UpdateHp(hp);
-        enemyUiManager.UpdateMaxHp(hp);
+        enemyUiManager.UpdateHp(enemyStats.enemyHp);
+        enemyUiManager.UpdateMaxHp(enemyStats.enemyHp);
 
         // プレイヤーを検索してターゲットとして設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -50,27 +45,27 @@ public class BossEnemyManager : MonoBehaviour
         //プレイヤーへの移動
         agent.destination = target.position;
         //Hpバーの更新
-        enemyUiManager.UpdateHp(hp);
+        enemyUiManager.UpdateHp(enemyStats.enemyHp);
     }
     // ダメージの処理
     void Damage(int damage)
     {
         SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
-        hp -= damage;
+        enemyStats.enemyHp -= damage;
         animator.SetTrigger("Damage");
         animator.SetInteger("DamageAmount", damage);
-        if (hp <= 0)
+        if (enemyStats.enemyHp <= 0)
         {
             SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
-            hp = 0;
+            enemyStats.enemyHp = 0;
             // enemySpawn.AddEnemyMoney(enemyMoney);
-            enemySpawn.AddEnemyScore(enemyScore);
+            enemySpawn.AddEnemyScore(enemyStats.enemyScore);
             animator.SetTrigger("Death");
         }
     }
     public void OnEnemyDeath()
     {
-        SpawnGoldCoins(enemyMoney);
+        SpawnGoldCoins(enemyStats.enemyMoney);
         Destroy(this.gameObject);
     }
     private void SpawnGoldCoins(int amount)

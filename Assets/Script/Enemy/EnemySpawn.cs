@@ -33,6 +33,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private PlayerUiManager playerUiManager;
     private PlayerUiPresenter playerUiPresenter;
+    private EnemyStats enemyStats;
     public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
@@ -46,6 +47,7 @@ public class EnemySpawn : MonoBehaviour
     private List<AudioClip> EnemySpawnVoice;
     void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
         playerDieFlag = false;
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
@@ -763,10 +765,22 @@ public class EnemySpawn : MonoBehaviour
         switch (waveNumber)
         {
             case < 5:
+            SetEnemyStats(0, 10, 2, 1);
+            SetEnemyStats(1, 15, 5, 2);
+            SetEnemyStats(2, 30, 8, 1);
+            SetEnemyStats(3, 50, 15, 8);
                 break;
             case < 15:
+            SetEnemyStats(0, 20, 4, 2);
+            SetEnemyStats(1, 30, 8, 3);
+            SetEnemyStats(2, 50, 12, 1);
+            SetEnemyStats(3, 90, 20, 9);
                 break;
             case < 25:
+            SetEnemyStats(0, 20, 10, 3);
+            SetEnemyStats(1, 30, 15, 4);
+            SetEnemyStats(2, 60, 20, 3);
+            SetEnemyStats(3, 120, 30, 10);
                 break;
             case < 50:
                 break;
@@ -775,7 +789,7 @@ public class EnemySpawn : MonoBehaviour
         }
     }
     // EnemyManagerを取得するメソッド
-    private EnemyManager GetEnemyManagerFromPrefab(int index)
+    private EnemyStats GetEnemyManagerFromPrefab(int index)
     {
         if (index < 0 || index >= enemyPrefabs.Count)
         {
@@ -785,24 +799,28 @@ public class EnemySpawn : MonoBehaviour
 
         // 指定されたプレハブからEnemyManagerコンポーネントを取得
         GameObject enemyPrefab = enemyPrefabs[index];
-        EnemyManager enemyManager = enemyPrefab.GetComponent<EnemyManager>();
+        EnemyStats enemyStats = enemyPrefab.GetComponent<EnemyStats>();
 
-        if (enemyManager == null)
+        if (enemyStats == null)
         {
             UnityEngine.Debug.LogError("EnemyManager component not found on prefab at index " + index);
         }
 
-        return enemyManager;
+        return enemyStats;
     }
     // 敵プレハブのEnemyManagerのステータスを変更するメソッド
-    private void SetEnemyStats(int index, int hp, int enemyScore, int enemyMoney)
+    private void SetEnemyStats(int index, int enemyScore, int enemyMoney, int hp)
     {
-        EnemyManager enemyManager = GetEnemyManagerFromPrefab(index);
-        if (enemyManager != null)
+        EnemyStats enemyStats = GetEnemyManagerFromPrefab(index);
+        if (enemyStats != null)
         {
-            enemyManager.hp = hp;
-            enemyManager.enemyScore = enemyScore;
-            enemyManager.enemyMoney = enemyMoney;
+            enemyStats.enemyHp = hp;
+            enemyStats.enemyScore = enemyScore;
+            enemyStats.enemyMoney = enemyMoney;
+        }
+        else
+        {
+            UnityEngine.Debug.LogError($"Failed to set stats for enemy at index {index}");
         }
     }
 }
