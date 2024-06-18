@@ -148,8 +148,7 @@ public class EnemySpawn : MonoBehaviour
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2, 5f);
             yield return new WaitForSeconds(waitTime1);
-            int voiceNumber = UnityEngine.Random.Range(0, 2);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
             SpawnEnemy1(0);//手前の湧き
             // SpawnEnemy2(0);//奥の湧き
 
@@ -179,8 +178,8 @@ public class EnemySpawn : MonoBehaviour
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2f, 4f);
             yield return new WaitForSeconds(waitTime1);
-            int voiceNumber = UnityEngine.Random.Range(0, 5);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
             SpawnEnemy1(0);//手前の湧き
             SpawnEnemy2(1);//奥の湧き
 
@@ -209,8 +208,8 @@ public class EnemySpawn : MonoBehaviour
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(3f, 5f);
             yield return new WaitForSeconds(waitTime1);
-            int voiceNumber = UnityEngine.Random.Range(6, 11);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
             SpawnEnemy3(2);//手前の湧き
             SpawnEnemy2(3);//奥の湧き
 
@@ -238,8 +237,7 @@ public class EnemySpawn : MonoBehaviour
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(4f, 5f);
             yield return new WaitForSeconds(waitTime1);
-            int voiceNumber = UnityEngine.Random.Range(9, 11);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
             SpawnEnemy1(3);//手前の湧き
             SpawnEnemy2(3);//奥の湧き
 
@@ -393,7 +391,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[12]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[4]);
                 SpawnBossEnemy(4);
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
@@ -407,7 +405,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[13]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[5]);
                 SpawnBossEnemy(5);
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
@@ -421,7 +419,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[14]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[6]);
                 SpawnBossEnemy(6);
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
@@ -435,7 +433,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[15]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[7]);
                 SpawnBossEnemy(7);
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
@@ -449,7 +447,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[16]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[8]);
                 SpawnBossEnemy(8);
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
@@ -463,7 +461,7 @@ public class EnemySpawn : MonoBehaviour
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
                 Debug.Log("ボス出現");
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[17]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[9]);
                 SpawnBossEnemy(UnityEngine.Random.Range(4, 8));
                 Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;

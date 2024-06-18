@@ -344,8 +344,8 @@ MonoBehaviour:
   target: {fileID: 5248758582508111584, guid: ab8357422693e014598d89bd92068516, type: 3}
   goldCoinPrefab: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
   EnemyDamageVoice:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 3f0791e3ff180467eb1eef0a47d08575, type: 3}
+  - {fileID: 8300000, guid: 637450ef6531643359ee4c7f05b4f646, type: 3}
 --- !u!114 &1514170629283715341
 MonoBehaviour:
   m_ObjectHideFlags: 0
