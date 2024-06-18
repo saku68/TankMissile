@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField]
     private AudioSource audioSource;
+    [SerializeField]
+    private AudioSource audioSource2;
 
     private void Awake()
     {
@@ -40,6 +42,15 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning("AudioClip is null. Cannot play sound.");
         }
+    }
+    public void StopBGM()
+    {
+        audioSource2.Stop();
+    }
+    public void StartBGM()
+    {
+        audioSource2.loop = true;
+        audioSource2.Play();
     }
 }
 

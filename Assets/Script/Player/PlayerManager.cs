@@ -36,8 +36,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private List<AudioClip> getGoldCoinSound;
 
+
     void Start()
     {
+        SoundManager.Instance.StartBGM();
         hp.Value = maxHp.Value;
         playerPresenter = GetComponent<PlayerPresenter>();
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
@@ -129,6 +131,7 @@ public class PlayerManager : MonoBehaviour
     {
         // カメラを破壊しないようにする
         mainCamera.transform.SetParent(null);
+        SoundManager.Instance.StopBGM();
         PlayRandomGameOverSound(); // ランダムなゲームオーバー効果音を再生
         Destroy(this.gameObject);
         hp.Dispose();

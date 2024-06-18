@@ -10,7 +10,8 @@ public class TitleSceneManager : MonoBehaviour
     private AudioSource audioSource;
     void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        // audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
     public void OnStartButton()
     {
