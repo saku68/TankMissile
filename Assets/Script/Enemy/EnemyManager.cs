@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
 {
     private Animator animator;
     private EnemySpawn enemySpawn;
-    [SerializeField ]
+    [SerializeField]
     private int enemyScore;
 
     [SerializeField]
@@ -18,11 +18,15 @@ public class EnemyManager : MonoBehaviour
     public Transform target;
     NavMeshAgent agent;
     // Start is called before the first frame update
+    [SerializeField]
+    private GameObject goldCoinPrefab;
+    [SerializeField]
+    private List<AudioClip> EnemyDamageVoice; 
     void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        enemySpawn= GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
+        enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
 
         // プレイヤーを検索してターゲットとして設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -52,20 +56,41 @@ public class EnemyManager : MonoBehaviour
     // ダメージの処理
     void Damage(int damage)
     {
+        SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
         hp -= damage;
         animator.SetTrigger("Damage");
         animator.SetInteger("DamageAmount", damage);
         if (hp <= 0)
         {
+            SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
             hp = 0;
-            enemySpawn.AddEnemyMoney(enemyMoney);
+            // enemySpawn.AddEnemyMoney(enemyMoney);
             enemySpawn.AddEnemyScore(enemyScore);
             animator.SetTrigger("Death");
         }
     }
     public void OnEnemyDeath()
     {
+        SpawnGoldCoins(enemyMoney);
         Destroy(this.gameObject);
+    }
+    private void SpawnGoldCoins(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Vector3 randomPosition = transform.position + Random.insideUnitSphere * 2f;
+            randomPosition.y = transform.position.y; // 高さを合わせる
+
+            GameObject coin = Instantiate(goldCoinPrefab, randomPosition, Quaternion.identity);
+
+            // Rigidbodyを取得して力を加える
+            Rigidbody rb = coin.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 force = new Vector3(Random.Range(-2f, 2f), Random.Range(4f, 8f), Random.Range(-2, 2f));
+                rb.AddForce(force, ForceMode.Impulse);
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

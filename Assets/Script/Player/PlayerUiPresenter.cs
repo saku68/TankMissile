@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 using UniRx.Triggers;
 using System;
 
@@ -25,8 +25,10 @@ public class PlayerUiPresenter : MonoBehaviour
     private ShopManager shopManager;
     private EnemySpawn enemySpawn;
     private AngleController angleController;
+    private bool pauseFlag;
     void Start()
     {
+        pauseFlag = false;
         playerUiManager = GetComponent<PlayerUiManager>();
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
         playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
@@ -67,7 +69,7 @@ public class PlayerUiPresenter : MonoBehaviour
         .AddTo(this);
         // 倒した敵から得たお金の変化を検知し、PlayerUiManagerに通知
         _ = EnemySpawn.Instance.MoneyReactive
-        .Subscribe(money => playerUiManager.playerMoney = money)
+        .Subscribe(money => playerUiManager.playerFinalMoney = money)
         .AddTo(this);
     }
     //左右感度の値の受け渡し
@@ -93,17 +95,20 @@ public class PlayerUiPresenter : MonoBehaviour
         if (playerUiManager.shopFlag && playerUiManager.IsShopPanelActive())
         {
             playerUiManager.OutShopButton();
-        }
-        else
-        {
-            playerUiManager.PauseGame();
-            playerUiManager.pauseFlag = true;
+            Debug.Log("Escでショップを退出した");
         }
 
-        if (playerUiManager.pauseFlag)
+        if (!pauseFlag && !playerUiManager.IsShopPanelActive() && !playerUiManager.shopFlag)
+        {
+            playerUiManager.PauseGame();
+            pauseFlag = true;
+            Debug.Log("Escでポーズした");
+        }
+        else if (pauseFlag)
         {
             playerUiManager.ResumeGame();
-            playerUiManager.pauseFlag = false;
+            pauseFlag = false;
+            Debug.Log("Escでポーズを退出した");
         }
     }
     public void LetsSetWaveClearText()
@@ -114,7 +119,7 @@ public class PlayerUiPresenter : MonoBehaviour
     {
         playerUiManager.OutWaveClearText();
         playerUiManager.SetShopPanel();
-
+        playerUiManager.DisplayRandomAbilityButtons();
         //表示の初期化
         //この引数の渡し方なんか嫌だ
         playerUiManager.ChangeFireRateMuch(shopManager.fireRateMuch, shopManager.fireRateLevel);
@@ -124,6 +129,7 @@ public class PlayerUiPresenter : MonoBehaviour
         playerUiManager.ChangeBulletDamageMuch(shopManager.upBulletDamageMuch, shopManager.upBulletDamageLevel);
         playerUiManager.ChangeAntiDamageMuch(shopManager.antiDamageMuch, shopManager.antiDamageLevel);
         playerUiManager.ChangeMoveSpeedMuch(shopManager.moveSpeedMuch, shopManager.moveSpeedLevel);
+        playerUiManager.ChangeUpShootBulletModeText(shopManager.upShootBulletModeMuch, shopManager.upShootBulletModeLevel);
     }
     public void LetsChangePlayerDieFlag()
     {
@@ -164,6 +170,10 @@ public class PlayerUiPresenter : MonoBehaviour
     public void LetsWaveStartText(int waveNumber)
     {
         playerUiManager.ChangeWaveStartText(waveNumber);
+    }
+    public void LetsUpShootBulletModeText(int shootBulletModeMuch, int shootBulletModeLevel)
+    {
+        playerUiManager.ChangeUpShootBulletModeText(shootBulletModeMuch, shootBulletModeLevel);
     }
     public void LetsOutWaveStartText()
     {

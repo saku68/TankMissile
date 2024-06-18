@@ -34,7 +34,6 @@ public class EnemySpawn : MonoBehaviour
     private PlayerUiPresenter playerUiPresenter;
     public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
-    public bool pauseFlag = false;
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
     public float spawnDistance1 = 25f; // 敵のスポーンする距離
     public float spawnDistance2 = 80f; // 敵のスポーンする距離
@@ -42,6 +41,8 @@ public class EnemySpawn : MonoBehaviour
     public float spawnAngle2 = 90f; // 扇形の角度
     private bool isWaveClearShopOpen = false;//一度だけ実行するためのフラグ
     public int waveNumber = 1;
+    [SerializeField]
+    private List<AudioClip> EnemySpawnVoice;
     void Start()
     {
         playerDieFlag = false;
@@ -67,10 +68,16 @@ public class EnemySpawn : MonoBehaviour
         scoreReactive.Value = deadEnemyScore; // スコアの変化を通知
     }
     //敵を倒して獲得したお金の和
-    public void AddEnemyMoney(int money)
+    // public void AddEnemyMoney(int money)
+    // {
+    //     deadEnemyMoney += money;
+    //     moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
+    // }
+    public void AddEnemyMoney()
     {
-        deadEnemyMoney += money;
+        deadEnemyMoney += 1;
         moneyReactive.Value = deadEnemyMoney; // お金の変化を通知
+        playerUiManager.playerMoney += 1;//もうこれでもいいやん
     }
     //ウェーブクリアメッセージとショップ画面への移行
     //これは別にuiPresenterでもいいかも
@@ -136,12 +143,12 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(2f, 3f);
+            float waitTime1 = UnityEngine.Random.Range(2, 5f);
             yield return new WaitForSeconds(waitTime1);
-
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
             SpawnEnemy1(0);//手前の湧き
             // SpawnEnemy2(0);//奥の湧き
 
@@ -166,12 +173,13 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(2f, 4f);
             yield return new WaitForSeconds(waitTime1);
-
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
             SpawnEnemy1(0);//手前の湧き
             SpawnEnemy2(1);//奥の湧き
 
@@ -195,12 +203,13 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(3f, 5f);
             yield return new WaitForSeconds(waitTime1);
-
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
             SpawnEnemy3(2);//手前の湧き
             SpawnEnemy2(3);//奥の湧き
 
@@ -223,12 +232,12 @@ public class EnemySpawn : MonoBehaviour
         float elapsedTime = 0f;
 
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 20f)
+        while (!playerDieFlag && elapsedTime < 10f)
         {
             // 2から5秒のランダムな待ち時間を生成
             float waitTime1 = UnityEngine.Random.Range(4f, 5f);
             yield return new WaitForSeconds(waitTime1);
-
+            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
             SpawnEnemy1(3);//手前の湧き
             SpawnEnemy2(3);//奥の湧き
 
@@ -371,17 +380,93 @@ public class EnemySpawn : MonoBehaviour
     //ボスウェーブ１
     IEnumerator BossSpawnEnemiesPeriodically1()
     {
-        yield return new WaitForSeconds(1f);
-        Debug.Log("BossWave" + waveNumber + "開始");
-        playerUiPresenter.LetsWaveStartText(waveNumber);
-        yield return new WaitForSeconds(3f);
-        playerUiPresenter.LetsOutWaveStartText();
-        spawnWaveFlag = true;
-        yield return new WaitForSeconds(3f);
-        Debug.Log("ボス出現");
-        SpawnBossEnemy(4);
-        Debug.Log("Wave" + waveNumber + "終了");
-        spawnWaveFlag = false;
+        switch (waveNumber)
+        {
+            case 5:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[4]);
+                SpawnBossEnemy(4);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 10:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[5]);
+                SpawnBossEnemy(5);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 15:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[6]);
+                SpawnBossEnemy(6);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 20:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[7]);
+                SpawnBossEnemy(7);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case 25:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[8]);
+                SpawnBossEnemy(8);
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+            case > 25:
+                yield return new WaitForSeconds(1f);
+                Debug.Log("BossWave" + waveNumber + "開始");
+                playerUiPresenter.LetsWaveStartText(waveNumber);
+                yield return new WaitForSeconds(3f);
+                playerUiPresenter.LetsOutWaveStartText();
+                spawnWaveFlag = true;
+                yield return new WaitForSeconds(3f);
+                Debug.Log("ボス出現");
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[9]);
+                SpawnBossEnemy(UnityEngine.Random.Range(4, 8));
+                Debug.Log("Wave" + waveNumber + "終了");
+                spawnWaveFlag = false;
+                break;
+        }
     }
 
     // 湧き範囲の可視化

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4699648136263499434}
   - component: {fileID: 4699648136263499432}
   - component: {fileID: 4699648136263499435}
+  - component: {fileID: 3358749642533775521}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Enemy
@@ -116,6 +117,10 @@ MonoBehaviour:
   enemyScore: 30
   enemyMoney: 8
   hp: 1
+  goldCoinPrefab: {fileID: 2580216731893448468, guid: 5b776e3b9c9a7f94e97e39df7e1e4c8b, type: 3}
+  EnemyDamageVoice:
+  - {fileID: 8300000, guid: c0da133be58e94bbd83a8fed86ec2f42, type: 3}
+  - {fileID: 8300000, guid: e54d302fcf6b94c7a8c317697da3bbfb, type: 3}
 --- !u!114 &4699648136263499435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +137,20 @@ MonoBehaviour:
   damage2: 0
   damage3: 0
   damage4: 0
+--- !u!136 &3358749642533775521
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4663078473581375307}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.44
+  m_Height: 1.37
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.55, z: 0}
 --- !u!1 &4663196171580306209
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4665103454791782755}
   - component: {fileID: 4709271088651491285}
-  - component: {fileID: 4709271088651491282}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -285,17 +303,3 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.116093546, y: 0.000000044703484, z: 0.00968793}
     m_Extent: {x: 0.32626763, y: 0.37760997, z: 0.23880383}
   m_DirtyAABB: 0
---- !u!136 &4709271088651491282
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4663392651198726241}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.38
-  m_Height: 1.2
-  m_Direction: 1
-  m_Center: {x: 0.00000004775122, y: 0.53, z: 0.014935413}

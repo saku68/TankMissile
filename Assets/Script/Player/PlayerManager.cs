@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,6 +25,16 @@ public class PlayerManager : MonoBehaviour
     public IReadOnlyReactiveProperty<int> MaxHp => maxHp;
     [SerializeField]
     private IntReactiveProperty maxHp = new IntReactiveProperty(100);
+    [SerializeField]
+    private List<AudioClip> gameOverClips; // ゲームオーバー効果音のリスト
+    [SerializeField]
+    private GameObject playerHitImpactParticle;
+    [SerializeField, Tooltip("パーティクルエフェクトの寿命（秒）")]
+    private float particleLifetime = 2.0f;
+    [SerializeField]
+    private AudioClip impactPlayerSound;
+    [SerializeField]
+    private List<AudioClip> getGoldCoinSound;
 
     void Start()
     {
@@ -118,7 +129,7 @@ public class PlayerManager : MonoBehaviour
     {
         // カメラを破壊しないようにする
         mainCamera.transform.SetParent(null);
-
+        PlayRandomGameOverSound(); // ランダムなゲームオーバー効果音を再生
         Destroy(this.gameObject);
         hp.Dispose();
         maxHp.Dispose();
@@ -126,6 +137,19 @@ public class PlayerManager : MonoBehaviour
         playerUiPresenter.LetsSetDeadText();
         enemySpawn.PlayerDie();
         playerPresenter.LetsOffDrawArc();
+    }
+    private void PlayRandomGameOverSound()
+    {
+        if (gameOverClips != null && gameOverClips.Count > 0)
+        {
+            int randomIndex = Random.Range(0, gameOverClips.Count);
+            AudioClip clip = gameOverClips[randomIndex];
+            SoundManager.Instance.PlaySound(clip);
+        }
+        else
+        {
+            Debug.LogWarning("No game over clips assigned in PlayerManager.");
+        }
     }
 
     //MaxHpの増加
@@ -147,7 +171,6 @@ public class PlayerManager : MonoBehaviour
     {
         moveSpeed += upMoveSpeed;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         // 衝突相手が "Enemy" タグを持っているかチェックする
@@ -158,9 +181,28 @@ public class PlayerManager : MonoBehaviour
             if (damager != null)
             {
                 Damage(damager.damage1);
+                // 衝突位置と回転の計算
+                Vector3 hitPosition = other.transform.position;
+                Vector3 direction = (hitPosition - transform.position).normalized;
+                Quaternion hitRotation = Quaternion.LookRotation(direction);
+                // パーティクルエフェクトの生成
+                GameObject hitEffect = Instantiate(playerHitImpactParticle, hitPosition, hitRotation);
+                SoundManager.Instance.PlaySound(impactPlayerSound);
                 // 対象を破壊する
                 Destroy(other.gameObject);
+                Destroy(hitEffect, particleLifetime); // パーティクルエフェクトを一定時間後に破壊
             }
+        }
+        if (other.CompareTag("GoldCoin"))
+        {
+            enemySpawn.AddEnemyMoney();
+            if (getGoldCoinSound != null && getGoldCoinSound.Count > 0)
+            {
+                int randomIndex = Random.Range(0, getGoldCoinSound.Count);
+                AudioClip clip = getGoldCoinSound[randomIndex];
+                SoundManager.Instance.PlaySound(clip);
+            }
+            Destroy(other.gameObject);
         }
     }
 }

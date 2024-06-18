@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip BuyAbilitySound1;
+    [SerializeField]
+    private AudioClip BuyAbilitySound2;
     PlayerPresenter playerPresenter;
     PlayerUiPresenter playerUiPresenter;
     PlayerUiManager playerUiManager;
@@ -30,6 +34,9 @@ public class ShopManager : MonoBehaviour
     public int upMoveSpeed;
     public int moveSpeedLevel = 1;
     public int moveSpeedMuch = 4;
+    public int upShootBulletModeLevel = 1;
+    public int upShootBulletModeMuch = 100;
+    public int shootModeNumber = 2;
     void Start()
     {
         playerPresenter = GameObject.Find("Player").GetComponent<PlayerPresenter>();
@@ -38,12 +45,15 @@ public class ShopManager : MonoBehaviour
         upBulletSize = new Vector3(0.9f, 0.9f, 0.9f);
         upAntiDamage = 3;
         upMoveSpeed = 6;
+        shootModeNumber = 2;
     }
     //発射レート購入ボタン
     public void UpFireRateButton()
     {
         if (playerUiManager.playerMoney >= fireRateMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力上昇の処理
             playerPresenter.UpFirerate(newFireRate);
             //お金の減少の処理
@@ -61,6 +71,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= upMaxHpMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.LetsUpMaxHp(upMaxHpAmount);
             playerPresenter.LetsUpHpMax();
@@ -79,6 +91,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= healHpMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             playerPresenter.LetsUpHp(healHpAmount);
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(healHpMuch);
@@ -89,6 +103,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= upBulletRangeMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.UpBulletRange(upBulletRangeAmount);
             //お金の減少の処理
@@ -105,6 +121,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= upBulletSizeMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.LetsChangeBulletSize(upBulletSize);
             //お金の減少の処理
@@ -122,6 +140,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= upBulletDamageMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.LetsChangeBulletDamage(upBulletDamage);
             //お金の減少の処理
@@ -138,6 +158,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= antiDamageMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.UpAntiDamage(upAntiDamage);
             //お金の減少の処理
@@ -154,6 +176,8 @@ public class ShopManager : MonoBehaviour
     {
         if (playerUiManager.playerMoney >= moveSpeedMuch)
         {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
             //能力の上昇
             playerPresenter.LetsUpMoveSpeed(upMoveSpeed);
             //お金の減少の処理
@@ -163,6 +187,25 @@ public class ShopManager : MonoBehaviour
             moveSpeedLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
+        }
+    }
+    //発射弾数増加ボタン
+    public void UpShootBulletModeButton()
+    {
+        if (playerUiManager.playerMoney >= upShootBulletModeMuch && shootModeNumber <= 3)
+        {
+            SoundManager.Instance.PlaySound(BuyAbilitySound1);
+            SoundManager.Instance.PlaySound(BuyAbilitySound2);
+            //能力の上昇
+            playerPresenter.LetsChangeShootBulletMode(shootModeNumber);
+            //お金の減少の処理
+            playerUiPresenter.LetsBuyAnyAbility(upShootBulletModeMuch);
+            //更新
+            upShootBulletModeMuch += 100;
+            shootModeNumber += 1;
+            upShootBulletModeLevel += 1;
+            //価格変更の処理
+            playerUiPresenter.LetsUpShootBulletModeText(upShootBulletModeMuch, upShootBulletModeLevel);
         }
     }
 }

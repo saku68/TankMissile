@@ -9713,7 +9713,7 @@ Transform:
   m_GameObject: {fileID: 2368695380886305482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4, z: 0}
-  m_LocalScale: {x: 6.100001, y: 6.100001, z: 6.100001}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2365925284808040542}
@@ -9813,7 +9813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage1: 0
-  damage2: 5
+  damage2: 1
   damage3: 0
   damage4: 0
 --- !u!114 &-9044458957954582394
@@ -9832,6 +9832,11 @@ MonoBehaviour:
   groundHitImpactParticle: {fileID: 3998121050074796692, guid: d9289141ff00a9441b1a7c42f27c9c00, type: 3}
   destroyDelay: 0.1
   particleLifetime: 2
+  impactEnemySound1: {fileID: 8300000, guid: daee4649b4a641849a24df9119edc78d, type: 3}
+  impactGroundSound1: {fileID: 8300000, guid: daee4649b4a641849a24df9119edc78d, type: 3}
+  impactEnemySound2: {fileID: 8300000, guid: d11230aada070a148ad9cac9ac59514d, type: 3}
+  impactGroundSound2: {fileID: 8300000, guid: 40bc0b255d9acd540b7c3f65be9a6741, type: 3}
+  shopManager: {fileID: 0}
 --- !u!1 &2368866337329953756
 GameObject:
   m_ObjectHideFlags: 0

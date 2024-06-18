@@ -116,4 +116,9 @@ public class PlayerPresenter : MonoBehaviour
     {
         shootBullet.ChangeBulletSize(newSize);
     }
+    //発射弾数増加
+    public void LetsChangeShootBulletMode(int shootModeNumber)
+    {
+        shootBullet.ChangeBulletMode(shootModeNumber);
+    }
 }
