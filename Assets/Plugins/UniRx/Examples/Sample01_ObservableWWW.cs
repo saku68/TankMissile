@@ -17,8 +17,8 @@ namespace UniRx.Examples
             {
                 ObservableWWW.Get("http://google.co.jp/")
                     .Subscribe(
-                        x => Debug.Log(x.Substring(0, 100)), // onSuccess
-                        ex => Debug.LogException(ex)); // onError
+                        x => UnityEngine.Debug.Log(x.Substring(0, 100)), // onSuccess
+                        ex => UnityEngine.Debug.LogException(ex)); // onError
             }
 
             // Linear Pattern with LINQ Query Expressions
@@ -28,7 +28,7 @@ namespace UniRx.Examples
                             from bing in ObservableWWW.Get("http://bing.com/")
                             select new { google, bing };
 
-                var cancel = query.Subscribe(x => Debug.Log(x.google.Substring(0, 100) + ":" + x.bing.Substring(0, 100)));
+                var cancel = query.Subscribe(x => UnityEngine.Debug.Log(x.google.Substring(0, 100) + ":" + x.bing.Substring(0, 100)));
 
                 // Call Dispose is cancel downloading.
                 cancel.Dispose();
@@ -44,9 +44,9 @@ namespace UniRx.Examples
 
                 parallel.Subscribe(xs =>
                 {
-                    Debug.Log(xs[0].Substring(0, 100)); // google
-                    Debug.Log(xs[1].Substring(0, 100)); // bing
-                    Debug.Log(xs[2].Substring(0, 100)); // unity
+                    UnityEngine.Debug.Log(xs[0].Substring(0, 100)); // google
+                    UnityEngine.Debug.Log(xs[1].Substring(0, 100)); // bing
+                    UnityEngine.Debug.Log(xs[2].Substring(0, 100)); // unity
                 });
             }
 
@@ -54,7 +54,7 @@ namespace UniRx.Examples
             {
                 // notifier for progress
                 var progressNotifier = new ScheduledNotifier<float>();
-                progressNotifier.Subscribe(x => Debug.Log(x)); // write www.progress
+                progressNotifier.Subscribe(x => UnityEngine.Debug.Log(x)); // write www.progress
 
                 // pass notifier to WWW.Get/Post
                 ObservableWWW.Get("http://google.com/", progress: progressNotifier).Subscribe();
@@ -67,14 +67,14 @@ namespace UniRx.Examples
                 ObservableWWW.Get("http://www.google.com/404")
                     .CatchIgnore((WWWErrorException ex) =>
                     {
-                        Debug.Log(ex.RawErrorMessage);
+                        UnityEngine.Debug.Log(ex.RawErrorMessage);
                         if (ex.HasResponse)
                         {
-                            Debug.Log(ex.StatusCode);
+                            UnityEngine.Debug.Log(ex.StatusCode);
                         }
                         foreach (var item in ex.ResponseHeaders)
                         {
-                            Debug.Log(item.Key + ":" + item.Value);
+                            UnityEngine.Debug.Log(item.Key + ":" + item.Value);
                         }
                     })
                     .Subscribe();

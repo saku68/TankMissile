@@ -123,7 +123,7 @@ public class DrawArc : MonoBehaviour
     /// </summary>
     /// <param name="time">経過時間</param>
     /// <returns>座標</returns>
-     private Vector3 GetArcPositionAtTime(float time)
+    private Vector3 GetArcPositionAtTime(float time)
     {
         return (arcStartPosition + ((initialVelocity * time) + (0.5f * time * time) * Physics.gravity));
     }
@@ -191,7 +191,7 @@ public class DrawArc : MonoBehaviour
     {
         drawArc = false;
         pointerObject.SetActive(false);
-        Debug.Log("放物線停止");
+        UnityEngine.Debug.Log("放物線停止");
         for (int i = 0; i < lineRenderers.Length; i++)
         {
             lineRenderers[i].enabled = false;

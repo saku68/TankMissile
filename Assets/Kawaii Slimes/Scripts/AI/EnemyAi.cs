@@ -1,14 +1,14 @@
 ﻿
 using UnityEngine;
 using UnityEngine.AI;
-public enum SlimeAnimationState { Idle,Walk,Jump,Attack,Damage}
+public enum SlimeAnimationState { Idle, Walk, Jump, Attack, Damage }
 public class EnemyAi : MonoBehaviour
 {
 
     public Face faces;
     public GameObject SmileBody;
-    public SlimeAnimationState currentState; 
-   
+    public SlimeAnimationState currentState;
+
     public Animator animator;
     public NavMeshAgent agent;
     public Transform[] waypoints;
@@ -20,7 +20,7 @@ public class EnemyAi : MonoBehaviour
     private Material faceMaterial;
     private Vector3 originPos;
 
-    public enum WalkType { Patroll ,ToOrigin }
+    public enum WalkType { Patroll, ToOrigin }
     private WalkType walkType;
 
     void Start()
@@ -36,7 +36,7 @@ public class EnemyAi : MonoBehaviour
         agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
         SetFace(faces.WalkFace);
     }
-    public void CancelGoNextDestination() =>CancelInvoke(nameof(WalkToNextDestination));
+    public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
 
     void SetFace(Texture tex)
     {
@@ -44,12 +44,12 @@ public class EnemyAi : MonoBehaviour
     }
     void Update()
     {
-        
+
 
         switch (currentState)
         {
             case SlimeAnimationState.Idle:
-                
+
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
                 StopAgent();
                 SetFace(faces.Idleface);
@@ -65,7 +65,7 @@ public class EnemyAi : MonoBehaviour
                 if (walkType == WalkType.ToOrigin)
                 {
                     agent.SetDestination(originPos);
-                    // Debug.Log("WalkToOrg");
+                    // UnityEngine.Debug.Log("WalkToOrg");
                     SetFace(faces.WalkFace);
                     // agent reaches the destination
                     if (agent.remainingDistance < agent.stoppingDistance)
@@ -77,14 +77,14 @@ public class EnemyAi : MonoBehaviour
 
                         currentState = SlimeAnimationState.Idle;
                     }
-                       
+
                 }
                 //Patroll
                 else
                 {
                     if (waypoints[0] == null) return;
-                   
-                     agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+
+                    agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
 
                     // agent reaches the destination
                     if (agent.remainingDistance < agent.stoppingDistance)
@@ -98,7 +98,7 @@ public class EnemyAi : MonoBehaviour
                 }
                 // set Speed parameter synchronized with agent root motion moverment
                 animator.SetFloat("Speed", agent.velocity.magnitude);
-                
+
 
                 break;
 
@@ -110,7 +110,7 @@ public class EnemyAi : MonoBehaviour
                 SetFace(faces.jumpFace);
                 animator.SetTrigger("Jump");
 
-                //Debug.Log("Jumping");
+                //UnityEngine.Debug.Log("Jumping");
                 break;
 
             case SlimeAnimationState.Attack:
@@ -120,24 +120,24 @@ public class EnemyAi : MonoBehaviour
                 SetFace(faces.attackFace);
                 animator.SetTrigger("Attack");
 
-               // Debug.Log("Attacking");
+                // UnityEngine.Debug.Log("Attacking");
 
                 break;
             case SlimeAnimationState.Damage:
 
-               // Do nothing when animtion is playing
-               if(animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0")
-                    || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1")
-                    || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2") ) return;
+                // Do nothing when animtion is playing
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0")
+                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1")
+                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
 
                 StopAgent();
                 animator.SetTrigger("Damage");
                 animator.SetInteger("DamageType", damType);
                 SetFace(faces.damageFace);
 
-                //Debug.Log("Take Damage");
+                //UnityEngine.Debug.Log("Take Damage");
                 break;
-       
+
         }
 
     }
@@ -152,7 +152,7 @@ public class EnemyAi : MonoBehaviour
     // Animation Event
     public void AlertObservers(string message)
     {
-      
+
         if (message.Equals("AnimationDamageEnded"))
         {
             // When Animation ended check distance between current position and first position 
@@ -166,12 +166,12 @@ public class EnemyAi : MonoBehaviour
             }
             else currentState = SlimeAnimationState.Idle;
 
-            //Debug.Log("DamageAnimationEnded");
+            //UnityEngine.Debug.Log("DamageAnimationEnded");
         }
 
         if (message.Equals("AnimationAttackEnded"))
         {
-            currentState = SlimeAnimationState.Idle;           
+            currentState = SlimeAnimationState.Idle;
         }
 
         if (message.Equals("AnimationJumpEnded"))
@@ -188,4 +188,4 @@ public class EnemyAi : MonoBehaviour
         transform.position = position;
         agent.nextPosition = transform.position;
     }
-    }
+}

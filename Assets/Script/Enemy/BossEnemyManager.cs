@@ -22,7 +22,7 @@ public class BossEnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject goldCoinPrefab;
     [SerializeField]
-    private List<AudioClip> EnemyDamageVoice; 
+    private List<AudioClip> EnemyDamageVoice;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -40,7 +40,7 @@ public class BossEnemyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
+            UnityEngine.Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
         }
     }
 

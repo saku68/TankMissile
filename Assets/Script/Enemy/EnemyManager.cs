@@ -8,20 +8,17 @@ public class EnemyManager : MonoBehaviour
 {
     private Animator animator;
     private EnemySpawn enemySpawn;
-    [SerializeField]
-    private int enemyScore;
+    public int enemyScore;
 
-    [SerializeField]
-    private int enemyMoney;
-    [SerializeField]
-    private int hp = 1;
+    public int enemyMoney;
+    public int hp = 1;
     public Transform target;
     NavMeshAgent agent;
     // Start is called before the first frame update
     [SerializeField]
     private GameObject goldCoinPrefab;
     [SerializeField]
-    private List<AudioClip> EnemyDamageVoice; 
+    private List<AudioClip> EnemyDamageVoice;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -36,7 +33,7 @@ public class EnemyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
+            UnityEngine.Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
         }
     }
 

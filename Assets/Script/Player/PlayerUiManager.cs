@@ -90,7 +90,7 @@ public class PlayerUiManager : MonoBehaviour
         if (playerDeadFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             SetScorePanel();
-            Debug.Log("スコア画面起動");
+            UnityEngine.Debug.Log("スコア画面起動");
         }
         UpdateMoney();
     }
@@ -252,7 +252,7 @@ public class PlayerUiManager : MonoBehaviour
     {
         if (abilityButtons.Count < 3)
         {
-            Debug.LogError("Not enough ability buttons in the list.");
+            UnityEngine.Debug.LogError("Not enough ability buttons in the list.");
             return;
         }
 

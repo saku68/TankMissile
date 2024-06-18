@@ -40,7 +40,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("AudioClip is null. Cannot play sound.");
+            UnityEngine.Debug.LogWarning("AudioClip is null. Cannot play sound.");
         }
     }
     public void StopBGM()

@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6ec43611439db4b838f00b569a7e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followDistance: 5
+  followDistance: 100
   launchForce: 10
   upwardForce: 6
 --- !u!65 &896796650998855565

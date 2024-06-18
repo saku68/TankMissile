@@ -15,16 +15,16 @@ namespace UniRx.Examples
         // two coroutines
         IEnumerator AsyncA()
         {
-            Debug.Log("a start");
+            UnityEngine.Debug.Log("a start");
             yield return new WaitForSeconds(3);
-            Debug.Log("a end");
+            UnityEngine.Debug.Log("a end");
         }
 
         IEnumerator AsyncB()
         {
-            Debug.Log("b start");
+            UnityEngine.Debug.Log("b start");
             yield return new WaitForEndOfFrame();
-            Debug.Log("b end");
+            UnityEngine.Debug.Log("b end");
         }
 
         void Start()

@@ -38046,7 +38046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootMode: 1
-  fireRate: 10
+  fireRate: 1
   offset: 0.5
   angle: 15
   bulletPrefab: {fileID: 2368695380886305482, guid: 64441ea1009740b4a83d8b78386b4ca1, type: 3}
@@ -38065,7 +38065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfc57fef8d7adb48a3163b22a8d58a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0.5
+  sensitivity: 0.2
   barrelObject: {fileID: 2107602402340189828}
   minAngleX: -60
   maxAngleX: 45

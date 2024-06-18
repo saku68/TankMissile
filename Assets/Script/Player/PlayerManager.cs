@@ -125,7 +125,7 @@ public class PlayerManager : MonoBehaviour
             hp.Value = 0;
             OnPlayerDeath();
         }
-        Debug.Log("残りHP:" + hp);
+        UnityEngine.Debug.Log("残りHP:" + hp);
     }
     private void OnPlayerDeath()
     {
@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         Destroy(this.gameObject);
         hp.Dispose();
         maxHp.Dispose();
-        Debug.Log("死んだ！");
+        UnityEngine.Debug.Log("死んだ！");
         playerUiPresenter.LetsSetDeadText();
         enemySpawn.PlayerDie();
         playerPresenter.LetsOffDrawArc();
@@ -151,7 +151,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No game over clips assigned in PlayerManager.");
+            UnityEngine.Debug.LogWarning("No game over clips assigned in PlayerManager.");
         }
     }
 
