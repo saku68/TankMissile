@@ -35,6 +35,11 @@ public class PlayerManager : MonoBehaviour
     private AudioClip impactPlayerSound;
     [SerializeField]
     private List<AudioClip> getGoldCoinSound;
+    // 移動範囲の制限値
+    private float xMin = -140f;
+    private float xMax = 140f;
+    private float zMin = -140f;
+    private float zMax = 140f;
 
 
     void Start()
@@ -95,6 +100,14 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        // 回転を制限して地面と平行にする
+        Quaternion currentRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(0, currentRotation.eulerAngles.y, 0);
+        // 移動範囲の制限
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, xMin, xMax);
+        clampedPosition.z = Mathf.Clamp(clampedPosition.z, zMin, zMax);
+        transform.position = clampedPosition;
         // 確認用の加速
         if (Input.GetKeyDown(KeyCode.Backspace))
         {

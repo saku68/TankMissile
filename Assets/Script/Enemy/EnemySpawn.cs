@@ -52,6 +52,10 @@ public class EnemySpawn : MonoBehaviour
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
         _ = StartCoroutine(SpawnEnemiesPeriodically1());
+        SetEnemyStats(0, 10, 2, 1);
+        SetEnemyStats(1, 15, 5, 2);
+        SetEnemyStats(2, 30, 8, 1);
+        SetEnemyStats(3, 50, 15, 8);
     }
     void Update()
     {
@@ -148,7 +152,7 @@ public class EnemySpawn : MonoBehaviour
         //ウェーブ時間の設定
         if (waveNumber < 5)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 30f)
             {
                 // 2から5秒のランダムな待ち時間を生成
                 float waitTime1 = UnityEngine.Random.Range(3, 5f);
@@ -161,7 +165,7 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 15)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 45f)
             {
                 // 2から5秒のランダムな待ち時間を生成
                 float waitTime1 = UnityEngine.Random.Range(1, 3f);
@@ -174,7 +178,7 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 25)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 60f)
             {
                 // 2から5秒のランダムな待ち時間を生成
                 float waitTime1 = UnityEngine.Random.Range(1, 2f);
@@ -188,10 +192,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 90f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 1f);
+                float waitTime1 = UnityEngine.Random.Range(0.5f, 1f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
                 SpawnEnemy1(0);//手前の湧き
@@ -203,10 +207,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber > 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 120f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 0.7f);
+                float waitTime1 = UnityEngine.Random.Range(0.4f, 1f);
                 yield return new WaitForSeconds(waitTime1);
                 int voiceNumber = UnityEngine.Random.Range(0, 3);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
@@ -239,10 +243,10 @@ public class EnemySpawn : MonoBehaviour
         //ウェーブ時間の設定
         if (waveNumber < 5)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 30f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(4, 6f);
+                float waitTime1 = UnityEngine.Random.Range(6, 9f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
@@ -254,10 +258,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 15)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 45f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(2, 3f);
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
@@ -269,7 +273,7 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 25)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 60f)
             {
                 // 2から5秒のランダムな待ち時間を生成
                 float waitTime1 = UnityEngine.Random.Range(1, 2f);
@@ -284,10 +288,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 90f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 1f);
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
@@ -300,16 +304,14 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber > 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 120f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 0.7f);
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
                 yield return new WaitForSeconds(waitTime1);
                 int voiceNumber = UnityEngine.Random.Range(0, 3);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
                 SpawnEnemy1(0);//手前の湧き
-                SpawnEnemy1(0);
-                SpawnEnemy2(1);
                 SpawnEnemy2(1);
                 SpawnEnemy2(1);
                 SpawnEnemy3(0);
@@ -334,7 +336,22 @@ public class EnemySpawn : MonoBehaviour
         //ウェーブ時間の設定
         if (waveNumber < 5)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 30f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(6, 9f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy3(2);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 15)
+        {
+            while (!playerDieFlag && elapsedTime < 45f)
             {
                 // 2から5秒のランダムな待ち時間を生成
                 float waitTime1 = UnityEngine.Random.Range(3, 5f);
@@ -347,27 +364,12 @@ public class EnemySpawn : MonoBehaviour
                 elapsedTime += waitTime1;
             }
         }
-        else if (waveNumber < 15)
-        {
-            while (!playerDieFlag && elapsedTime < 10f)
-            {
-                // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(2, 3f);
-                yield return new WaitForSeconds(waitTime1);
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
-                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
-                SpawnEnemy3(2);//手前の湧き
-                SpawnEnemy2(3);//奥の湧き
-                // 経過時間を加算
-                elapsedTime += waitTime1;
-            }
-        }
         else if (waveNumber < 25)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 60f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(1, 2f);
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
@@ -380,10 +382,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 90f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 1f);
+                float waitTime1 = UnityEngine.Random.Range(2f, 4f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
@@ -396,17 +398,15 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber > 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 120f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 0.7f);
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
                 yield return new WaitForSeconds(waitTime1);
                 int voiceNumber = UnityEngine.Random.Range(0, 3);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
                 SpawnEnemy1(0);//手前の湧き
                 SpawnEnemy1(1);
-                SpawnEnemy2(3);
-                SpawnEnemy2(3);
                 SpawnEnemy2(3);
                 SpawnEnemy3(2);
                 SpawnEnemy3(2);
@@ -431,10 +431,10 @@ public class EnemySpawn : MonoBehaviour
         //ウェーブ時間の設定
         if (waveNumber < 5)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 30f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(4f, 5f);
+                float waitTime1 = UnityEngine.Random.Range(9f, 11f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
                 SpawnEnemy1(3);//手前の湧き
@@ -446,10 +446,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 15)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 45f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(2f, 3f);
+                float waitTime1 = UnityEngine.Random.Range(3f, 5f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
                 SpawnEnemy1(3);//手前の湧き
@@ -461,10 +461,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 25)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 60f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
+                float waitTime1 = UnityEngine.Random.Range(3f, 5f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
                 SpawnEnemy1(3);//手前の湧き
@@ -476,10 +476,10 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber < 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 90f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 1f);
+                float waitTime1 = UnityEngine.Random.Range(2f, 4f);
                 yield return new WaitForSeconds(waitTime1);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
                 SpawnEnemy1(3);//手前の湧き
@@ -492,21 +492,17 @@ public class EnemySpawn : MonoBehaviour
         }
         else if (waveNumber > 50)
         {
-            while (!playerDieFlag && elapsedTime < 10f)
+            while (!playerDieFlag && elapsedTime < 150f)
             {
                 // 2から5秒のランダムな待ち時間を生成
-                float waitTime1 = UnityEngine.Random.Range(0.2f, 0.7f);
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
                 yield return new WaitForSeconds(waitTime1);
                 int voiceNumber = UnityEngine.Random.Range(0, 3);
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
                 SpawnEnemy1(3);//手前の湧き
                 SpawnEnemy1(1);
                 SpawnEnemy2(3);
-                SpawnEnemy2(3);
-                SpawnEnemy2(3);
                 SpawnEnemy2(2);
-                SpawnEnemy3(2);
-                SpawnEnemy3(2);
                 SpawnEnemy3(2);
                 // 経過時間を加算
                 elapsedTime += waitTime1;
@@ -765,26 +761,44 @@ public class EnemySpawn : MonoBehaviour
         switch (waveNumber)
         {
             case < 5:
-            SetEnemyStats(0, 10, 2, 1);
-            SetEnemyStats(1, 15, 5, 2);
-            SetEnemyStats(2, 30, 8, 1);
-            SetEnemyStats(3, 50, 15, 8);
+                SetEnemyStats(0, 10, 2, 1);
+                SetEnemyStats(1, 15, 5, 2);
+                SetEnemyStats(2, 30, 8, 1);
+                SetEnemyStats(3, 50, 15, 8);
                 break;
             case < 15:
-            SetEnemyStats(0, 20, 4, 2);
-            SetEnemyStats(1, 30, 8, 3);
-            SetEnemyStats(2, 50, 12, 1);
-            SetEnemyStats(3, 90, 20, 9);
+                SetEnemyStats(0, 20, 4, 2);
+                SetEnemyStats(1, 30, 8, 3);
+                SetEnemyStats(2, 50, 12, 1);
+                SetEnemyStats(3, 90, 20, 9);
                 break;
             case < 25:
-            SetEnemyStats(0, 20, 10, 3);
-            SetEnemyStats(1, 30, 15, 4);
-            SetEnemyStats(2, 60, 20, 3);
-            SetEnemyStats(3, 120, 30, 10);
+                SetEnemyStats(0, 20, 6, 3);
+                SetEnemyStats(1, 30, 15, 4);
+                SetEnemyStats(2, 60, 20, 3);
+                SetEnemyStats(3, 120, 30, 10);
                 break;
             case < 50:
+                SetEnemyStats(0, 200, 8, 6);
+                SetEnemyStats(1, 300, 20, 8);
+                SetEnemyStats(2, 600, 40, 6);
+                SetEnemyStats(3, 1200, 60, 18);
+                SetEnemyStats(4, 200000, 1000, 1000);
+                SetEnemyStats(5, 300000, 1000, 1000);
+                SetEnemyStats(6, 600000, 1000, 1000);
+                SetEnemyStats(7, 1200000, 1000, 1000);
+                SetEnemyStats(8, 1500000, 1000, 1000);
                 break;
             case > 50:
+                SetEnemyStats(0, 2000, 15, 10);
+                SetEnemyStats(1, 3000, 30, 12);
+                SetEnemyStats(2, 6000, 60, 18);
+                SetEnemyStats(3, 12000, 80, 20);
+                SetEnemyStats(4, 99999999, 1000, 3000);
+                SetEnemyStats(5, 99999999, 1000, 3000);
+                SetEnemyStats(6, 99999999, 1000, 3000);
+                SetEnemyStats(7, 99999999, 1000, 3000);
+                SetEnemyStats(8, 99999999, 1000, 3000);
                 break;
         }
     }
