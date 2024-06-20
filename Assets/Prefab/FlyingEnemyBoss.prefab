@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 7655714237513929484}
   - component: {fileID: 403815007736218886}
   - component: {fileID: 403815007736218885}
+  - component: {fileID: -1625988723568715423}
   m_Layer: 0
   m_Name: FlyingEnemyBoss
   m_TagString: Enemy
@@ -515,6 +516,21 @@ MonoBehaviour:
   EnemyDamageVoice:
   - {fileID: 8300000, guid: bdf8f40b8104a4f1cbd8969a502e2c1f, type: 3}
   - {fileID: 8300000, guid: b4d7c8ea698834187b169de2037a2938, type: 3}
+--- !u!114 &-1625988723568715423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759873369955255020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48931f68294772e4784992b6df85fd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScore: 3000
+  enemyMoney: 800
+  enemyHp: 200
 --- !u!1 &7759999760851115654
 GameObject:
   m_ObjectHideFlags: 0

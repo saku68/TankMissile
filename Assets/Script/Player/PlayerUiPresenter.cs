@@ -95,20 +95,20 @@ public class PlayerUiPresenter : MonoBehaviour
         if (playerUiManager.shopFlag && playerUiManager.IsShopPanelActive())
         {
             playerUiManager.OutShopButton();
-            Debug.Log("Escでショップを退出した");
+            UnityEngine.Debug.Log("Escでショップを退出した");
         }
 
         if (!pauseFlag && !playerUiManager.IsShopPanelActive() && !playerUiManager.shopFlag)
         {
             playerUiManager.PauseGame();
             pauseFlag = true;
-            Debug.Log("Escでポーズした");
+            UnityEngine.Debug.Log("Escでポーズした");
         }
         else if (pauseFlag)
         {
             playerUiManager.ResumeGame();
             pauseFlag = false;
-            Debug.Log("Escでポーズを退出した");
+            UnityEngine.Debug.Log("Escでポーズを退出した");
         }
     }
     public void LetsSetWaveClearText()

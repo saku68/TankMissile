@@ -20,29 +20,29 @@ namespace UniRx.Examples
             Observable.FromCoroutine(TestAsync).Subscribe();
 
             // Add Action to MainThreadDispatcher. Action is saved queue, run on next update.
-            MainThreadDispatcher.Post(_ => Debug.Log("test"), null);
+            MainThreadDispatcher.Post(_ => UnityEngine.Debug.Log("test"), null);
 
             // Timebased operations is run on MainThread(as default)
             // All timebased operation(Interval, Timer, Delay, Buffer, etc...)is single thread, thread safe!
             Observable.Interval(TimeSpan.FromSeconds(1))
-                .Subscribe(x => Debug.Log(x));
+                .Subscribe(x => UnityEngine.Debug.Log(x));
 
             // Observable.Start use ThreadPool Scheduler as default.
             // ObserveOnMainThread return to mainthread
             Observable.Start(() => Unit.Default) // asynchronous work
                 .ObserveOnMainThread()
-                .Subscribe(x => Debug.Log(x));
+                .Subscribe(x => UnityEngine.Debug.Log(x));
         }
 
         IEnumerator TestAsync()
         {
-            Debug.Log("a");
+            UnityEngine.Debug.Log("a");
             yield return new WaitForSeconds(1);
-            Debug.Log("b");
+            UnityEngine.Debug.Log("b");
             yield return new WaitForSeconds(1);
-            Debug.Log("c");
+            UnityEngine.Debug.Log("c");
             yield return new WaitForSeconds(1);
-            Debug.Log("d");
+            UnityEngine.Debug.Log("d");
         }
     }
 }

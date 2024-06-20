@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
-    
+public class Enemy : MonoBehaviour
+{
+
     public Transform shootElement;
     public GameObject bullet;
     public GameObject Enemybug;
-    public int Creature_Damage = 10;    
+    public int Creature_Damage = 10;
     public float Speed;
     // 
     public Transform[] waypoints;
@@ -16,13 +17,13 @@ public class Enemy : MonoBehaviour {
     public EnemyHp Enemy_Hp;
     public Transform target;
     public GameObject EnemyTarget;
-    
+
 
     void Start()
-    {            
+    {
         anim = GetComponent<Animator>();
         Enemy_Hp = Enemybug.GetComponent<EnemyHp>();
-        previous_Speed = Speed;        
+        previous_Speed = Speed;
     }
 
     // Attack
@@ -33,29 +34,29 @@ public class Enemy : MonoBehaviour {
         if ((other.tag == "Castle") || (other.tag == "Tank"))
         {
 
-            
+
 
             Speed = 0;
             EnemyTarget = other.gameObject;
             target = other.gameObject.transform;
-            Vector3 targetPosition = new Vector3(EnemyTarget.transform.position.x, transform.position.y, EnemyTarget.transform.position.z);            
+            Vector3 targetPosition = new Vector3(EnemyTarget.transform.position.x, transform.position.y, EnemyTarget.transform.position.z);
             transform.LookAt(targetPosition);
             anim.SetBool("RUN", false);
             anim.SetBool("Attack", true);
-            
+
         }
 
     }
 
     // Attack
-    void Shooting ()
+    void Shooting()
     {
         //if (EnemyTarget)
-       // {           
-            GameObject с = GameObject.Instantiate(bullet, shootElement.position, Quaternion.identity) as GameObject;
-            с.GetComponent<EnemyBullet>().target = target;
-            с.GetComponent<EnemyBullet>().twr = this;
-       // }  
+        // {           
+        GameObject с = GameObject.Instantiate(bullet, shootElement.position, Quaternion.identity) as GameObject;
+        с.GetComponent<EnemyBullet>().target = target;
+        с.GetComponent<EnemyBullet>().twr = this;
+        // }  
 
     }
 
@@ -66,8 +67,8 @@ public class Enemy : MonoBehaviour {
     {
         if (EnemyTarget.CompareTag("Castle")) // get it from BuildingHp
 
-        {            
-                EnemyTarget.GetComponent<TowerHP>().Dmg_2(Creature_Damage);            
+        {
+            EnemyTarget.GetComponent<TowerHP>().Dmg_2(Creature_Damage);
         }
 
         if (EnemyTarget.CompareTag("Tank")) // get it from BuildingHp
@@ -78,28 +79,29 @@ public class Enemy : MonoBehaviour {
     }
 
 
-    void Update () 
-	{
+    void Update()
+    {
 
-        
-        //Debug.Log("Animator  " + anim);
+
+        //UnityEngine.Debug.Log("Animator  " + anim);
 
 
         // MOVING
 
-        if (curWaypointIndex < waypoints.Length){
-	transform.position = Vector3.MoveTowards(transform.position,waypoints[curWaypointIndex].position,Time.deltaTime*Speed);
-            
+        if (curWaypointIndex < waypoints.Length)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, waypoints[curWaypointIndex].position, Time.deltaTime * Speed);
+
             if (!EnemyTarget)
             {
                 transform.LookAt(waypoints[curWaypointIndex].position);
             }
-	
-	if(Vector3.Distance(transform.position,waypoints[curWaypointIndex].position) < 0.5f)
-	{
-		curWaypointIndex++;
-	}    
-	}          
+
+            if (Vector3.Distance(transform.position, waypoints[curWaypointIndex].position) < 0.5f)
+            {
+                curWaypointIndex++;
+            }
+        }
 
         else
         {
@@ -112,27 +114,28 @@ public class Enemy : MonoBehaviour {
         {
             Speed = 0;
             Destroy(gameObject, 5f);
-            anim.SetBool("Death", true);            
+            anim.SetBool("Death", true);
         }
 
         // Attack to Run
-                
 
-        if (EnemyTarget)        {
 
-          
+        if (EnemyTarget)
+        {
+
+
             if (EnemyTarget.CompareTag("Castle_Destroyed")) // get it from BuildingHp
             {
                 anim.SetBool("Attack", false);
                 anim.SetBool("RUN", true);
-                Speed = previous_Speed;               
-                EnemyTarget = null;                
+                Speed = previous_Speed;
+                EnemyTarget = null;
             }
         }
 
 
     }
-       
-   
+
+
 }
 

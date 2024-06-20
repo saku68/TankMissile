@@ -15,7 +15,7 @@ namespace UniRx.Examples
                 .TakeUntil(this.gameObject.OnMouseUpAsObservable())
                 .Select(_ => Input.mousePosition)
                 .RepeatUntilDestroy(this)
-                .Subscribe(x => Debug.Log(x), ()=> Debug.Log("!!!" + "complete"));
+                .Subscribe(x => UnityEngine.Debug.Log(x), () => UnityEngine.Debug.Log("!!!" + "complete"));
         }
     }
 }

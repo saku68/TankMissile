@@ -155,7 +155,7 @@ namespace UniRx
                 fldInfo = type.GetField(path, BindingFlags.IgnoreCase | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
                 if (fldInfo != null ||
-                    type.BaseType == null || 
+                    type.BaseType == null ||
                     type.BaseType.IsSubclassOf(typeof(ReactiveProperty<>))) break;
 
                 // if the field information is missing, it may be in the base class
@@ -182,7 +182,7 @@ namespace UniRx
                 }
                 catch
                 {
-                    Debug.Log("InspectorDisplayDrawer Exception, objType:" + obj.GetType().Name + " path:" + string.Join(", ", paths));
+                    UnityEngine.Debug.Log("InspectorDisplayDrawer Exception, objType:" + obj.GetType().Name + " path:" + string.Join(", ", paths));
                     throw;
                 }
             }

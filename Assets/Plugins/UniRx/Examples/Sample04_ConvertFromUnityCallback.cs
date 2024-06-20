@@ -56,11 +56,11 @@ namespace UniRx.Examples
             // method is separatable and composable
             LogHelper.LogCallbackAsObservable()
                 .Where(x => x.LogType == LogType.Warning)
-                .Subscribe(x => Debug.Log(x));
+                .Subscribe(x => UnityEngine.Debug.Log(x));
 
             LogHelper.LogCallbackAsObservable()
                 .Where(x => x.LogType == LogType.Error)
-                .Subscribe(x => Debug.Log(x));
+                .Subscribe(x => UnityEngine.Debug.Log(x));
         }
     }
 }

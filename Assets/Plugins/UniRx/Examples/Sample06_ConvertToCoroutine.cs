@@ -19,12 +19,12 @@ namespace UniRx.Examples
             var v = default(int);
             yield return Observable.Range(1, 10).StartAsCoroutine(x => v = x);
 
-            Debug.Log(v); // 10(callback is last value)
+            UnityEngine.Debug.Log(v); // 10(callback is last value)
             yield return new WaitForSeconds(3);
 
             yield return Observable.Return(100).StartAsCoroutine(x => v = x);
 
-            Debug.Log(v); // 100
+            UnityEngine.Debug.Log(v); // 100
         }
 
         // Note:ToAwaitableEnumerator/StartAsCoroutine/LazyTask are obsolete way on Unity 5.3
@@ -47,8 +47,8 @@ namespace UniRx.Examples
             var o = ObservableWWW.Get("http://unity3d.com/").ToYieldInstruction(throwOnError: false);
             yield return o;
 
-            if (o.HasError) { Debug.Log(o.Error.ToString()); }
-            if (o.HasResult) { Debug.Log(o.Result); }
+            if (o.HasError) { UnityEngine.Debug.Log(o.Error.ToString()); }
+            if (o.HasResult) { UnityEngine.Debug.Log(o.Result); }
 
             // other sample(wait until transform.position.y >= 100) 
             yield return this.ObserveEveryValueChanged(x => x.transform).FirstOrDefault(x => x.position.y >= 100).ToYieldInstruction();

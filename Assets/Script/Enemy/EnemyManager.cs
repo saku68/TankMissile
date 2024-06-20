@@ -6,24 +6,19 @@ using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
+    private EnemyStats enemyStats;
     private Animator animator;
     private EnemySpawn enemySpawn;
-    [SerializeField]
-    private int enemyScore;
-
-    [SerializeField]
-    private int enemyMoney;
-    [SerializeField]
-    private int hp = 1;
     public Transform target;
     NavMeshAgent agent;
     // Start is called before the first frame update
     [SerializeField]
     private GameObject goldCoinPrefab;
     [SerializeField]
-    private List<AudioClip> EnemyDamageVoice; 
+    private List<AudioClip> EnemyDamageVoice;
     void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         enemySpawn = GameObject.Find("EnemySpawnManager").GetComponent<EnemySpawn>();
@@ -36,7 +31,7 @@ public class EnemyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
+            UnityEngine.Debug.LogWarning("Playerオブジェクトが見つかりませんでした。");
         }
     }
 
@@ -57,21 +52,21 @@ public class EnemyManager : MonoBehaviour
     void Damage(int damage)
     {
         SoundManager.Instance.PlaySound(EnemyDamageVoice[0]);
-        hp -= damage;
+        enemyStats.enemyHp -= damage;
         animator.SetTrigger("Damage");
         animator.SetInteger("DamageAmount", damage);
-        if (hp <= 0)
+        if (enemyStats.enemyHp <= 0)
         {
             SoundManager.Instance.PlaySound(EnemyDamageVoice[1]);
-            hp = 0;
+            enemyStats.enemyHp = 0;
             // enemySpawn.AddEnemyMoney(enemyMoney);
-            enemySpawn.AddEnemyScore(enemyScore);
+            enemySpawn.AddEnemyScore(enemyStats.enemyScore);
             animator.SetTrigger("Death");
         }
     }
     public void OnEnemyDeath()
     {
-        SpawnGoldCoins(enemyMoney);
+        SpawnGoldCoins(enemyStats.enemyMoney);
         Destroy(this.gameObject);
     }
     private void SpawnGoldCoins(int amount)

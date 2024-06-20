@@ -5,6 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using System;
+using System.Diagnostics;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class EnemySpawn : MonoBehaviour
     }
     private PlayerUiManager playerUiManager;
     private PlayerUiPresenter playerUiPresenter;
+    private EnemyStats enemyStats;
     public bool playerDieFlag = false;
     public bool spawnWaveFlag = true;
     public List<GameObject> enemyPrefabs; // 敵のプレハブのリスト
@@ -45,17 +47,22 @@ public class EnemySpawn : MonoBehaviour
     private List<AudioClip> EnemySpawnVoice;
     void Start()
     {
+        enemyStats = GetComponent<EnemyStats>();
         playerDieFlag = false;
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
         playerUiManager = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiManager>();
         _ = StartCoroutine(SpawnEnemiesPeriodically1());
+        SetEnemyStats(0, 10, 2, 1);
+        SetEnemyStats(1, 15, 5, 2);
+        SetEnemyStats(2, 30, 8, 1);
+        SetEnemyStats(3, 50, 15, 8);
     }
     void Update()
     {
         //ウェーブクリアの判定
         if (AllEnemiesDestroyed() && !playerDieFlag && !playerUiManager.shopFlag && !spawnWaveFlag)
         {
-            Debug.Log("Waveクリア");
+            UnityEngine.Debug.Log("Waveクリア");
             StartCoroutine(WaveClearOpenShop());
             waveNumber = waveNumber + 1;//wave進行
             playerUiPresenter.LetsOnShopFlag();
@@ -94,7 +101,9 @@ public class EnemySpawn : MonoBehaviour
     }
     public void OnWaveStart()
     {
-        Debug.Log("OnWaveStart実行");
+        UnityEngine.Debug.Log("OnWaveStart実行");
+        ChangeEnemyMoneyScore();
+        UnityEngine.Debug.Log("EnemyのStatsを更新");
         spawnWaveFlag = true;
         switch (waveNumber % 10)
         {
@@ -133,29 +142,89 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator SpawnEnemiesPeriodically1()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Wave" + waveNumber + "開始");
+        UnityEngine.Debug.Log("Wave" + waveNumber + "開始");
         playerUiPresenter.LetsWaveStartText(waveNumber);
         yield return new WaitForSeconds(3f);
         playerUiPresenter.LetsOutWaveStartText();
         spawnWaveFlag = true;
-
         // 時間計測
         float elapsedTime = 0f;
-
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        if (waveNumber < 5)
         {
-            // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(2, 5f);
-            yield return new WaitForSeconds(waitTime1);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
-            SpawnEnemy1(0);//手前の湧き
-            // SpawnEnemy2(0);//奥の湧き
-
-            // 経過時間を加算
-            elapsedTime += waitTime1;
+            while (!playerDieFlag && elapsedTime < 30f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SpawnEnemy1(0);//手前の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
         }
-        Debug.Log("Wave" + waveNumber + "終了");
+        else if (waveNumber < 15)
+        {
+            while (!playerDieFlag && elapsedTime < 45f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1, 3f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SpawnEnemy1(0);//手前の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 25)
+        {
+            while (!playerDieFlag && elapsedTime < 60f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(0);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 50)
+        {
+            while (!playerDieFlag && elapsedTime < 90f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(0.5f, 1f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(0);
+                SpawnEnemy3(0);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber > 50)
+        {
+            while (!playerDieFlag && elapsedTime < 120f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(0.4f, 1f);
+                yield return new WaitForSeconds(waitTime1);
+                int voiceNumber = UnityEngine.Random.Range(0, 3);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy1(0);
+                SpawnEnemy2(0);
+                SpawnEnemy2(0);
+                SpawnEnemy2(0);
+                SpawnEnemy3(0);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -163,7 +232,7 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator SpawnEnemiesPeriodically2()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Wave" + waveNumber + "開始");
+        UnityEngine.Debug.Log("Wave" + waveNumber + "開始");
         playerUiPresenter.LetsWaveStartText(waveNumber);
         yield return new WaitForSeconds(3f);
         playerUiPresenter.LetsOutWaveStartText();
@@ -171,22 +240,86 @@ public class EnemySpawn : MonoBehaviour
 
         // 時間計測
         float elapsedTime = 0f;
-
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        if (waveNumber < 5)
         {
-            // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(2f, 4f);
-            yield return new WaitForSeconds(waitTime1);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
-            SpawnEnemy1(0);//手前の湧き
-            SpawnEnemy2(1);//奥の湧き
-
-            // 経過時間を加算
-            elapsedTime += waitTime1;
+            while (!playerDieFlag && elapsedTime < 30f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(6, 9f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(1);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
         }
-        Debug.Log("Wave" + waveNumber + "終了");
+        else if (waveNumber < 15)
+        {
+            while (!playerDieFlag && elapsedTime < 45f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(1);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 25)
+        {
+            while (!playerDieFlag && elapsedTime < 60f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(1);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 50)
+        {
+            while (!playerDieFlag && elapsedTime < 90f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[0]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[1]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy3(0);
+                SpawnEnemy2(1);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber > 50)
+        {
+            while (!playerDieFlag && elapsedTime < 120f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                int voiceNumber = UnityEngine.Random.Range(0, 3);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy2(1);
+                SpawnEnemy2(1);
+                SpawnEnemy3(0);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -194,57 +327,188 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator SpawnEnemiesPeriodically3()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Wave" + waveNumber + "開始");
+        UnityEngine.Debug.Log("Wave" + waveNumber + "開始");
         playerUiPresenter.LetsWaveStartText(waveNumber);
         yield return new WaitForSeconds(3f);
         playerUiPresenter.LetsOutWaveStartText();
-
         // 時間計測
         float elapsedTime = 0f;
-
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        if (waveNumber < 5)
         {
-            // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(3f, 5f);
-            yield return new WaitForSeconds(waitTime1);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
-            SpawnEnemy3(2);//手前の湧き
-            SpawnEnemy2(3);//奥の湧き
-
-            // 経過時間を加算
-            elapsedTime += waitTime1;
+            while (!playerDieFlag && elapsedTime < 30f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(6, 9f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy3(2);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
         }
-        Debug.Log("Wave" + waveNumber + "終了");
+        else if (waveNumber < 15)
+        {
+            while (!playerDieFlag && elapsedTime < 45f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy3(2);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 25)
+        {
+            while (!playerDieFlag && elapsedTime < 60f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy3(2);//手前の湧き
+                SpawnEnemy3(2);
+                SpawnEnemy2(3);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 50)
+        {
+            while (!playerDieFlag && elapsedTime < 90f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(2f, 4f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[2]);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy3(2);//手前の湧き
+                SpawnEnemy3(2);
+                SpawnEnemy2(3);//奥の湧き
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber > 50)
+        {
+            while (!playerDieFlag && elapsedTime < 120f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                int voiceNumber = UnityEngine.Random.Range(0, 3);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+                SpawnEnemy1(0);//手前の湧き
+                SpawnEnemy1(1);
+                SpawnEnemy2(3);
+                SpawnEnemy3(2);
+                SpawnEnemy3(2);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
     //ウェーブ４
     IEnumerator SpawnEnemiesPeriodically4()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Wave" + waveNumber + "開始");
+        UnityEngine.Debug.Log("Wave" + waveNumber + "開始");
         playerUiPresenter.LetsWaveStartText(waveNumber);
         yield return new WaitForSeconds(3f);
         playerUiPresenter.LetsOutWaveStartText();
 
         // 時間計測
         float elapsedTime = 0f;
-
         //ウェーブ時間の設定
-        while (!playerDieFlag && elapsedTime < 10f)
+        if (waveNumber < 5)
         {
-            // 2から5秒のランダムな待ち時間を生成
-            float waitTime1 = UnityEngine.Random.Range(4f, 5f);
-            yield return new WaitForSeconds(waitTime1);
-            SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
-            SpawnEnemy1(3);//手前の湧き
-            SpawnEnemy2(3);//奥の湧き
+            while (!playerDieFlag && elapsedTime < 30f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(9f, 11f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy1(3);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
 
-            // 経過時間を加算
-            elapsedTime += waitTime1;
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
         }
-        Debug.Log("Wave" + waveNumber + "終了");
+        else if (waveNumber < 15)
+        {
+            while (!playerDieFlag && elapsedTime < 45f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3f, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy1(3);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 25)
+        {
+            while (!playerDieFlag && elapsedTime < 60f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(3f, 5f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy1(3);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+                SpawnEnemy3(3);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber < 50)
+        {
+            while (!playerDieFlag && elapsedTime < 90f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(2f, 4f);
+                yield return new WaitForSeconds(waitTime1);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[3]);
+                SpawnEnemy1(3);//手前の湧き
+                SpawnEnemy2(3);//奥の湧き
+                SpawnEnemy2(3);
+                SpawnEnemy3(3);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        else if (waveNumber > 50)
+        {
+            while (!playerDieFlag && elapsedTime < 150f)
+            {
+                // 2から5秒のランダムな待ち時間を生成
+                float waitTime1 = UnityEngine.Random.Range(1f, 2f);
+                yield return new WaitForSeconds(waitTime1);
+                int voiceNumber = UnityEngine.Random.Range(0, 3);
+                SoundManager.Instance.PlaySound(EnemySpawnVoice[voiceNumber]);
+                SpawnEnemy1(3);//手前の湧き
+                SpawnEnemy1(1);
+                SpawnEnemy2(3);
+                SpawnEnemy2(2);
+                SpawnEnemy3(2);
+                // 経過時間を加算
+                elapsedTime += waitTime1;
+            }
+        }
+        UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
         spawnWaveFlag = false;
     }
 
@@ -289,7 +553,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+                UnityEngine.Debug.LogWarning("指定された敵のプレハブが存在しません。");
             }
         }
     }
@@ -320,7 +584,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+                UnityEngine.Debug.LogWarning("指定された敵のプレハブが存在しません。");
             }
         }
     }
@@ -355,7 +619,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+                UnityEngine.Debug.LogWarning("指定された敵のプレハブが存在しません。");
             }
         }
     }
@@ -373,7 +637,7 @@ public class EnemySpawn : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("指定された敵のプレハブが存在しません。");
+                UnityEngine.Debug.LogWarning("指定された敵のプレハブが存在しません。");
             }
         }
     }
@@ -384,86 +648,86 @@ public class EnemySpawn : MonoBehaviour
         {
             case 5:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[4]);
                 SpawnBossEnemy(4);
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
             case 10:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[5]);
                 SpawnBossEnemy(5);
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
             case 15:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[6]);
                 SpawnBossEnemy(6);
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
             case 20:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[7]);
                 SpawnBossEnemy(7);
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
             case 25:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[8]);
                 SpawnBossEnemy(8);
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
             case > 25:
                 yield return new WaitForSeconds(1f);
-                Debug.Log("BossWave" + waveNumber + "開始");
+                UnityEngine.Debug.Log("BossWave" + waveNumber + "開始");
                 playerUiPresenter.LetsWaveStartText(waveNumber);
                 yield return new WaitForSeconds(3f);
                 playerUiPresenter.LetsOutWaveStartText();
                 spawnWaveFlag = true;
                 yield return new WaitForSeconds(3f);
-                Debug.Log("ボス出現");
+                UnityEngine.Debug.Log("ボス出現");
                 SoundManager.Instance.PlaySound(EnemySpawnVoice[9]);
                 SpawnBossEnemy(UnityEngine.Random.Range(4, 8));
-                Debug.Log("Wave" + waveNumber + "終了");
+                UnityEngine.Debug.Log("Wave" + waveNumber + "終了");
                 spawnWaveFlag = false;
                 break;
         }
@@ -490,6 +754,87 @@ public class EnemySpawn : MonoBehaviour
             float angle = (float)i / 35f * spawnAngle2 - spawnAngle2 / 2f;
             Vector3 direction = Quaternion.Euler(0f, angle, 0f) * transform.forward;
             Gizmos.DrawLine(playerPosition, playerPosition + direction * spawnDistance2);
+        }
+    }
+    private void ChangeEnemyMoneyScore()
+    {
+        switch (waveNumber)
+        {
+            case < 5:
+                SetEnemyStats(0, 10, 2, 1);
+                SetEnemyStats(1, 15, 5, 2);
+                SetEnemyStats(2, 30, 8, 1);
+                SetEnemyStats(3, 50, 15, 8);
+                break;
+            case < 15:
+                SetEnemyStats(0, 20, 4, 2);
+                SetEnemyStats(1, 30, 8, 3);
+                SetEnemyStats(2, 50, 12, 1);
+                SetEnemyStats(3, 90, 20, 9);
+                break;
+            case < 25:
+                SetEnemyStats(0, 20, 6, 3);
+                SetEnemyStats(1, 30, 15, 4);
+                SetEnemyStats(2, 60, 20, 3);
+                SetEnemyStats(3, 120, 30, 10);
+                break;
+            case < 50:
+                SetEnemyStats(0, 200, 8, 6);
+                SetEnemyStats(1, 300, 20, 8);
+                SetEnemyStats(2, 600, 40, 6);
+                SetEnemyStats(3, 1200, 60, 18);
+                SetEnemyStats(4, 200000, 1000, 1000);
+                SetEnemyStats(5, 300000, 1000, 1000);
+                SetEnemyStats(6, 600000, 1000, 1000);
+                SetEnemyStats(7, 1200000, 1000, 1000);
+                SetEnemyStats(8, 1500000, 1000, 1000);
+                break;
+            case > 50:
+                SetEnemyStats(0, 2000, 15, 10);
+                SetEnemyStats(1, 3000, 30, 12);
+                SetEnemyStats(2, 6000, 60, 18);
+                SetEnemyStats(3, 12000, 80, 20);
+                SetEnemyStats(4, 99999999, 1000, 3000);
+                SetEnemyStats(5, 99999999, 1000, 3000);
+                SetEnemyStats(6, 99999999, 1000, 3000);
+                SetEnemyStats(7, 99999999, 1000, 3000);
+                SetEnemyStats(8, 99999999, 1000, 3000);
+                break;
+        }
+    }
+    // EnemyManagerを取得するメソッド
+    private EnemyStats GetEnemyManagerFromPrefab(int index)
+    {
+        if (index < 0 || index >= enemyPrefabs.Count)
+        {
+            UnityEngine.Debug.LogError("Invalid index for enemyPrefabs list.");
+            return null;
+        }
+
+        // 指定されたプレハブからEnemyManagerコンポーネントを取得
+        GameObject enemyPrefab = enemyPrefabs[index];
+        EnemyStats enemyStats = enemyPrefab.GetComponent<EnemyStats>();
+
+        if (enemyStats == null)
+        {
+            UnityEngine.Debug.LogError("EnemyManager component not found on prefab at index " + index);
+        }
+
+        return enemyStats;
+    }
+    // 敵プレハブのEnemyManagerのステータスを変更するメソッド
+    private void SetEnemyStats(int index, int enemyScore, int enemyMoney, int hp)
+    {
+        EnemyStats enemyStats = GetEnemyManagerFromPrefab(index);
+        if (enemyStats != null)
+        {
+            enemyStats.enemyHp = hp;
+            enemyStats.enemyScore = enemyScore;
+            enemyStats.enemyMoney = enemyMoney;
+        }
+        else
+        {
+            UnityEngine.Debug.LogError($"Failed to set stats for enemy at index {index}");
         }
     }
 }

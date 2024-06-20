@@ -35,9 +35,16 @@ public class PlayerManager : MonoBehaviour
     private AudioClip impactPlayerSound;
     [SerializeField]
     private List<AudioClip> getGoldCoinSound;
+    // 移動範囲の制限値
+    private float xMin = -140f;
+    private float xMax = 140f;
+    private float zMin = -140f;
+    private float zMax = 140f;
+
 
     void Start()
     {
+        SoundManager.Instance.StartBGM();
         hp.Value = maxHp.Value;
         playerPresenter = GetComponent<PlayerPresenter>();
         playerUiPresenter = GameObject.Find("PlayerUiCanvas").GetComponent<PlayerUiPresenter>();
@@ -93,6 +100,14 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        // 回転を制限して地面と平行にする
+        Quaternion currentRotation = transform.rotation;
+        transform.rotation = Quaternion.Euler(0, currentRotation.eulerAngles.y, 0);
+        // 移動範囲の制限
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, xMin, xMax);
+        clampedPosition.z = Mathf.Clamp(clampedPosition.z, zMin, zMax);
+        transform.position = clampedPosition;
         // 確認用の加速
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
@@ -123,17 +138,18 @@ public class PlayerManager : MonoBehaviour
             hp.Value = 0;
             OnPlayerDeath();
         }
-        Debug.Log("残りHP:" + hp);
+        UnityEngine.Debug.Log("残りHP:" + hp);
     }
     private void OnPlayerDeath()
     {
         // カメラを破壊しないようにする
         mainCamera.transform.SetParent(null);
+        SoundManager.Instance.StopBGM();
         PlayRandomGameOverSound(); // ランダムなゲームオーバー効果音を再生
         Destroy(this.gameObject);
         hp.Dispose();
         maxHp.Dispose();
-        Debug.Log("死んだ！");
+        UnityEngine.Debug.Log("死んだ！");
         playerUiPresenter.LetsSetDeadText();
         enemySpawn.PlayerDie();
         playerPresenter.LetsOffDrawArc();
@@ -148,7 +164,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No game over clips assigned in PlayerManager.");
+            UnityEngine.Debug.LogWarning("No game over clips assigned in PlayerManager.");
         }
     }
 

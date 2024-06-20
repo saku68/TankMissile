@@ -90,7 +90,7 @@ public class PlayerUiManager : MonoBehaviour
         if (playerDeadFlag && !isScorePanelActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)))
         {
             SetScorePanel();
-            Debug.Log("スコア画面起動");
+            UnityEngine.Debug.Log("スコア画面起動");
         }
         UpdateMoney();
     }
@@ -214,12 +214,26 @@ public class PlayerUiManager : MonoBehaviour
     //射程増加の価格表示
     public void ChangeBulletRangeMuch(int bulletRangeMuch, int bulletRangeLevel)
     {
-        upShootRangeText.text = "射程増加Lv" + bulletRangeLevel + ":" + bulletRangeMuch + "G";
+        if (bulletRangeLevel == 30)
+        {
+            upShootRangeText.text = "射程増加LvMax";
+        }
+        else
+        {
+            upShootRangeText.text = "射程増加Lv" + bulletRangeLevel + ":" + bulletRangeMuch + "G";
+        }
     }
     //弾のサイズ上昇の価格表示
     public void ChangeBulletSizeMuch(int bulletSizeMuch, int bulletSizeLevel)
     {
-        upBulletSizeText.text = "弾のサイズLv" + bulletSizeLevel + ":" + bulletSizeMuch + "G";
+        if (bulletSizeLevel == 20)
+        {
+            upBulletSizeText.text = "弾のサイズLvMax";
+        }
+        else
+        {
+            upBulletSizeText.text = "弾のサイズLv" + bulletSizeLevel + ":" + bulletSizeMuch + "G";
+        }
     }
     //攻撃力増加の価格表示
     public void ChangeBulletDamageMuch(int bulletDamageMuch, int bulletDamageLevel)
@@ -252,7 +266,7 @@ public class PlayerUiManager : MonoBehaviour
     {
         if (abilityButtons.Count < 3)
         {
-            Debug.LogError("Not enough ability buttons in the list.");
+            UnityEngine.Debug.LogError("Not enough ability buttons in the list.");
             return;
         }
 

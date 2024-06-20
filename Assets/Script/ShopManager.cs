@@ -19,7 +19,7 @@ public class ShopManager : MonoBehaviour
     public int upMaxHpLevel = 1;
     public int healHpAmount = 100;
     public int healHpMuch = 10;
-    public int upBulletRangeAmount = 2;
+    public int upBulletRangeAmount;
     public int upBulletRangeMuch = 6;
     public int bulletRangeLevel = 1;
     public int upBulletSizeMuch = 5;
@@ -46,6 +46,7 @@ public class ShopManager : MonoBehaviour
         upAntiDamage = 3;
         upMoveSpeed = 6;
         shootModeNumber = 2;
+        upBulletRangeAmount = 3;
     }
     //発射レート購入ボタン
     public void UpFireRateButton()
@@ -59,7 +60,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(fireRateMuch);
             //更新
-            fireRateMuch += 5;
+            fireRateMuch += 15;
             newFireRate += 0.5f;
             fireRateLevel += 1;
             //価格変更の処理
@@ -79,7 +80,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(upMaxHpMuch);
             //更新
-            upMaxHpMuch += 4;
+            upMaxHpMuch += 20;
             upMaxHpAmount += 20;
             upMaxHpLevel += 1;
             //価格の変更
@@ -101,7 +102,7 @@ public class ShopManager : MonoBehaviour
     //射程増加ボタン
     public void UpBulletRangeButton()
     {
-        if (playerUiManager.playerMoney >= upBulletRangeMuch)
+        if (playerUiManager.playerMoney >= upBulletRangeMuch && bulletRangeLevel <= 30)
         {
             SoundManager.Instance.PlaySound(BuyAbilitySound1);
             SoundManager.Instance.PlaySound(BuyAbilitySound2);
@@ -110,7 +111,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(upBulletRangeMuch);
             //更新
-            upBulletRangeMuch += 4;
+            upBulletRangeMuch += 20;
             bulletRangeLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeBulletRangeMuch(upBulletRangeMuch, bulletRangeLevel);
@@ -119,7 +120,7 @@ public class ShopManager : MonoBehaviour
     //弾のサイズ増加ボタン
     public void UpBulletSizeButton()
     {
-        if (playerUiManager.playerMoney >= upBulletSizeMuch)
+        if (playerUiManager.playerMoney >= upBulletSizeMuch && upBulletSizeLevel <= 20)
         {
             SoundManager.Instance.PlaySound(BuyAbilitySound1);
             SoundManager.Instance.PlaySound(BuyAbilitySound2);
@@ -128,9 +129,9 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(upBulletSizeMuch);
             //更新
-            upBulletSizeMuch += 5;
+            upBulletSizeMuch += 13;
             upBulletSizeLevel += 1;
-            upBulletSize += new Vector3(0.4f, 0.4f, 0.4f);
+            upBulletSize += new Vector3(0.3f, 0.3f, 0.3f);
             //価格変更の処理
             playerUiPresenter.LetsChangeBulletSizeMuch(upBulletSizeMuch, upBulletSizeLevel);
         }
@@ -147,7 +148,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(upBulletDamageMuch);
             //更新
-            upBulletDamageMuch += 5;
+            upBulletDamageMuch += 25;
             upBulletDamageLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeBulletDamageMuch(upBulletDamageMuch, upBulletDamageLevel);
@@ -165,7 +166,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(antiDamageMuch);
             //更新
-            antiDamageMuch += 8;
+            antiDamageMuch += 40;
             antiDamageLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeAntiDamageMuch(antiDamageMuch, antiDamageLevel);
@@ -183,7 +184,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(moveSpeedMuch);
             //更新
-            moveSpeedMuch += 3;
+            moveSpeedMuch += 10;
             moveSpeedLevel += 1;
             //価格変更の処理
             playerUiPresenter.LetsChangeMoveSpeedMuch(moveSpeedMuch, moveSpeedLevel);
@@ -201,7 +202,7 @@ public class ShopManager : MonoBehaviour
             //お金の減少の処理
             playerUiPresenter.LetsBuyAnyAbility(upShootBulletModeMuch);
             //更新
-            upShootBulletModeMuch += 100;
+            upShootBulletModeMuch += 1000;
             shootModeNumber += 1;
             upShootBulletModeLevel += 1;
             //価格変更の処理

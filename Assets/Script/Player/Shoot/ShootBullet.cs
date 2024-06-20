@@ -128,7 +128,6 @@ public class ShootBullet : MonoBehaviour
         Destroy(obj2, 5.0F);
         Destroy(obj3, 5.0F);
     }
-
     public void ChangeBulletDamage(int newDamage)
     {
         dameger.damage2 += newDamage;
