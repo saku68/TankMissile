@@ -11,8 +11,10 @@ public class ShootBullet : MonoBehaviour
 {
     public int shootMode = 1; // 発射モード切替
     public float fireRate = 1f; // 発射レート（1秒あたりの発射回数）
-    public float offset = 0.5f; // 同時発射位置の間隔
-    public float angle = 15f; // 同時発射角度
+    public float offset1 = 0.3f; // 同時発射位置の間隔
+    public float offset2 = 1f;
+    public float angle1 = 10f; // 同時発射角度
+    public float angle2 = 20f; // 同時発射角度
     private float nextFireTime = 0f; // 次に発射できる時刻
 
     [SerializeField, Tooltip("弾のPrefab")]
@@ -20,10 +22,13 @@ public class ShootBullet : MonoBehaviour
 
     [SerializeField, Tooltip("砲身のオブジェクト")]
     private GameObject barrelObject;
+    [SerializeField, Tooltip("砲身のオブジェクト")]
+    private GameObject barrelObject2;
     [SerializeField]
     AudioClip ShootSound1;
 
     private Vector3 instantiatePosition;
+    private Vector3 instantiatePosition2;
 
     public Vector3 InstantiatePosition => instantiatePosition;
 
@@ -45,6 +50,7 @@ public class ShootBullet : MonoBehaviour
         dameger = bulletPrefab.GetComponent<Dameger>();
         bulletImpact = bulletPrefab.GetComponent<BulletImpact>();
         dameger.damage2 = 1;
+        shootMode = 1;
         bulletPrefab.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         bulletImpact.ResetBulletImpactSize();
     }
@@ -55,6 +61,7 @@ public class ShootBullet : MonoBehaviour
         shootVelocity = barrelObject.transform.forward * bulletSpeed;
         // 弾の生成座標を更新
         instantiatePosition = barrelObject.transform.position;
+        instantiatePosition2 = barrelObject2.transform.position;
     }
 
     public void Shoot()
@@ -70,7 +77,20 @@ public class ShootBullet : MonoBehaviour
                     ShootHorizontal();
                     break;
                 case 3:
+                    ShootSingle();
+                    ShootHorizontal();
+                    break;
+                case 4:
+                    ShootHorizontal();
+                    ShootHorizontal2();
+                    break;
+                case 5:
+                    ShootHorizontal();
                     ShootTriple();
+                    break;
+                case 6:
+                    ShootTriple();
+                    ShootTriple2();
                     break;
             }
         }
@@ -88,7 +108,24 @@ public class ShootBullet : MonoBehaviour
 
     private void ShootHorizontal()
     {
-        Vector3 positionOffsetRight = barrelObject.transform.right * offset;
+        Vector3 positionOffsetRight = barrelObject.transform.right * offset1;
+
+        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, barrelObject.transform.rotation);
+        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, barrelObject.transform.rotation);
+
+        Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
+        Rigidbody rid2 = obj2.GetComponent<Rigidbody>();
+
+        rid1.AddForce(shootVelocity * rid1.mass, ForceMode.Impulse);
+        rid2.AddForce(shootVelocity * rid2.mass, ForceMode.Impulse);
+
+        nextFireTime = Time.time + 1f / fireRate;
+        Destroy(obj1, 5.0F);
+        Destroy(obj2, 5.0F);
+    }
+    private void ShootHorizontal2()
+    {
+        Vector3 positionOffsetRight = barrelObject.transform.right * offset2;
 
         GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, barrelObject.transform.rotation);
         GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, barrelObject.transform.rotation);
@@ -106,14 +143,38 @@ public class ShootBullet : MonoBehaviour
 
     private void ShootTriple()
     {
-        Vector3 positionOffsetRight = barrelObject.transform.right * offset;
+        Vector3 positionOffsetRight = barrelObject.transform.right * offset1;
 
-        Vector3 shootDirectionRight = Quaternion.AngleAxis(angle, Vector3.up) * barrelObject.transform.forward;
-        Vector3 shootDirectionLeft = Quaternion.AngleAxis(-angle, Vector3.up) * barrelObject.transform.forward;
+        Vector3 shootDirectionRight = Quaternion.AngleAxis(angle1, Vector3.up) * barrelObject.transform.forward;
+        Vector3 shootDirectionLeft = Quaternion.AngleAxis(-angle1, Vector3.up) * barrelObject.transform.forward;
 
         GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition + positionOffsetRight, barrelObject.transform.rotation);
         GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition - positionOffsetRight, barrelObject.transform.rotation);
         GameObject obj3 = Instantiate(bulletPrefab, instantiatePosition, barrelObject.transform.rotation);
+
+        Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
+        Rigidbody rid2 = obj2.GetComponent<Rigidbody>();
+        Rigidbody rid3 = obj3.GetComponent<Rigidbody>();
+
+        rid1.AddForce(shootDirectionRight * bulletSpeed * rid1.mass, ForceMode.Impulse);
+        rid2.AddForce(shootDirectionLeft * bulletSpeed * rid2.mass, ForceMode.Impulse);
+        rid3.AddForce(shootVelocity * rid3.mass, ForceMode.Impulse);
+
+        nextFireTime = Time.time + 1f / fireRate;
+        Destroy(obj1, 5.0F);
+        Destroy(obj2, 5.0F);
+        Destroy(obj3, 5.0F);
+    }
+    private void ShootTriple2()
+    {
+        Vector3 positionOffsetRight = barrelObject2.transform.right * offset1;
+
+        Vector3 shootDirectionRight = Quaternion.AngleAxis(angle2, Vector3.up) * barrelObject.transform.forward;
+        Vector3 shootDirectionLeft = Quaternion.AngleAxis(-angle2, Vector3.up) * barrelObject.transform.forward;
+
+        GameObject obj1 = Instantiate(bulletPrefab, instantiatePosition2 + positionOffsetRight, barrelObject.transform.rotation);
+        GameObject obj2 = Instantiate(bulletPrefab, instantiatePosition2 - positionOffsetRight, barrelObject.transform.rotation);
+        GameObject obj3 = Instantiate(bulletPrefab, instantiatePosition2, barrelObject.transform.rotation);
 
         Rigidbody rid1 = obj1.GetComponent<Rigidbody>();
         Rigidbody rid2 = obj2.GetComponent<Rigidbody>();

@@ -252,7 +252,7 @@ public class PlayerUiManager : MonoBehaviour
     }
     public void ChangeUpShootBulletModeText(int shootBulletModeMuch, int shootBulletModeLevel)
     {
-        if (shootBulletModeLevel == 3)
+        if (shootBulletModeLevel == 6)
         {
             upShootBulletText.text = "発射弾数増加LvMax";
         }

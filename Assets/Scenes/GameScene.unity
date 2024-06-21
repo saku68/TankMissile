@@ -4488,6 +4488,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247453451}
   m_Mesh: {fileID: 4300000, guid: 8f2212efada33cd4f929c4ca2c0162d8, type: 3}
+--- !u!1 &254932252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 254932255}
+  - component: {fileID: 254932254}
+  m_Layer: 0
+  m_Name: ShootElement2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!33 &254932254
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254932252}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &254932255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254932252}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.159, z: -0.623}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.10000001}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 2103802820023898400}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.14}
 --- !u!1 &257802532
 GameObject:
   m_ObjectHideFlags: 0
@@ -37889,6 +37929,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2102404677864669672}
+  - {fileID: 254932255}
   m_Father: {fileID: 2102380541084443498}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38324,12 +38365,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fdec5b61533024686bf96c8f93871a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootMode: 1
+  shootMode: 6
   fireRate: 1
-  offset: 0.5
-  angle: 15
+  offset1: 0.3
+  offset2: 1
+  angle1: 10
+  angle2: 20
   bulletPrefab: {fileID: 2368695380886305482, guid: 64441ea1009740b4a83d8b78386b4ca1, type: 3}
   barrelObject: {fileID: 2105987243505277244}
+  barrelObject2: {fileID: 254932252}
   ShootSound1: {fileID: 8300000, guid: 9b0ff44aae043054a9923805b8c2bf06, type: 3}
   bulletSpeed: 9
 --- !u!114 &2160873523071812232
@@ -38362,7 +38406,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arcMaterial: {fileID: 2100000, guid: 50011430a25f07c478f425f147821133, type: 2}
   arcWidth: 0.02
-  pointerPrefab: {fileID: 1723386416247820224, guid: 94634cf78fbc6094ab98b670fbd023ac, type: 3}
 --- !u!114 &2186789574852729341
 MonoBehaviour:
   m_ObjectHideFlags: 0

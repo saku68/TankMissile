@@ -193,7 +193,7 @@ public class ShopManager : MonoBehaviour
     //発射弾数増加ボタン
     public void UpShootBulletModeButton()
     {
-        if (playerUiManager.playerMoney >= upShootBulletModeMuch && shootModeNumber <= 3)
+        if (playerUiManager.playerMoney >= upShootBulletModeMuch && shootModeNumber <= 6)
         {
             SoundManager.Instance.PlaySound(BuyAbilitySound1);
             SoundManager.Instance.PlaySound(BuyAbilitySound2);
